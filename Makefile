@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/03/25 15:15:03 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/03/25 15:59:23 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,21 @@ NAME = cub3D
 
 SRC_PATH		= src/
 OBJ_PATH		= obj/
+PARS_PATH		= src/parsing/
 
 CC 				= cc
 CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 
 SRC				= main.c \
 
+SRC_PARS		= parsing.c \
+
 SRC_PREFIXED	= $(addprefix $(SRC_PATH), $(SRC))
-OBJ				= $(SRC:.c=.o)
-OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ))
+PARS_PREFIXED	=$(addprefix $(PARS_PATH), $(SRC_PARS))
+OBJ_SRC			= $(SRC:.c=.o)
+OBJ_PARS		= $(SRC_PARS:.c=.o)
+
+OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ_SRC) $(OBJ_PARS))
 DEPS			= $(addprefix ${OBJ_PATH}, ${SRC:.c=.d})
 INCS			= -I./includes/ #-I./minilibx-linux/
 LIB 			= -L./libft_42/ -lft
@@ -50,6 +56,10 @@ ${NAME}: ${OBJ_PREFIXED}
 	@echo ${CYAN}${BOLD}CUB3D${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}CUB3D${NC}
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	mkdir -p ${OBJ_PATH}
+	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
+
+$(OBJ_PATH)%.o: $(PARS_PATH)%.c
 	mkdir -p ${OBJ_PATH}
 	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 

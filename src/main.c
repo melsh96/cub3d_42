@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/25 15:12:27 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:51:02 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int main(int ac, char **av)
 {
-    (void)ac;
     (void)av;
-    ft_putstr_fd("LIBFT OK", 2);
+    if (ac != 2)
+        pars_error("Wrong number of arguments");
     return (0);
 }
