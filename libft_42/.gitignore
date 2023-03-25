@@ -1,0 +1,14 @@
+# ouput
+*.a
+*.out
+
+# object and dependance
+*.d
+*.o
+
+# directory
+obj/
+
+# IDE setup
+.vscode/
+.idea/

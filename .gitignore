@@ -1,0 +1,9 @@
+# Object files
+obj/
+libft_42/objs/
+*.o
+*.d
+
+# IDE setup
+.vscode
+.idea
