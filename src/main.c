@@ -6,16 +6,58 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/25 15:51:02 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/25 22:34:20 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+int file_extension(char *av, char *c)
+{
+    int len;
+    
+    len = ft_strlen(av) - 1;
+    if (len < 4)
+		return (1);
+    if (ft_strncmp(av + (len - 3), c, 5) != 0)
+		return (1);
+    return (0);
+}
+
+int pars_files(char *av)
+{
+    int     fd;
+    int     read_line;
+	char    buf[1];
+    if (file_extension(av, ".cub") == 1)
+    {
+        pars_error("Wrong file extension");
+        return (0);
+    }
+    fd = open(av, O_RDONLY);
+    if (fd <= 0)
+    {
+        printf("%s%sError:%s Can't open file\n", RED, BOLD, NC);
+        return (0);
+    }
+    read_line = read(fd, buf, 1);
+    if (read_line <= 0)
+    {
+        if (read_line == 0)
+            printf("%s%sError:%s The file is empty\n", RED, BOLD, NC);
+        else if (read_line < 0)
+            printf("%s%sError:%s Wrong file\n", RED, BOLD, NC);
+        return (0);
+    }
+    close(fd);
+    return (1);
+}
+
 int main(int ac, char **av)
 {
-    (void)av;
     if (ac != 2)
         pars_error("Wrong number of arguments");
+    if (!pars_files(av[1]))
+        return (1);
     return (0);
 }
