@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/25 16:00:46 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/26 11:35:56 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # define BLUE	"\e[38;5;140m"
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
+
+typedef struct s_map
+{
+    char	*line;
+    char	**tab;
+}   t_map
 
 // Main Program
 int main(int ac, char **av);

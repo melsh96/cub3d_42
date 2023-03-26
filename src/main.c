@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/25 22:34:20 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:49:22 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,44 @@ int pars_files(char *av)
     return (1);
 }
 
+void    init_map(t_map *map)
+{
+    map->line = NULL;
+    map->tab = NULL;
+}
+
+// TODO: Pars map file with NO/SO/WE/EA and /
+// int pars_map(t_map *map, int fd)
+// {
+    
+// }
+
+// ^Main Program
+/*
+- Init structure
+- Check nbr or args
+- Ckeck file
+- Check map 
+*/
 int main(int ac, char **av)
 {
+    t_map   map;
+    int     fd;
+
+    init_map(&map);
     if (ac != 2)
         pars_error("Wrong number of arguments");
     if (!pars_files(av[1]))
         return (1);
+    fd = open(av[1], O_RDONLY);
+    if (fd <= 0)
+    {
+        printf("%s%sError:%s Can't open file\n", RED, BOLD, NC);
+        return (1);
+    }
+    // if (!pars_map(&map, fd))
+    // {
+    //     return (1);
+    // }
     return (0);
 }

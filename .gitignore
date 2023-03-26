@@ -8,4 +8,5 @@ libft_42/objs/
 .vscode
 .idea
 
+# Executable
 cub3D
