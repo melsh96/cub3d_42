@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/03/29 13:20:07 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/03/29 16:46:05 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 SRC				= main.c \
 
 SRC_PARS		= parsing.c \
+					init.c \
+					get_map.c \
 
 SRC_UTILS		= print_utils.c \
 

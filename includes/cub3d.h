@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 15:37:30 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:45:46 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,18 @@ typedef struct s_map
 // Main Program
 int		main(int ac, char **av);
 
+// Init
+void	init_map(t_map *map);
+
 // Parsing
+int		file_extension(char *av, char *c);
+int		parse_files(char *av);
 void	parse_error(char *msg);
+
+// Get Map
+int		get_map(t_map *map, char *file);
+int		read_lines(char *map_path);
+char	**read_map(t_map *map, char *file);
 
 // Utils
 void	print_map(t_map *map);
