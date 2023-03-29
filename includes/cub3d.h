@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 12:51:32 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:19:02 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_map
 int		main(int ac, char **av);
 
 // Parsing
-void	pars_error(char *msg);
+void	parse_error(char *msg);
+
+// Utils
+void	print_map(t_map *map);
 
 #endif

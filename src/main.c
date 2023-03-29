@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 11:38:37 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:18:33 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	file_extension(char *av, char *c)
 	return (0);
 }
 
-int	pars_files(char *av)
+int	parse_files(char *av)
 {
 	int		fd;
 	int		read_line;
@@ -32,7 +32,7 @@ int	pars_files(char *av)
 
 	if (file_extension(av, ".cub") == 1)
 	{
-		pars_error("Wrong file extension");
+		parse_error("Wrong file extension");
 		return (0);
 	}
 	fd = open(av, O_RDONLY);
@@ -60,8 +60,8 @@ void	init_map(t_map *map)
 	map->tab = NULL;
 }
 
-// TODO: Pars map file with NO/SO/WE/EA and /
-// int pars_map(t_map *map, int fd)
+// TODO: Parse map file with NO/SO/WE/EA and /
+// int	read_map(t_map *map, int fd)
 // {
 	
 // }
@@ -81,8 +81,8 @@ int	main(int ac, char **av)
 
 	init_map(&map);
 	if (ac != 2)
-		pars_error("Wrong number of arguments");
-	if (!pars_files(av[1]))
+		parse_error("Wrong number of arguments");
+	if (!parse_files(av[1]))
 		return (1);
 	fd = open(av[1], O_RDONLY);
 	if (fd <= 0)
@@ -90,9 +90,7 @@ int	main(int ac, char **av)
 		printf("%s%sError:%s Can't open file\n", RED, BOLD, NC);
 		return (1);
 	}
-	// if (!pars_map(&map, fd))
-	// {
-	//     return (1);
-	// }
+	// if (!read_map(&map, fd))
+	// 	return (1);
 	return (0);
 }

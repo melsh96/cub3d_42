@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 12:57:33 by meshahrv         ###   ########.fr       */
+/*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
+/*   Updated: 2023/03/29 13:20:53 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	parse_error(char *msg)
+void	print_map(t_map *map)
 {
-	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
-	exit(1);
+	int	i;
+
+	i = 0;
+	while (map->tab[i])
+	{
+		ft_putstr_fd(map->tab[i], 1);
+		i++;
+	}
+	ft_putchar_fd('\n', 1);
 }
