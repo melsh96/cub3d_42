@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 13:19:02 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:37:30 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft_42/includes_libft/libft.h"
+# include "../libft_42/includes_libft/get_next_line_bonus.h"
 
 # define NC		"\e[0m"
 # define RED	"\e[31m"
@@ -28,6 +29,8 @@ typedef struct s_map
 {
 	char	*line;
 	char	**tab;
+	int		width;
+	int		height;
 }	t_map;
 
 // Main Program
