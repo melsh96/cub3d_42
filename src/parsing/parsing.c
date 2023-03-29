@@ -6,14 +6,14 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/25 22:19:16 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:39:12 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void    pars_error(char *msg)
+void	pars_error(char *msg)
 {
-    printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
-    exit(1);
+	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
+	exit(1);
 }

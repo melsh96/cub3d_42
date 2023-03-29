@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/26 11:35:56 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:41:03 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 
 typedef struct s_map
 {
-    char	*line;
-    char	**tab;
-}   t_map
+	char	*line;
+	char	**tab;
+}	t_map;
 
 // Main Program
-int main(int ac, char **av);
+int		main(int ac, char **av);
 
 // Parsing
-void    pars_error(char *msg);
+void	pars_error(char *msg);
 
 #endif
