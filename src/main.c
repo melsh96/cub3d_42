@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 16:44:43 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:00:49 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,15 @@
 
 int	main(int ac, char **av)
 {
-	int		fd;
-	t_map	map;
+	t_data	data;
 
-	init_map(&map);
+	init_map(&data);
 	if (ac != 2)
 		parse_error("Wrong number of arguments");
-	if (!parse_files(av[1]))
+	if (!parse_files(&data, av[1]))
 		return (1);
-	fd = open(av[1], O_RDONLY);
-	if (fd <= 0)
-	{
-		printf("%s%sError:%s Can't open file\n", RED, BOLD, NC);
-		return (1);
-	}
-	if (!get_map(&map, av[1]))
-		return (1);
+	get_textures(&data);
+	// if (!get_map(&data, av[1]))
+	// 	return (1);
 	return (0);
 }

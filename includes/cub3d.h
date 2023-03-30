@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 16:45:46 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:33:07 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,37 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef struct s_texture
+{
+	char	*id;
+	char	*line;
+	char	*path;
+	char	*tab[6];
+	int		count;
+}	t_texture;
+
+typedef struct s_data
+{
+	t_map		map;
+	t_texture	texture;
+	int			fd;
+}	t_data;
+
 // Main Program
 int		main(int ac, char **av);
 
 // Init
-void	init_map(t_map *map);
+void	init_map(t_data *data);
 
 // Parsing
 int		file_extension(char *av, char *c);
-int		parse_files(char *av);
+int		parse_files(t_data *data, char *av);
 void	parse_error(char *msg);
+void	get_textures(t_data *data);
 
 // Get Map
-int		get_map(t_map *map, char *file);
-int		read_lines(char *map_path);
+int		get_map(t_data *data, char *file);
+int		read_lines(char *map_path, int fd);
 char	**read_map(t_map *map, char *file);
 
 // Utils

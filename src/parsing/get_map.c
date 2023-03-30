@@ -6,30 +6,25 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/29 16:44:52 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:50:45 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	read_lines(char *map_path)
+int	read_lines(char *map_path, int fd)
 {
-	int		fd;
+	(void)map_path;
 	char	*line;
 	int		count_lines;
 
 	count_lines = 0;
-	fd = open(map_path, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("%s%sError:%s Fail to open file\n", RED, BOLD, NC);
-		exit(0);
-	}
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == 0)
 			break ;
+		
 		count_lines++;
 		free(line);
 	}
@@ -66,20 +61,17 @@ char	**read_map(t_map *map, char *file)
 }
 
 // TODO: Parse map file with NO/SO/WE/EA and /
-int	get_map(t_map *map, char *file)
+int	get_map(t_data *data, char *file)
 {
-	char	**map_path;
-
-	map->height = read_lines(file);
-	if (map->height == -1)
+	data->map.height = read_lines(file, data->fd);
+	if (data->map.height == -1)
 	{
 		printf("%s%sError:%s Fail to read file\n", RED, BOLD, NC);
 		return (0);
 		// TODO: quit(map);
 	}
-	map_path = read_map(map, file);
-	map->width = (int)ft_strlen((map_path)[0]) - 1;
-	map->tab = map_path;
-	print_map(map);
+	data->map.tab = read_map(&data->map, file);
+	data->map.width = (int)ft_strlen((data->map.tab)[0]) - 1;
+	print_map(&data->map);
 	return (1);
 }
