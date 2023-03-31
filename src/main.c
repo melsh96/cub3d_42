@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 12:24:55 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 19:17:43 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		parse_error("Wrong number of arguments");
-	parse_files(&data, av[1]);
 	init_map(&data);
-	get_textures(&data);
+	parse_files(&data, av[1]);
+	get_textures(&data, av[1]);
+	get_map(&data);
+	free_double_tab(data.map.tab);
 	return (0);
 }

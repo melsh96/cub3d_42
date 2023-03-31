@@ -6,7 +6,7 @@
 #    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/03/31 11:07:24 by cchapon          ###   ########.fr        #
+#    Updated: 2023/03/31 12:43:36 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC				= main.c \
 
 SRC_PARS		= parsing.c \
 					init.c \
-					get_textures.c
+					get_textures.c \
+					get_map.c
 
 SRC_UTILS		= print_utils.c \
 

@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 12:30:56 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 19:04:16 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,24 @@ int	file_extension(char *av, char *c)
 	return (0);
 }
 
+int is_map_line (char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[0] == '1')
+		return (1);
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (line[i] == '1')
+		return (1);
+	return (0);
+}
+
 int	parse_files(t_data *data, char *av)
 {
+	char	*line;
+	
 	if (file_extension(av, ".cub") == 1)
 		parse_error("Wrong file extension");
 	data->fd = open(av, __O_DIRECTORY);
@@ -40,6 +56,18 @@ int	parse_files(t_data *data, char *av)
 	data->fd = open(av, O_RDONLY);
 	if (data->fd <= 0)
 		parse_error("Can't open file\n");
-	// close(data->fd);
+	while (1)
+	{
+		line = get_next_line(data->fd);
+		if (line == NULL)
+			break;
+		if (is_map_line(line) == 1)
+			data->map.height++;
+		data->file_length++;
+		free(line);
+	}
+	close(data->fd);
+	printf("data->map.height : %d\n", data->map.height);
+	printf("tdata->file_length : %d\n", data->file_length);
 	return (1);
 }

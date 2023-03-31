@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 11:40:10 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 19:06:13 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	t_map		map;
 	t_texture	texture;
 	int			fd;
+	int			file_length;
 }	t_data;
 
 // Main Program
@@ -61,12 +62,13 @@ void	init_map(t_data *data);
 int		file_extension(char *av, char *c);
 int		parse_files(t_data *data, char *av);
 void	parse_error(char *msg);
-void	get_textures(t_data *data);
+void	get_textures(t_data *data, char *av);
 
 // Get Map
-int		get_map(t_data *data, char *file);
+void	get_map(t_data *data);
 int		read_lines(char *map_path, int fd);
 char	**read_map(t_map *map, char *file);
+int 	is_map_line (char *line);
 
 // Utils
 void	print_map(t_map *map);

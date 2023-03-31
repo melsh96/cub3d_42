@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 11:40:01 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 19:22:50 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_map(t_map *map)
 		ft_putstr_fd(map->tab[i], 1);
 		i++;
 	}
-	ft_putchar_fd('\n', 1);
+	// ft_putchar_fd('\n', 1);
 }
 
 void	print_map_texture(t_texture *texture)
