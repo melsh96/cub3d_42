@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/30 13:18:04 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:45:43 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 void	init_map(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.tab = NULL;
 	data->map.line = NULL;
+	while (i < 6)
+	{
+		data->texture.tab[i] = NULL;
+		i++;
+	}
+	data->texture.line = NULL;
 }

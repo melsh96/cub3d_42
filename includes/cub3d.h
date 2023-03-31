@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/30 19:18:46 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 11:40:10 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
 # include "../libft_42/includes_libft/get_next_line_bonus.h"
 
@@ -44,6 +45,7 @@ typedef struct s_texture
 
 typedef struct s_data
 {
+	void		*mlx;
 	t_map		map;
 	t_texture	texture;
 	int			fd;
@@ -68,6 +70,8 @@ char	**read_map(t_map *map, char *file);
 
 // Utils
 void	print_map(t_map *map);
+void	read_free_all_gnl(char *tmp, int fd);
 void	print_map_texture(t_texture *texture);
+void	free_double_tab(char **tab);
 
 #endif

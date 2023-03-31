@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/30 19:43:14 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 12:30:56 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,67 +33,13 @@ int	file_extension(char *av, char *c)
 int	parse_files(t_data *data, char *av)
 {
 	if (file_extension(av, ".cub") == 1)
-	{
 		parse_error("Wrong file extension");
-		return (0);
-	}
 	data->fd = open(av, __O_DIRECTORY);
 	if (data->fd >= 0)
 		return (close(data->fd), 1);
 	data->fd = open(av, O_RDONLY);
 	if (data->fd <= 0)
-	{
-		printf("%s%sError:%s Can't open file\n", RED, BOLD, NC);
-		return (0);
-	}
+		parse_error("Can't open file\n");
+	// close(data->fd);
 	return (1);
-}
-
-void	check_textures(t_data *data, char *line)
-{
-	(void)data;
-	int		fd;
-	
-	fd = 0;
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
-	|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
-	{
-		fd = open(line + 3, O_RDONLY);
-		if (fd < 0 || file_extension(line + 3, ".xpm") != 0)
-			printf("%s%sError:%s Wrong file\n", RED, BOLD, NC);
-		close(fd);
-	 //put mlx to image sur le path line + 3
-	 // si ca plante, fre (line) return error
-		dprintf(2, "line = %s", line + 3);
-	}
-	// si caractere invlide : vider ligner + return error
-	// int	i;
-
-	// data->textures->count = 0;
-	// i = 0;
-}
-void	get_textures(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		data->texture.tab[i] = get_next_line(data->fd);
-		if (!data->texture.tab[i])
-		{
-			close(data->fd);
-			return ;
-		}
-		if (data->texture.tab[i][0] == '\n')
-		{
-			free(data->texture.tab[i]);
-			i--;
-		}
-		else
-			check_textures(data, data->texture.tab[i]);
-		i++;
-	}
-	print_map_texture(&data->texture);
-		// dprintf(2, "first line = %s", data->texture.tab[i]);
 }
