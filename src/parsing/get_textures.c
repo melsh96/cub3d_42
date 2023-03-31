@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/03/31 12:36:10 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/03/31 15:51:53 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	get_textures(t_data *data)
 		}
 		// else
 		// 	read_free_all_gnl(data->texture.tab[i], data->fd);
+		
 		// printf("tab %d : %s\n", i,  data->texture.tab[i]);
 		// printf("tab [%i][0] : %c\n", i, data->texture.tab[i][0]);
 		if (data->texture.tab[i][0] == '\n')
@@ -86,14 +87,15 @@ void	get_textures(t_data *data)
 			// free_double_tab(data->texture.tab);
 			close(data->fd);
 			free(data->texture.tab[i]);
+			printf("tab %d\n", i);
 			parse_error("Wrong or missing id");
 			//exit(1);
 			// 
 		}
 		i++;
 	}
-	// close(data->fd);
-	// free(data->texture.tab);
+	// read_free_all_gnl(data->texture.tab[i], data->fd);
+	// free_double_tab(data->texture.tab);
 	// cas ou il manque une ligne de description ?
 	print_map_texture(&data->texture);
 }

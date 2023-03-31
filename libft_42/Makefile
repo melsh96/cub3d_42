@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/05 11:58:02 by meshahrv          #+#    #+#              #
-#    Updated: 2023/01/17 18:53:51 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/03/31 15:49:47 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 ft_llatoi.c \
 
-SRC_GNL = get_next_line_bonus.c\
-			get_next_line_utils_bonus.c
+SRC_GNL = get_next_line.c\
+			get_next_line_utils.c
 
 SRC_PRINTF = ft_printf.c \
 				printf_printnbrs.c \
