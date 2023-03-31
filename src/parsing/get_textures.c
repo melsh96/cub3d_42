@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
 /*   Updated: 2023/03/31 19:04:47 by cchapon          ###   ########.fr       */
@@ -67,6 +67,7 @@ void	get_textures(t_data *data, char *av)
 			// free_double_tab(data->texture.tab);
 			close(data->fd);
 			free(data->texture.tab[i]);
+			printf("tab %d\n", i);
 			parse_error("Wrong or missing id");
 		}
 		i++;
