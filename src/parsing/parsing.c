@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 19:04:16 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 15:24:37 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ int	parse_files(t_data *data, char *av)
 			break;
 		if (is_map_line(line) == 1)
 			data->map.height++;
-		data->file_length++;
+		//data->file_length++;
 		free(line);
 	}
 	close(data->fd);
-	printf("data->map.height : %d\n", data->map.height);
-	printf("tdata->file_length : %d\n", data->file_length);
 	return (1);
 }

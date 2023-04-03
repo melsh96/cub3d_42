@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/03 13:32:58 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 15:15:56 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	get_textures(t_data *data, char *av)
 		data->texture.tab[i] = get_next_line(data->fd);	
 		if (!data->texture.tab[i])
 		{
-			// break;
 			close(data->fd);
 			return ;
 		}

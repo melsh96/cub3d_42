@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 19:26:06 by cchapon          ###   ########.fr       */
+/*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
+/*   Updated: 2023/04/03 16:51:25 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_map(t_data *data)
+int	handle_input(int key, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	data->map.width = 0;
-	data->map.height = 0;
-	data->map.tab = NULL;
-	data->map.line = NULL;
-	while (i < 6)
-	{
-		data->texture.tab[i] = NULL;
-		i++;
-	}
-	data->texture.line = NULL;
-	data->texture.count = 0;
-	data->file_length = 0;
+	if (key == XK_Escape)
+		destroy_cub(data);
+	return (0);
 }

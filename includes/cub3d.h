@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 13:40:13 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:51:28 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include <X11/keysym.h>
 #include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
 # include "get_next_line_bonus.h"
@@ -46,6 +47,7 @@ typedef struct s_texture
 typedef struct s_data
 {
 	void		*mlx;
+	void		*mlx_win;
 	t_map		map;
 	t_texture	texture;
 	int			fd;
@@ -54,9 +56,16 @@ typedef struct s_data
 
 // Main Program
 int		main(int ac, char **av);
+int		destroy_cub(t_data *data);
 
 // Init
+void	init_texture(t_data *data);
 void	init_map(t_data *data);
+void	init_data(t_data *data);
+
+// Events
+int	handle_input(int key, t_data *data);
+
 
 // Parsing
 int		file_extension(char *av, char *c);
