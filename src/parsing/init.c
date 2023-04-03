@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 13:39:03 by cchapon          ###   ########.fr       */
+/*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
+/*   Updated: 2023/03/31 19:26:06 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// ^Main Program
-/*
-- Init structure
-- Check nbr or args
-- Ckeck file
-- Check map 
-*/
-
-int	main(int ac, char **av)
+void	init_map(t_data *data)
 {
-	t_data	data;
+	int	i;
 
-	if (ac != 2)
-		parse_error("Wrong number of arguments");
-	init_map(&data);
-	parse_files(&data, av[1]);
-	get_textures(&data, av[1]);
-	get_map(&data);
-	free_double_tab(data.map.tab, (size_t)data.map.height);
-	free_params(data.texture.tab);
-	close (data.fd);
-	return (0);
+	i = 0;
+	data->map.width = 0;
+	data->map.height = 0;
+	data->map.tab = NULL;
+	data->map.line = NULL;
+	while (i < 6)
+	{
+		data->texture.tab[i] = NULL;
+		i++;
+	}
+	data->texture.line = NULL;
+	data->texture.count = 0;
+	data->file_length = 0;
 }
