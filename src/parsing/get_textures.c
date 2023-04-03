@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/03/31 19:04:47 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 13:32:58 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	get_textures(t_data *data, char *av)
 		}
 		else if (check_textures(data, data->texture.tab[i]) == -1)
 		{
-			// free_double_tab(data->texture.tab);
 			close(data->fd);
 			free(data->texture.tab[i]);
 			printf("tab %d\n", i);
@@ -72,5 +71,5 @@ void	get_textures(t_data *data, char *av)
 		}
 		i++;
 	}
-	print_map_texture(&data->texture);
+	print_tab(data->texture.tab, 6);
 }

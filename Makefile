@@ -6,7 +6,7 @@
 #    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/03/31 12:43:36 by cchapon          ###   ########.fr        #
+#    Updated: 2023/04/03 12:56:14 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_PATH		= src/
 OBJ_PATH		= obj/
 PARS_PATH		= src/parsing/
 UTILS_PATH		= src/utils/
+GNL_PATH		= src/gnl/
 
 CC 				= cc
 CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
@@ -29,15 +30,20 @@ SRC_PARS		= parsing.c \
 
 SRC_UTILS		= print_utils.c \
 
+SRC_GNL			= get_next_line_bonus.c \
+					get_next_line_utils_bonus.c
+
 SRC_PREFIXED	= $(addprefix $(SRC_PATH), $(SRC))
 PARS_PREFIXED	=$(addprefix $(PARS_PATH), $(SRC_PARS))
 UTILS_PREFIXED	=$(addprefix $(UTILS_PATH), $(SRC_UTILS))
+GNL_PREFIXED	=$(addprefix $(GNL_PATH), $(SRC_UTILS))
 
 OBJ_SRC			= $(SRC:.c=.o)
 OBJ_PARS		= $(SRC_PARS:.c=.o)
 OBJ_UTILS		= $(SRC_UTILS:.c=.o)
+OBJ_GNL			= $(SRC_GNL:.c=.o)
 
-OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ_SRC) $(OBJ_PARS) $(OBJ_UTILS))
+OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ_SRC) $(OBJ_PARS) $(OBJ_UTILS) ${OBJ_GNL})
 DEPS			= $(addprefix ${OBJ_PATH}, ${SRC:.c=.d})
 INCS			= -I./includes/ -I./minilibx-linux/
 LIB 			= -L./libft_42/ -lft
@@ -68,6 +74,10 @@ $(OBJ_PATH)%.o: $(PARS_PATH)%.c
 	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 
 $(OBJ_PATH)%.o: $(UTILS_PATH)%.c
+	mkdir -p ${OBJ_PATH}
+	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
+
+$(OBJ_PATH)%.o: $(GNL_PATH)%.c
 	mkdir -p ${OBJ_PATH}
 	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 

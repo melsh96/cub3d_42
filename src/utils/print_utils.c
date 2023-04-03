@@ -6,36 +6,22 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 19:22:50 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 12:34:35 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	print_map(t_map *map)
+void	print_tab(char **tab, int tab_length)
 {
 	int	i;
 
 	i = 0;
-	while (map->tab[i])
+	while (i < tab_length)
 	{
-		ft_putstr_fd(map->tab[i], 1);
+		ft_putstr_fd(tab[i], 1);
 		i++;
 	}
-	// ft_putchar_fd('\n', 1);
-}
-
-void	print_map_texture(t_texture *texture)
-{
-	int	i;
-
-	i = 0;
-	while (texture->tab[i])
-	{
-		ft_putstr_fd(texture->tab[i], 1);
-		i++;
-	}
-	// ft_putchar_fd('\n', 1);
 }
 
 void	read_free_all_gnl(char *tmp, int fd)
@@ -47,12 +33,24 @@ void	read_free_all_gnl(char *tmp, int fd)
 	}
 }
 
-void	free_double_tab(char **tab)
+void	free_params(char **tab)
 {
 	size_t	idx;
 
 	idx = 0;
-	while (tab[idx] != NULL)
+	while (idx < 6)
+	{
+		free(tab[idx]);
+		idx++;
+	}
+}
+
+void	free_double_tab(char **tab, size_t len)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (idx < len)
 	{
 		free(tab[idx]);
 		idx++;

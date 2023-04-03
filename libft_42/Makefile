@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/05 11:58:02 by meshahrv          #+#    #+#              #
-#    Updated: 2023/03/31 15:49:47 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/03 13:49:28 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 SRC_PATH		= libft/
 OBJ_PATH		= objs/
-GNL_PATH		= get_next_line/
+# GNL_PATH		= get_next_line/
 PRINTF_PATH 	= ft_printf/
 GB_COLLECT_PATH	= garbage_collector/
 
@@ -27,8 +27,8 @@ ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 ft_llatoi.c \
 
-SRC_GNL = get_next_line.c\
-			get_next_line_utils.c
+# SRC_GNL = get_next_line_bonus.c\
+# 			get_next_line_utils_bonus.c
 
 SRC_PRINTF = ft_printf.c \
 				printf_printnbrs.c \
@@ -37,14 +37,14 @@ SRC_PRINTF = ft_printf.c \
 SRC_GB_COLLECT = garbage_collector.c
 			
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
-GNL			= $(addprefix $(GNL_PATH), $(SRC_GNL))
+# GNL			= $(addprefix $(GNL_PATH), $(SRC_GNL))
 PRINTF		= $(addprefix $(PRINTF_PATH), $(SRC_PRINTF))
 GB_COLLECT	= $(addprefix $(GB_COLLECT_PATH), $(SRC_GB_COLLECT))
 OBJ			= $(SRC:.c=.o)
-OBJS_GNL 	= $(SRC_GNL:.c=.o)
+# OBJS_GNL 	= $(SRC_GNL:.c=.o)
 OBJS_PRINTF	= $(SRC_PRINTF:.c=.o)
 OBJS_GB		= $(SRC_GB_COLLECT:.c=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ) $(OBJS_GNL) $(OBJS_PRINTF) $(OBJS_GB))
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ) $(OBJS_PRINTF) $(OBJS_GB))
 DEPS		= $(addprefix ${OBJ_PATH}, ${SRC:.c=.d})
 
 INCS	= -I./includes_libft/
@@ -69,7 +69,6 @@ all:	$(NAME)
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $^
 	@echo ${CYAN}${BOLD}LIBFT${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}LIBFT${NC}
-	@echo ${CYAN}${BOLD}LIBFT${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}GET NEXT LINE${NC}
 	@echo ${CYAN}${BOLD}LIBFT${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}FT_PRINTF${NC}
 	@echo ${CYAN}${BOLD}LIBFT${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}GARBAGE COLLECTOR${NC}
 
@@ -77,9 +76,9 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p ${OBJ_PATH}
 	@${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 
-$(OBJ_PATH)%.o: $(GNL_PATH)%.c
-	@mkdir -p ${OBJ_PATH}
-	@${CC} ${CFLAGS} ${INCS} -o $@ -c $<
+# $(OBJ_PATH)%.o: $(GNL_PATH)%.c
+# 	@mkdir -p ${OBJ_PATH}
+# 	@${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 
 $(OBJ_PATH)%.o: $(PRINTF_PATH)%.c
 	@mkdir -p ${OBJ_PATH}

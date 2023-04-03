@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 19:20:02 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 12:03:37 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	get_map(t_data *data)
 		if (is_map_line(data->map.tab[i]) != 1)
 		{
 			free(data->map.tab[i]);
+			data->map.tab[i] = NULL;
 			i--;
 		}
 		i++;
 	}
-	print_map(&data->map);
+	print_tab(data->map.tab, data->map.height);
 }

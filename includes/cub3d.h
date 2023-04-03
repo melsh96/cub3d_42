@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/03/31 19:06:13 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/03 13:40:13 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 #include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
-# include "../libft_42/includes_libft/get_next_line_bonus.h"
+# include "get_next_line_bonus.h"
 
 # define NC		"\e[0m"
 # define RED	"\e[31m"
@@ -74,6 +74,8 @@ int 	is_map_line (char *line);
 void	print_map(t_map *map);
 void	read_free_all_gnl(char *tmp, int fd);
 void	print_map_texture(t_texture *texture);
-void	free_double_tab(char **tab);
+void	free_params(char **tab);
+void	free_double_tab(char **tab, size_t len);
+void	print_tab(char **tab, int tab_length);
 
 #endif

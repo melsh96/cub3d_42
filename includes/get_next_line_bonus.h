@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:07:16 by meshahrv          #+#    #+#             */
-/*   Updated: 2022/12/16 17:58:11 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:30:46 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,27 @@
 
 typedef struct s_gnl	t_gnl;
 
-struct s_gnl
-{
-	char			*content;
-	t_gnl			*next;
-};
+// struct s_gnl
+// {
+// 	char			*content;
+// 	t_gnl			*next;
+// };
 
+// char	*get_next_line(int fd);
+// void	read_to_stash(int fd, t_gnl **stash);
+// void	stash_to_line(t_gnl *stash, char **line);
+// t_gnl	*lstnew_gnl(void *content);
+// void	lstadd_back_gnl(t_gnl **lst, t_gnl *new);
+// void	ft_lstclear_gnl(t_gnl **lst, void (*del)(void *));
+// int		check_new_line(t_gnl *stash);
+// void	malloc_line(char **line, t_gnl *stash);
+// void	new_line_exists(t_gnl	*to_clear);
+
+void	get_one_line(char *line, char *buff);
 char	*get_next_line(int fd);
-void	read_to_stash(int fd, t_gnl **stash);
-void	stash_to_line(t_gnl *stash, char **line);
-t_gnl	*lstnew_gnl(void *content);
-void	lstadd_back_gnl(t_gnl **lst, t_gnl *new);
-void	ft_lstclear_gnl(t_gnl **lst, void (*del)(void *));
-int		check_new_line(t_gnl *stash);
-void	malloc_line(char **line, t_gnl *stash);
-void	new_line_exists(t_gnl	*to_clear);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(const char *s);
+size_t	ft_strlen_gnl(const char *str);
+int 	to_end(char *s);
 
 #endif
