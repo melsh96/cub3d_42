@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 11:46:33 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:38:13 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,13 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	char		*tab[6];
-	char		*id;
-	char		*addr;
-	//char		*line;
-	//char		*path;
-	void		*img;
-	int			bits_per_pixel;
-	int			line_length;
+	char	*path;
+	char	*id;
+	char	*addr;
+	void	*img;
+	int		bits_per_pixel;
+	int		line_length;
 	int		endian;
-	//int		count;
 }	t_texture;
 
 typedef struct s_data
@@ -54,7 +51,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*mlx_win;
 	t_map		map;
-	t_texture	texture;
+	t_texture	texture[6];
 	int			fd;
 	int			file_length;
 }	t_data;

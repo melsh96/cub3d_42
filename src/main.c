@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 16:35:01 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:40:09 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,24 @@
 - Check map 
 */
 
+void free_texture_tab(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 6)
+	{
+		free(data->texture[i].path);
+		free(data->texture[i].id);
+		free(data->texture[i].addr);
+		i++;
+	}
+}
+
 int	destroy_cub(t_data *data)
 {
 	free_double_tab(data->map.tab, (size_t)data->map.height);
-	free_params(data->texture.tab);
+	free_texture_tab(data);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	close (data->fd);
@@ -38,7 +52,6 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		parse_error("Wrong number of arguments");
-	init_texture(&data);
 	init_map(&data);
 	parse_files(&data, av[1]);
 	get_textures(&data, av[1]);

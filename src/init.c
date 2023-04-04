@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 11:35:57 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:40:35 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	init_texture(t_data *data)
 	i = 0;
 	while (i < 6)
 	{
-		data->texture.tab[i] = NULL;
+		data->texture[i].path = NULL;
+		data->texture[i].id = NULL;
+		data->texture[i].addr = NULL;
 		i++;
 	}
-	//data->texture.line = NULL;
-	//data->texture.count = 0;
 }
 
 void	init_map(t_data *data)
