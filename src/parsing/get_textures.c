@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/03 15:15:56 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:47:04 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 // {
 	
 // }
+
+
 
 int	check_textures(t_data *data, char *line)
 {
@@ -47,6 +49,9 @@ void	get_textures(t_data *data, char *av)
 	int	i;
 
 	data->fd = open(av, O_RDONLY);
+	i = 0;
+	while (i < 6)
+		data->texture.tab[i++] = NULL;
 	i = 0;
 	while (i < 6)
 	{

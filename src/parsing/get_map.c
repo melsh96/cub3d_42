@@ -6,11 +6,16 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 12:03:37 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:41:15 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	load_floor(t_data *data)
+{
+	
+}
 
 void	get_map(t_data *data)
 {
