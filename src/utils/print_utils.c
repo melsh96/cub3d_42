@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 12:34:35 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:20:45 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,32 @@ void	free_params(char **tab)
 
 void	free_double_tab(char **tab, size_t len)
 {
+	(void)len;
+	size_t	idx;
+
+	idx = 0;
+	while (tab[idx])
+	{
+		free(tab[idx]);
+		idx++;
+	}
+	if (tab)
+		free(tab);
+}
+
+void	free_double_tab_len(char **tab, size_t len)
+{
+	// (void)len;
 	size_t	idx;
 
 	idx = 0;
 	while (idx < len)
 	{
-		free(tab[idx]);
+		if (tab && tab[idx])
+			free(tab[idx]);
 		idx++;
 	}
-	free(tab);
+	if (tab)
+		free(tab);
+	tab = NULL;
 }

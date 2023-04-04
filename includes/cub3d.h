@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 13:40:13 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:17:08 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ void	parse_error(char *msg);
 void	get_textures(t_data *data, char *av);
 
 // Get Map
-void	get_map(t_data *data);
+// void	get_map(t_data *data);
+int		get_map(t_data *data);
 int		read_lines(char *map_path, int fd);
 char	**read_map(t_map *map, char *file);
-int 	is_map_line (char *line);
+// int 	is_map_line (char *line);
+int is_map_line (char *line, int *is_map);
 
 // Utils
 void	print_map(t_map *map);
@@ -77,5 +79,7 @@ void	print_map_texture(t_texture *texture);
 void	free_params(char **tab);
 void	free_double_tab(char **tab, size_t len);
 void	print_tab(char **tab, int tab_length);
+
+void	free_double_tab_len(char **tab, size_t len);
 
 #endif
