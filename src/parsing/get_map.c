@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 13:33:13 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:08:33 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	check_line_chars(char *line)
 	int 	i;
 
 	i = 0;
-	if (line[0] == '\n')
-		return(0);
+	// if (line[0] == '\n')
+	// 	return(0);
 	while (line[i] != '\0')
 	{
 		if (!(line[i] == ' ' || line[i] == '1' || line[i] == '0' \
@@ -52,15 +52,15 @@ int	is_right_chars(t_data *data)
 {
 	int		i;
 	char	*line;
-	int		new_line;
+	// int		new_line;
 	
 	i = 0;
-	new_line = 1;
-	while (new_line)
+	// new_line = 1;
+	while (1)
 	{
 		line = get_next_line(data->fd);
 		if (line == NULL)
-			return (1);
+			return (free(line), 1);
 		if (line[0] != '\n')
 			break;
 		free(line);
@@ -70,16 +70,28 @@ int	is_right_chars(t_data *data)
 		if (line == NULL)
 			line = get_next_line(data->fd);
 		if (line == NULL)
-			return (1);
+			return (free(line), 1);
 		if (!check_line_chars(line))
 		{
 			data->map.tab[i] = 0;
 			free(line);
 			return (1);
 		}
+		if (line[0] == '\n')
+			break ;
 		data->map.tab[i] = line;
 		line = NULL;
 		i++;
+	}
+	free(line);
+	while (1)
+	{
+		line = get_next_line(data->fd);
+		if (line == NULL)
+			return (free(line), 0);
+		if (line[0] != '\n')
+			return (free(line), 1);
+		free(line);
 	}
 	data->map.tab[i] = 0;
 	return (0);
