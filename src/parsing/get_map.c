@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 14:08:33 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:22:21 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,116 @@ int	is_only_one_player(t_data *data)
 	return (0);
 }
 
+int	horizontal_check(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j] && data->map.tab[i][j + 1])
+		{
+			if (data->map.tab[i][j] == ' ')
+			{
+				if (!(data->map.tab[i][j + 1] == '1' || data->map.tab[i][j + 1] == ' '))
+					return (1);
+			}
+			j++;	
+		}
+		i++;
+	}
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j] && data->map.tab[i][j + 1])
+		{
+			if (data->map.tab[i][j + 1] == ' ')
+			{
+				if (!(data->map.tab[i][j] == '1' || data->map.tab[i][j] == ' '))
+					return (1);
+			}
+			j++;	
+		}
+		i++;
+	}
+	return (0);
+}
+// int	vertical_check(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (data->map.tab[i])
+// 	{
+// 		j = 0;
+// 		while (data->map.tab[i][++j] && data->map.tab[i + 1])
+// 		{
+// 			if (data->map.tab[i][j] && data->map.tab[i][j] == ' ')
+// 			{
+// 				if (!(data->map.tab[i + 1][j] == '1' || data->map.tab[i + 1][j] == ' '))
+// 					return (1);
+// 			}
+// 			j++;	
+// 		}
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (data->map.tab[i])
+// 	{
+// 		j = 0;
+// 		while (data->map.tab[i] && data->map.tab[i + 1])
+// 		{
+// 			if (data->map.tab[i + 1][j] && data->map.tab[i + 1][j] == ' ')
+// 			{
+// 				if (!(data->map.tab[i][j] == '1' || data->map.tab[i][j] == ' '))
+// 					return (1);
+// 			}
+// 			j++;	
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+// int	vertical_check(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = -1;
+// 	while (data->map.tab[++i])
+// 	{
+// 		j = -1;
+// 		while (data->map.tab[i][++j] && data->map.tab[i][j + 1])
+// 			if ((data->map.tab[i][j] == '0' && data->map.tab[i][j + 1] == ' ')
+// 				|| (data->map.tab[i][j + 1] == '0' && data->map.tab[i][j] == ' '))
+// 				return (1);
+// 	}
+// 	j = 0;
+// 	while (data->map.tab[0][++j])
+// 	{
+// 		i = -1;
+// 		while (data->map.tab[++i] && data->map.tab[i + 1])
+// 			if ((data->map.tab[i][j] == '0' && data->map.tab[i + 1][j] == ' ')
+// 				|| (data->map.tab[i + 1][j] == '0' && data->map.tab[i][j] == ' '))
+// 				return (1);
+// 	}
+// 	return (0);
+// }
+
+int	map_not_closed(t_data *data)
+{
+	if (horizontal_check(data) == 1)
+		return (1);
+	// if (vertical_check(data) == 1)
+	// 	return (1);
+	return (0);
+}
+
 int	get_map(t_data *data)
 {
 	int	i;
@@ -160,6 +270,11 @@ int	get_map(t_data *data)
 	}
 	if (is_only_one_player(data) == 1)
 		return (0);
+	if (map_not_closed(data) == 1)
+	{
+		printf("Error: Map is not closed\n");
+		return (0);
+	}
 	print_tab(data->map.tab, data->map.height);
 	return (1);
 }
