@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 17:28:39 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/05 18:35:14 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void free_texture_tab(t_data *data)
 	i = 0;
 	while (i < 6)
 	{
+		
 		free(data->texture[i].path);
 		free(data->texture[i].id);
 		free(data->texture[i].addr);
@@ -56,6 +57,12 @@ int	main(int ac, char **av)
 	get_textures(&data, av[1]);
 	get_map(&data);
 	init_data(&data);
+	int i = 0;
+	while (i < 6)
+	{
+		printf("%d : path= %s, id= %s, addr= %s\n", i, data.texture[i].path, data.texture[i].id, data.texture[i].addr);
+		i++;
+	}
 
 	return (0);
 }

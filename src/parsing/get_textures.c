@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/05 17:31:22 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/05 18:22:06 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	check_double_path(int i, t_data *data, char *line)
 
 int	get_texture_param(t_texture *texture)
 {
-	char	**tab;
 	int		i;
+	char **tab;
 
 	i = 0;
 	tab = ft_split(texture->path, ' ');
@@ -52,10 +52,9 @@ int	get_texture_param(t_texture *texture)
 
 void	free_texture_path(int i, t_data *data)
 {
-	while (/*data->texture[i].path && */i > 0)
+	while (data->texture[i].path && i > 0)
 	{
 		free(data->texture[i].path);
-		printf("ok\n");
 		i--;
 	}
 }
@@ -83,8 +82,8 @@ void	get_textures(t_data *data, char *av)
 		else if (check_textures(data->texture[i].path) == 0)
 		{
 			close(data->fd);
-			free(data->texture[i].path);
 			free_texture_path(i, data);
+			//free(data->texture[i].path);
 			parse_error("Wrong or missing id");
 		}
 		else if (check_double_path(i, data, data->texture[i].path) == 1)
@@ -101,7 +100,8 @@ void	get_textures(t_data *data, char *av)
 			free_texture_path(i, data);
 			parse_error("trop d'espaces");
 		}
+		//printf("id : %s\n", data->texture[i].id);
 		i++;
-	printf("id : %s\n", data->texture[i].id);
 	}
+	//free_texture_path(i - 1, data);
 }
