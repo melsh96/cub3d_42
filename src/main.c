@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 16:40:09 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/05 17:28:39 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 void free_texture_tab(t_data *data)
 {
 	int	i;
-
 	i = 0;
 	while (i < 6)
 	{
@@ -37,7 +36,7 @@ void free_texture_tab(t_data *data)
 int	destroy_cub(t_data *data)
 {
 	free_double_tab(data->map.tab, (size_t)data->map.height);
-	free_texture_tab(data);
+	//free_texture_tab(data);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	close (data->fd);

@@ -6,21 +6,11 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/04 17:03:21 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/05 17:31:22 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// void get_walls (char *line)
-// {
-	
-// }
-
-// void get_colors (char *line)
-// {
-	
-// }
 
 int	check_textures(char *line)
 {
@@ -32,30 +22,42 @@ int	check_textures(char *line)
 	return (0);
 }
 
-// char 	*get_texture_param(char *line)
-// {
-// 	char	*addr;
-// 	char	**tab;
-// 	int		i;
-
-// 	i = 0;
-// 	tab = ft_split(line, ' ');
-// 	addr = tab[1];
-// 	free_double_tab(tab, i - 1);
-// 	return (addr);
-// }
-
-void	get_texture_param(t_texture *texture)
+int	check_double_path(int i, t_data *data, char *line)
 {
-	//int		i = 0;
-	char	**tab;
+	while (&data->texture[i -1] && i > 0)
+	{
+		if (ft_strncmp(data->texture[i - 1].path, line, ft_strlen(line)) == 0)
+			return (1);
+		i--;
+	}
+	return (0);
+}
 
+int	get_texture_param(t_texture *texture)
+{
+	char	**tab;
+	int		i;
+
+	i = 0;
 	tab = ft_split(texture->path, ' ');
+	while (tab[i])
+		i++;
+	if (i > 2)
+		return (free_double_tab(tab, i + 1), 1);
 	texture->id = tab[0];
 	texture->addr = tab[1];
-	printf("tab 0 : %s\n", tab[0]);
-	printf("id : %s\n", texture->id);
-	// TODO probleme de free tab a regler.
+	free_double_tab(tab, i + 1);
+	return (0);
+}
+
+void	free_texture_path(int i, t_data *data)
+{
+	while (/*data->texture[i].path && */i > 0)
+	{
+		free(data->texture[i].path);
+		printf("ok\n");
+		i--;
+	}
 }
 
 void	get_textures(t_data *data, char *av)
@@ -82,16 +84,24 @@ void	get_textures(t_data *data, char *av)
 		{
 			close(data->fd);
 			free(data->texture[i].path);
+			free_texture_path(i, data);
 			parse_error("Wrong or missing id");
 		}
-		else
+		else if (check_double_path(i, data, data->texture[i].path) == 1)
 		{
-			//data->texture[i].addr = get_texture_param(data->texture[i].path);
-			get_texture_param(&data->texture[i]);
-			// dprintf(2, "id = %s\n", data->texture[i].id);
-			// dprintf(2, "addr = %s\n", data->texture[i].addr);
+			close(data->fd);
+			free(data->texture[i].path);
+			free_texture_path(i, data);
+		 	parse_error("doublon");
+		}
+		else if (get_texture_param(&data->texture[i]) == 1)
+		{
+			close(data->fd);
+			free(data->texture[i].path);
+			free_texture_path(i, data);
+			parse_error("trop d'espaces");
 		}
 		i++;
+	printf("id : %s\n", data->texture[i].id);
 	}
-	//print_path(data->texture[i]->path, 6);
 }

@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 16:38:13 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/05 17:33:36 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_map
 typedef struct s_texture
 {
 	char	*path;
+	char	**tab;
 	char	*id;
 	char	*addr;
 	void	*img;
@@ -59,6 +60,7 @@ typedef struct s_data
 // Main Program
 int		main(int ac, char **av);
 int		destroy_cub(t_data *data);
+void free_texture_tab(t_data *data);
 
 // Init
 void	init_texture(t_data *data);
