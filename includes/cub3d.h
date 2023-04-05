@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 17:17:08 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:19:14 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 # define BLUE	"\e[38;5;140m"
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
+
+typedef struct s_count
+{
+	int	pos;
+	int	pos_n;
+	int	pos_s;
+	int	pos_w;
+	int	pos_e;
+}	t_count;
 
 typedef struct s_map
 {
@@ -50,6 +59,7 @@ typedef struct s_data
 	t_texture	texture;
 	int			fd;
 	int			file_length;
+	t_count		count;
 }	t_data;
 
 // Main Program
