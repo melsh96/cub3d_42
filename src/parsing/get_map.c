@@ -6,28 +6,11 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 18:22:21 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:42:43 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int	get_biggest_line(t_data *data)
-{
-	int	i;
-	int	longest_line;
-
-	i = 0;
-	longest_line = ft_strlen(data->map.tab[i]) - 1;
-	while (i < data->map.height)
-	{
-		dprintf(2, "longest_line = %d\n", longest_line);
-		if (longest_line < (int)ft_strlen(data->map.tab[i]))
-			longest_line = ft_strlen(data->map.tab[i]) - 1;
-		i++;
-	}
-	return (longest_line);
-}
 
 int	check_line_chars(char *line)
 {
@@ -252,9 +235,33 @@ int	map_not_closed(t_data *data)
 	return (0);
 }
 
+int	get_biggest_line(t_data *data)
+{
+	int	i;
+	int	longest_line;
+	int	actual_line;
+
+	i = 0;
+	longest_line = 0;
+	dprintf(2, "i = %d\n", i);
+	dprintf(2, "data->map.height = %d\n", data->map.height);
+	while (i < data->map.height)
+	{
+		// dprintf(2, "HELLO\n");
+		actual_line = ft_strlen(data->map.tab[i]) - 1;
+		dprintf(2, "actual_line = %d\n", actual_line);
+		// if (longest_line < actual_line)
+		// 	longest_line = actual_line;
+		i++;
+	}
+	// dprintf(2, "longest_line = %d\n", longest_line);
+	return (longest_line);
+}
+
 int	get_map(t_data *data)
 {
 	int	i;
+	// int	longest_line;
 
 	i = 0;
 	data->map.tab = (char **)malloc(sizeof(char *) * (data->map.height + 1));
@@ -275,6 +282,7 @@ int	get_map(t_data *data)
 		printf("Error: Map is not closed\n");
 		return (0);
 	}
+	// longest_line = get_biggest_line(data);
 	print_tab(data->map.tab, data->map.height);
 	return (1);
 }
