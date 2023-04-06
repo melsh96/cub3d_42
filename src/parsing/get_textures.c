@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/05 18:22:06 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/06 18:32:32 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,15 @@ int	get_texture_param(t_texture *texture)
 	while (tab[i])
 		i++;
 	if (i > 2)
-		return (free_double_tab(tab, i + 1), 1);
-	texture->id = tab[0];
-	texture->addr = tab[1];
+	{
+		free_double_tab(tab, i + 1);
+		return (1);
+	}
+	texture->id = ft_strdup(tab[0]);
+	texture->addr = ft_strdup(tab[1]);
+	texture->addr[ft_strlen(tab[1]) -1] = '\0';
 	free_double_tab(tab, i + 1);
 	return (0);
-}
-
-void	free_texture_path(int i, t_data *data)
-{
-	while (data->texture[i].path && i > 0)
-	{
-		free(data->texture[i].path);
-		i--;
-	}
 }
 
 void	get_textures(t_data *data, char *av)
@@ -80,28 +75,11 @@ void	get_textures(t_data *data, char *av)
 			i--;
 		}
 		else if (check_textures(data->texture[i].path) == 0)
-		{
-			close(data->fd);
-			free_texture_path(i, data);
-			//free(data->texture[i].path);
-			parse_error("Wrong or missing id");
-		}
+			parse_error(data, "Wrong or missing id");
 		else if (check_double_path(i, data, data->texture[i].path) == 1)
-		{
-			close(data->fd);
-			free(data->texture[i].path);
-			free_texture_path(i, data);
-		 	parse_error("doublon");
-		}
+		 	parse_error(data, "doublon");
 		else if (get_texture_param(&data->texture[i]) == 1)
-		{
-			close(data->fd);
-			free(data->texture[i].path);
-			free_texture_path(i, data);
-			parse_error("trop d'espaces");
-		}
-		//printf("id : %s\n", data->texture[i].id);
+			parse_error(data, "space en trop");
 		i++;
 	}
-	//free_texture_path(i - 1, data);
 }

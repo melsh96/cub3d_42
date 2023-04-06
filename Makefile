@@ -6,7 +6,7 @@
 #    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/03 16:49:55 by cchapon          ###   ########.fr        #
+#    Updated: 2023/04/06 18:51:19 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 SRC				= main.c \
 					events.c \
 					init.c \
+					clean.c
 
 SRC_PARS		= parsing.c \
 					get_textures.c \

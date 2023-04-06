@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 17:33:36 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/06 18:31:40 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_map
 typedef struct s_texture
 {
 	char	*path;
-	char	**tab;
 	char	*id;
 	char	*addr;
 	void	*img;
@@ -74,8 +73,10 @@ int	handle_input(int key, t_data *data);
 // Parsing
 int		file_extension(char *av, char *c);
 int		parse_files(t_data *data, char *av);
-void	parse_error(char *msg);
+void	parse_error(t_data *data, char *msg);
 void	get_textures(t_data *data, char *av);
+void	get_textures_path(t_data *data, char *av);
+void	free_texture(t_data *data);
 
 // Get Map
 void	get_map(t_data *data);
@@ -90,5 +91,6 @@ void	print_map_texture(t_texture *texture);
 void	free_params(char **tab);
 void	free_double_tab(char **tab, size_t len);
 void	print_tab(char **tab, int tab_length);
+void	print_texture(t_data *data);
 
 #endif
