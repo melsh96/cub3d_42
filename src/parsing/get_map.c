@@ -244,7 +244,7 @@ int	get_biggest_line(t_data *data)
 	i = 0;
 	longest_line = 0;
 	actual_line = 0;
-	while (i < data->map.height)
+	while (i <= data->map.height)
 	{
 		if (data->map.tab[i] != NULL)
     	{
@@ -257,10 +257,82 @@ int	get_biggest_line(t_data *data)
 	return (longest_line);
 }
 
+char	*resize_line(char *str, int len)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = calloc(len + 1, sizeof(char));
+	if (!res)
+		return (NULL);
+	if (!str)
+		str = "";
+	while (str && str[i] && str[i] != '\n')
+	{
+		res[i] = str[i];
+		i++;
+	}
+	while (i <= len)
+	{
+		res[i] = ' ';
+		i++;
+	}
+	res[len] = '\n';
+	if (str)
+		free(str);
+	return (res);
+}
+
+int resize_map(t_data *data)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (data->map.tab[i])
+    {
+        j = 0;
+		if (!data->map.tab[i])
+        	return (1);
+        while (data->map.tab[i][j])
+        {
+            if ((int)ft_strlen(data->map.tab[i]) <= data->map.longest_map_line)
+            {
+                data->map.tab[i] = resize_line(data->map.tab[i], data->map.longest_map_line);
+                if (!data->map.tab[i])
+                    return (1);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
+
+void	check_each_line_len(t_data *data)
+{
+	int	i;
+	// int	longest_line;
+	int	actual_line;
+
+	i = 0;
+	// longest_line = 0;
+	actual_line = 0;
+	while (i <= data->map.height)
+	{
+		if (data->map.tab[i] != NULL)
+    	{
+    	    actual_line = ft_strlen(data->map.tab[i]) - 1;
+			printf("actual_line = %d\n", actual_line);
+    	}
+	    i++;
+	}
+}
+
 int	get_map(t_data *data)
 {
 	int	i;
-	int	longest_line;
 
 	i = 0;
 	data->map.tab = (char **)malloc(sizeof(char *) * (data->map.height + 1));
@@ -281,8 +353,15 @@ int	get_map(t_data *data)
 		printf("Error: Map is not closed\n");
 		return (0);
 	}
-	longest_line = get_biggest_line(data);
-	dprintf(2, "%slongest_fuckin_line =%s %d\n", RED, NC, longest_line);
+	data->map.longest_map_line = get_biggest_line(data);
+	dprintf(2, "%slongest_fuckin_line =%s %d\n", RED, NC, data->map.longest_map_line);
 	print_tab(data->map.tab, data->map.height);
+	if (resize_map(data) == 1)
+	{
+		printf("Error: Map is not correctly resized\n");
+		return (0);
+	}
+	print_tab(data->map.tab, data->map.height);
+	// check_each_line_len(data);
 	return (1);
 }

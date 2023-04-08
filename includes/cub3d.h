@@ -39,8 +39,10 @@ typedef struct s_map
 {
 	char	*line;
 	char	**tab;
+	char	**final_map;
 	int		width;
 	int		height;
+	int		longest_map_line;
 }	t_map;
 
 typedef struct s_texture
