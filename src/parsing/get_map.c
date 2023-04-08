@@ -243,25 +243,24 @@ int	get_biggest_line(t_data *data)
 
 	i = 0;
 	longest_line = 0;
-	dprintf(2, "i = %d\n", i);
-	dprintf(2, "data->map.height = %d\n", data->map.height);
+	actual_line = 0;
 	while (i < data->map.height)
 	{
-		// dprintf(2, "HELLO\n");
-		actual_line = ft_strlen(data->map.tab[i]) - 1;
-		dprintf(2, "actual_line = %d\n", actual_line);
-		// if (longest_line < actual_line)
-		// 	longest_line = actual_line;
-		i++;
+		if (data->map.tab[i] != NULL)
+    	{
+    	    actual_line = ft_strlen(data->map.tab[i]) - 1;
+    	    if (longest_line < actual_line)
+    	        longest_line = actual_line;
+    	}
+	    i++;
 	}
-	// dprintf(2, "longest_line = %d\n", longest_line);
 	return (longest_line);
 }
 
 int	get_map(t_data *data)
 {
 	int	i;
-	// int	longest_line;
+	int	longest_line;
 
 	i = 0;
 	data->map.tab = (char **)malloc(sizeof(char *) * (data->map.height + 1));
@@ -282,7 +281,8 @@ int	get_map(t_data *data)
 		printf("Error: Map is not closed\n");
 		return (0);
 	}
-	// longest_line = get_biggest_line(data);
+	longest_line = get_biggest_line(data);
+	dprintf(2, "%slongest_fuckin_line =%s %d\n", RED, NC, longest_line);
 	print_tab(data->map.tab, data->map.height);
 	return (1);
 }

@@ -25,9 +25,9 @@
 int	check_textures(t_data *data, char *line)
 {
 	(void)data;
-	int		fd;
+	// int		fd;
 	
-	fd = 0;
+	// fd = 0;
 	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
 	|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
 	{
