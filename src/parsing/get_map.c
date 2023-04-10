@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 18:26:02 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:05:34 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,13 @@ int	is_right_chars(t_data *data)
 		i++;
 	}
 	free(line);
-	printf("%sTAB = %s%s\n", RED, NC, data->map.tab[--i]);
 	while (1)
 	{
 		line = get_next_line(data->fd);
 		if (line == NULL)
 			return (free(line), 0);
 		if (line[0] != '\n')
-		{
-			printf("%sICI%s\n", RED, NC);
 			return (free(line), 1);
-		}
 		free(line);
 	}
 	data->map.tab[i] = 0;
@@ -109,17 +105,16 @@ void	count_positions(t_data *data)
 int	is_only_one_player(t_data *data)
 {
 	count_positions(data);
-	printf("pos_count = %d\n", data->count.pos);
 	if (data->count.pos == 0)
 	{
-		printf("Error: Oops, we can't find any player !\n");
+		printf("%sError:%s Oops, we can't find any player !\n", RED, NC);
 		return (1);
 	}
 	if (data->count.pos == 1)
 		return (0);
 	else
 	{
-		printf("Error: You have too many players\n");
+		printf("%sError:%s You have too many players\n", RED, NC);
 		return (1);	
 	}
 	return (0);
@@ -211,10 +206,7 @@ void	check_each_line_len(t_data *data)
 	while (i <= data->map.height)
 	{
 		if (data->map.tab[i] != NULL)
-    	{
     	    actual_line = ft_strlen(data->map.tab[i]) - 1;
-			printf("actual_line = %d\n", actual_line);
-    	}
 	    i++;
 	}
 }
@@ -343,7 +335,6 @@ int	top_wall(t_data *data)
 	j = 0;
 	while (data->map.tab[0][j])
 	{
-		// printf("data->map.tab[0][j] == %c\n", data->map.tab[0][j]);
 		if (!(data->map.tab[0][j] == '1' || data->map.tab[0][j] == ' ' || data->map.tab[0][j] == '\n'))
 			return (1);
 		j++;
@@ -356,10 +347,8 @@ int	last_wall(t_data *data)
 	int	j;
 
 	j = 0;
-	printf("data->map.tab[data->map.height - 1] == %s\n", data->map.tab[data->map.height - 1]);
 	while (data->map.tab[data->map.height - 1] && data->map.tab[data->map.height - 1][j])
 	{
-		printf("data->map.tab[data->map.height][j] == %c\n", data->map.tab[data->map.height - 1][j]);
 		if (!(data->map.tab[data->map.height - 1][j] == '1' || data->map.tab[data->map.height - 1][j] == ' ' || data->map.tab[data->map.height - 1][j] == '\n'))
 			return (1);
 		j++;
@@ -401,14 +390,13 @@ int	get_map(t_data *data)
 	if (is_only_one_player(data) == 1)
 		return (0);
 	data->map.longest_map_line = get_biggest_line(data);
-	dprintf(2, "%slongest line =%s %d\n", RED, NC, data->map.longest_map_line);
 	if (resize_map(data) == 1)
 	{
 		printf("%sError:%s Map is not correctly resized\n", RED, NC);
 		return (0);
 	}
 	print_tab(data->map.tab, data->map.height);
-	check_each_line_len(data);
+	// check_each_line_len(data);
 	if (check_walls(data) == 1)
 	{
 		printf("%sError:%s Your Map is not closed\n", RED, NC);
