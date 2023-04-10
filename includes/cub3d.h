@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/06 18:31:40 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/10 18:57:32 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,40 @@
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
 
+typedef struct s_count
+{
+	int	pos;
+	int	pos_n;
+	int	pos_s;
+	int	pos_w;
+	int	pos_e;
+}	t_count;
+
 typedef struct s_map
 {
 	char	*line;
 	char	**tab;
+	char	**final_map;
 	int		width;
 	int		height;
+	int		longest_map_line;
 }	t_map;
 
-typedef struct s_texture
+typedef struct s_picture
 {
-	char	*path;
-	char	*id;
-	char	*addr;
 	void	*img;
+	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+}	t_picture;
+
+typedef struct s_texture
+{
+	char		*path;
+	char		*id;
+	char		*addr;
+	t_picture	*picture;
 }	t_texture;
 
 typedef struct s_data
@@ -54,6 +71,8 @@ typedef struct s_data
 	t_texture	texture[6];
 	int			fd;
 	int			file_length;
+	unsigned int		floor;
+	unsigned int		ceil;
 }	t_data;
 
 // Main Program
@@ -78,8 +97,13 @@ void	get_textures(t_data *data, char *av);
 void	get_textures_path(t_data *data, char *av);
 void	free_texture(t_data *data);
 
+// load descritpion
+void load_colors(t_data *data);
+void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color);
+void	init_floor_and_ceiling(t_data *data);
+
 // Get Map
-void	get_map(t_data *data);
+int	get_map(t_data *data);
 int		read_lines(char *map_path, int fd);
 char	**read_map(t_map *map, char *file);
 int 	is_map_line (char *line);

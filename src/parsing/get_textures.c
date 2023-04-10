@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/06 18:32:32 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/10 18:53:04 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,6 @@ void	get_textures(t_data *data, char *av)
 			parse_error(data, "space en trop");
 		i++;
 	}
+	load_colors(data);
+	printf("floor : %d ; ceil : %d\n", data->floor, data->ceil);
 }

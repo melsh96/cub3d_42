@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/06 18:33:00 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/10 16:47:08 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void	parse_error(t_data *data, char *msg)
 {
 	close(data->fd);
+	if (data->map.tab)
+		free_double_tab(data->map.tab, (size_t)data->map.height);
 	free_texture(data);
 	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
 	exit(1);
