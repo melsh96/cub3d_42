@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 14:34:57 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:26:02 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	check_line_chars(char *line)
 	int 	i;
 
 	i = 0;
-	// if (line[0] == '\n')
-	// 	return(0);
 	while (line[i] != '\0')
 	{
 		if (!(line[i] == ' ' || line[i] == '1' || line[i] == '0' \
@@ -35,10 +33,8 @@ int	is_right_chars(t_data *data)
 {
 	int		i;
 	char	*line;
-	// int		new_line;
 	
 	i = 0;
-	// new_line = 1;
 	while (1)
 	{
 		line = get_next_line(data->fd);
@@ -67,13 +63,17 @@ int	is_right_chars(t_data *data)
 		i++;
 	}
 	free(line);
+	printf("%sTAB = %s%s\n", RED, NC, data->map.tab[--i]);
 	while (1)
 	{
 		line = get_next_line(data->fd);
 		if (line == NULL)
 			return (free(line), 0);
 		if (line[0] != '\n')
+		{
+			printf("%sICI%s\n", RED, NC);
 			return (free(line), 1);
+		}
 		free(line);
 	}
 	data->map.tab[i] = 0;
@@ -124,107 +124,6 @@ int	is_only_one_player(t_data *data)
 	}
 	return (0);
 }
-
-// int	horizontal_check(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (data->map.tab[i])
-// 	{
-// 		j = 0;
-// 		while (data->map.tab[i][j] && data->map.tab[i][j + 1])
-// 		{
-// 			if (data->map.tab[i][j] == ' ')
-// 			{
-// 				if (!(data->map.tab[i][j + 1] == '1' || data->map.tab[i][j + 1] == ' '))
-// 					return (1);
-// 			}
-// 			j++;	
-// 		}
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (data->map.tab[i])
-// 	{
-// 		j = 0;
-// 		while (data->map.tab[i][j] && data->map.tab[i][j + 1])
-// 		{
-// 			if (data->map.tab[i][j + 1] == ' ')
-// 			{
-// 				if (!(data->map.tab[i][j] == '1' || data->map.tab[i][j] == ' '))
-// 					return (1);
-// 			}
-// 			j++;	
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-// int	vertical_check(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (data->map.tab[i])
-// 	{
-// 		j = 0;
-// 		while (data->map.tab[i][++j] && data->map.tab[i + 1])
-// 		{
-// 			if (data->map.tab[i][j] && data->map.tab[i][j] == ' ')
-// 			{
-// 				if (!(data->map.tab[i + 1][j] == '1' || data->map.tab[i + 1][j] == ' '))
-// 					return (1);
-// 			}
-// 			j++;	
-// 		}
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (data->map.tab[i])
-// 	{
-// 		j = 0;
-// 		while (data->map.tab[i] && data->map.tab[i + 1])
-// 		{
-// 			if (data->map.tab[i + 1][j] && data->map.tab[i + 1][j] == ' ')
-// 			{
-// 				if (!(data->map.tab[i][j] == '1' || data->map.tab[i][j] == ' '))
-// 					return (1);
-// 			}
-// 			j++;	
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// int	vertical_check(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = -1;
-// 	while (data->map.tab[++i])
-// 	{
-// 		j = -1;
-// 		while (data->map.tab[i][++j] && data->map.tab[i][j + 1])
-// 			if ((data->map.tab[i][j] == '0' && data->map.tab[i][j + 1] == ' ')
-// 				|| (data->map.tab[i][j + 1] == '0' && data->map.tab[i][j] == ' '))
-// 				return (1);
-// 	}
-// 	j = 0;
-// 	while (data->map.tab[0][++j])
-// 	{
-// 		i = -1;
-// 		while (data->map.tab[++i] && data->map.tab[i + 1])
-// 			if ((data->map.tab[i][j] == '0' && data->map.tab[i + 1][j] == ' ')
-// 				|| (data->map.tab[i + 1][j] == '0' && data->map.tab[i][j] == ' '))
-// 				return (1);
-// 	}
-// 	return (0);
-// }
 
 int	get_biggest_line(t_data *data)
 {
@@ -305,11 +204,9 @@ int resize_map(t_data *data)
 void	check_each_line_len(t_data *data)
 {
 	int	i;
-	// int	longest_line;
 	int	actual_line;
 
 	i = 0;
-	// longest_line = 0;
 	actual_line = 0;
 	while (i <= data->map.height)
 	{
@@ -360,12 +257,128 @@ int horizontal_scan(t_data *data)
 	return (0);
 }
 
+int	vertical_scan(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j] && data->map.tab[i + 1])
+		{
+			if (data->map.tab[i][j] == ' ')
+			{
+				if (data->map.tab[i + 1] && !(data->map.tab[i + 1][j] == '1' || data->map.tab[i + 1][j] == ' '))
+					return (1);
+			}
+			j++;	
+		}
+		i++;
+	}
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j] && data->map.tab[i + 1])
+		{
+			if (data->map.tab[i + 1][j] == ' ')
+			{
+				if (data->map.tab[i] && !(data->map.tab[i][j] == '1' || data->map.tab[i][j] == ' '))
+					return (1);
+			}
+			j++;	
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_line(char *str)
+{
+	int i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(str) - 2;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] && str[i] != '1')
+		return (1);
+	if (len >= 0 && str[len])
+	{
+		while (len >= 0 && str[len] == ' ')
+			len--;
+		if (len >= 0 && str[len] && str[len] != '1')
+			return (1);
+	}
+	return (0);
+}
+
+int	extremity_walls(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j])
+		{
+			if (check_line(data->map.tab[i]) == 1)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	top_wall(t_data *data)
+{
+	int	j;
+
+	j = 0;
+	while (data->map.tab[0][j])
+	{
+		// printf("data->map.tab[0][j] == %c\n", data->map.tab[0][j]);
+		if (!(data->map.tab[0][j] == '1' || data->map.tab[0][j] == ' ' || data->map.tab[0][j] == '\n'))
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+int	last_wall(t_data *data)
+{
+	int	j;
+
+	j = 0;
+	printf("data->map.tab[data->map.height - 1] == %s\n", data->map.tab[data->map.height - 1]);
+	while (data->map.tab[data->map.height - 1] && data->map.tab[data->map.height - 1][j])
+	{
+		printf("data->map.tab[data->map.height][j] == %c\n", data->map.tab[data->map.height - 1][j]);
+		if (!(data->map.tab[data->map.height - 1][j] == '1' || data->map.tab[data->map.height - 1][j] == ' ' || data->map.tab[data->map.height - 1][j] == '\n'))
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
 int	check_walls(t_data *data)
 {
+	if (top_wall(data) == 1)
+		return (1);
+	if (last_wall(data) == 1)
+		return (1);
+	if (extremity_walls(data) == 1)
+		return (1);
 	if (horizontal_scan(data) == 1)
 		return (1);
-	// if (vertical_scan(data) == 1)
-	// 	return (1);
+	if (vertical_scan(data) == 1)
+		return (1);
 	return (0);
 }
 
@@ -387,14 +400,8 @@ int	get_map(t_data *data)
 	}
 	if (is_only_one_player(data) == 1)
 		return (0);
-	// if (map_not_closed(data) == 1)
-	// {
-	// 	printf("Error: Map is not closed\n");
-	// 	return (0);
-	// }
 	data->map.longest_map_line = get_biggest_line(data);
 	dprintf(2, "%slongest line =%s %d\n", RED, NC, data->map.longest_map_line);
-	print_tab(data->map.tab, data->map.height);
 	if (resize_map(data) == 1)
 	{
 		printf("%sError:%s Map is not correctly resized\n", RED, NC);

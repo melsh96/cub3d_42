@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/04 17:40:10 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:29:58 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int is_map_line (char *line, int *is_map)
 	int	i;
 
 	i = 0;
-	if (line[0] == '1')
+	if (line[0] == '1' || line[0] == '0')
 	{
 		*is_map = 1;
 		return (1);
 	}
 	while (line[i] == ' ')
 		i++;
-	if (line[i] == '1')
+	if (line[i] == '1' || line[i] == '0')
 		return (1);
 	return (0);
 }
