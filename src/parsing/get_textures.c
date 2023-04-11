@@ -3,42 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/03 13:32:58 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/10 18:53:04 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// void get_walls (char *line)
-// {
-	
-// }
-
-// void get_colors (char *line)
-// {
-	
-// }
-
-int	check_textures(t_data *data, char *line)
+int	check_textures(char *line)
 {
-	(void)data;
-	// int		fd;
-	
-	// fd = 0;
 	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
 	|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
-	{
-		dprintf(2, "line = %s", line + 3);
-	}
+		return (1);
 	else if (line[0] == 'F' || line[0] == 'C')
+		return (1);
+	return (0);
+}
+
+int	check_double_path(int i, t_data *data, char *line)
+{
+	while (&data->texture[i -1] && i > 0)
 	{
-		dprintf(2, "Get colors floor and ceiling\n");
+		if (ft_strncmp(data->texture[i - 1].path, line, ft_strlen(line)) == 0)
+			return (1);
+		i--;
 	}
-	else
-		return (-1);
+	return (0);
+}
+
+int	get_texture_param(t_texture *texture)
+{
+	int		i;
+	char **tab;
+
+	i = 0;
+	tab = ft_split(texture->path, ' ');
+	while (tab[i])
+		i++;
+	if (i > 2)
+	{
+		free_double_tab(tab, i + 1);
+		return (1);
+	}
+	texture->id = ft_strdup(tab[0]);
+	texture->addr = ft_strdup(tab[1]);
+	texture->addr[ft_strlen(tab[1]) -1] = '\0';
+	free_double_tab(tab, i + 1);
 	return (0);
 }
 
@@ -47,29 +59,29 @@ void	get_textures(t_data *data, char *av)
 	int	i;
 
 	data->fd = open(av, O_RDONLY);
+	init_texture(data);
 	i = 0;
 	while (i < 6)
 	{
-		data->texture.tab[i] = get_next_line(data->fd);	
-		if (!data->texture.tab[i])
+		data->texture[i].path = get_next_line(data->fd);	
+		if (!data->texture[i].path)
 		{
-			// break;
 			close(data->fd);
 			return ;
 		}
-		if (data->texture.tab[i][0] == '\n')
+		if (ft_strncmp(data->texture[i].path, "\n", 1) == 0)
 		{
-			free(data->texture.tab[i]);
+			free(data->texture[i].path);
 			i--;
 		}
-		else if (check_textures(data, data->texture.tab[i]) == -1)
-		{
-			close(data->fd);
-			free(data->texture.tab[i]);
-			printf("tab %d\n", i);
-			parse_error("Wrong or missing id");
-		}
+		else if (check_textures(data->texture[i].path) == 0)
+			parse_error(data, "Wrong or missing id");
+		else if (check_double_path(i, data, data->texture[i].path) == 1)
+		 	parse_error(data, "doublon");
+		else if (get_texture_param(&data->texture[i]) == 1)
+			parse_error(data, "space en trop");
 		i++;
 	}
-	print_tab(data->texture.tab, 6);
+	load_colors(data);
+	printf("floor : %d ; ceil : %d\n", data->floor, data->ceil);
 }

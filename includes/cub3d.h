@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/05 13:19:14 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:57:32 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include <X11/keysym.h>
 #include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
 # include "get_next_line_bonus.h"
@@ -45,36 +46,62 @@ typedef struct s_map
 	int		longest_map_line;
 }	t_map;
 
+typedef struct s_picture
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_picture;
+
 typedef struct s_texture
 {
-	char	*id;
-	char	*line;
-	char	*path;
-	char	*tab[6];
-	int		count;
+	char		*path;
+	char		*id;
+	char		*addr;
+	t_picture	*picture;
 }	t_texture;
 
 typedef struct s_data
 {
 	void		*mlx;
+	void		*mlx_win;
 	t_map		map;
-	t_texture	texture;
+	t_texture	texture[6];
 	int			fd;
 	int			file_length;
 	t_count		count;
+	unsigned int		floor;
+	unsigned int		ceil;
 }	t_data;
 
 // Main Program
 int		main(int ac, char **av);
+int		destroy_cub(t_data *data);
+void free_texture_tab(t_data *data);
 
 // Init
+void	init_texture(t_data *data);
 void	init_map(t_data *data);
+void	init_data(t_data *data);
+
+// Events
+int	handle_input(int key, t_data *data);
+
 
 // Parsing
 int		file_extension(char *av, char *c);
 int		parse_files(t_data *data, char *av);
-void	parse_error(char *msg);
+void	parse_error(t_data *data, char *msg);
 void	get_textures(t_data *data, char *av);
+void	get_textures_path(t_data *data, char *av);
+void	free_texture(t_data *data);
+
+// load descritpion
+void load_colors(t_data *data);
+void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color);
+void	init_floor_and_ceiling(t_data *data);
 
 // Get Map
 // void	get_map(t_data *data);
@@ -91,6 +118,7 @@ void	print_map_texture(t_texture *texture);
 void	free_params(char **tab);
 void	free_double_tab(char **tab, size_t len);
 void	print_tab(char **tab, int tab_length);
+void	print_texture(t_data *data);
 
 void	free_double_tab_len(char **tab, size_t len);
 

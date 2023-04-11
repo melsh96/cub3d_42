@@ -6,17 +6,12 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 17:29:58 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:38:41 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	parse_error(char *msg)
-{
-	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
-	exit(1);
-}
 
 int	file_extension(char *av, char *c)
 {
@@ -61,6 +56,12 @@ int is_map_line (char *line, int *is_map)
 	return (0);
 }
 
+void	file_error(char *msg)
+{
+	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
+	exit(1);
+}
+
 int	parse_files(t_data *data, char *av)
 {
 	char	*line;
@@ -68,13 +69,13 @@ int	parse_files(t_data *data, char *av)
 	
 	is_map = 0;
 	if (file_extension(av, ".cub") == 1)
-		parse_error("Wrong file extension");
+		file_error("Wrong file extension");
 	data->fd = open(av, __O_DIRECTORY);
 	if (data->fd >= 0)
 		return (close(data->fd), 1);
 	data->fd = open(av, O_RDONLY);
 	if (data->fd <= 0)
-		parse_error("Can't open file\n");
+		file_error("Can't open file");
 	while (1)
 	{
 		line = get_next_line(data->fd);
@@ -86,12 +87,12 @@ int	parse_files(t_data *data, char *av)
 			data->map.height++;
 		else
 			is_map = 0;
-		data->file_length++;
+		//data->file_length++;
 		free(line);
 	}
 	close(data->fd);
-	printf("data->map.height : %d\n", data->map.height);
-	printf("tdata->file_length : %d\n", data->file_length);
+	if (data->map.height <= 0)
+		file_error("No map in file");
 	return (1);
 }
 
