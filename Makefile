@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/11 17:03:59 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/11 17:33:30 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_GNL			= get_next_line_bonus.c \
 					get_next_line_utils_bonus.c
 
 SRC_RAY			= raycasting.c \
+					pos_utils.c
 
 SRC_PREFIXED	= $(addprefix $(SRC_PATH), $(SRC))
 PARS_PREFIXED	=$(addprefix $(PARS_PATH), $(SRC_PARS))

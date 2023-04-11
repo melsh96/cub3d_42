@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 17:18:10 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:33:49 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	print_texture(t_data *data);
 void	free_double_tab_len(char **tab, size_t len);
 
 // Raycasting
-int raycasting(t_data *data);
+int 	raycasting(t_data *data);
+void	get_player_pos(t_data *data);
 
 #endif
