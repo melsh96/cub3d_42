@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 18:30:26 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/11 14:05:18 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,18 @@ int	main(int ac, char **av)
 	if (parse_files(&data, av[1]))
 	{
 		get_textures(&data, av[1]);
-		if (get_map(&data))
+		if (!get_map(&data))
+		{
+			free_double_tab(data.map.tab, (size_t)data.map.height);
+			free_texture(&data);
+			close(data.fd);
+			exit(0);
+		}
+		else
+		{
 			printf("Let's Play !\n");
-      init_data(&data);	
+      		init_data(&data);
+		}
 	}
 	// if (data.map.tab)
 	//	free_double_tab_len(data.map.tab, (size_t)data.map.height);
