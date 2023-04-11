@@ -6,21 +6,19 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/03 12:03:37 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/10 14:47:05 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	get_map(t_data *data)
+int	get_map(t_data *data)
 {
 	int		i;
 	
-	if (data->map.height <= 0)
-		parse_error("Fail to read file");
 	data->map.tab = (char **)malloc(sizeof(char *) * data->map.height + 1);
 	if (!data->map.tab)
-		return ;
+		return (0);
 	i = 0;
 	while (i < data->map.height)
 	{
@@ -36,4 +34,5 @@ void	get_map(t_data *data)
 		i++;
 	}
 	print_tab(data->map.tab, data->map.height);
+	return (1);
 }
