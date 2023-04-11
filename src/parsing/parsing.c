@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:59 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/06 18:38:41 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/11 15:24:02 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int	file_extension(char *av, char *c)
 	if (len < 4)
 		return (1);
 	if (ft_strncmp(av + (len - 3), c, 5) != 0)
+	{
+		printf("av + len - 3 : %s\n", av + (len -3));
+		printf("c : %s\n", c);
 		return (1);
+	}
 	return (0);
 }
 
