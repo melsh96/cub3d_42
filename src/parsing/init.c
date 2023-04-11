@@ -38,6 +38,7 @@ void	init_map(t_data *data)
 	data->map.height = 0;
 	data->map.tab = NULL;
 	data->map.line = NULL;
+  data->map.longest_map_line = 0;
 }
 
 void	init_data(t_data *data)

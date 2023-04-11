@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
 /*   Updated: 2023/04/10 18:57:32 by cchapon          ###   ########.fr       */
@@ -71,6 +71,7 @@ typedef struct s_data
 	t_texture	texture[6];
 	int			fd;
 	int			file_length;
+	t_count		count;
 	unsigned int		floor;
 	unsigned int		ceil;
 }	t_data;
@@ -103,10 +104,12 @@ void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
 void	init_floor_and_ceiling(t_data *data);
 
 // Get Map
-int	get_map(t_data *data);
+// void	get_map(t_data *data);
+int		get_map(t_data *data);
 int		read_lines(char *map_path, int fd);
 char	**read_map(t_map *map, char *file);
-int 	is_map_line (char *line);
+// int 	is_map_line (char *line);
+int is_map_line (char *line, int *is_map);
 
 // Utils
 void	print_map(t_map *map);
@@ -116,5 +119,7 @@ void	free_params(char **tab);
 void	free_double_tab(char **tab, size_t len);
 void	print_tab(char **tab, int tab_length);
 void	print_texture(t_data *data);
+
+void	free_double_tab_len(char **tab, size_t len);
 
 #endif
