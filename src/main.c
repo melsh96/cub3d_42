@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 14:05:18 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:26:00 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av)
 		else
 		{
 			printf("Let's Play !\n");
+			raycasting(&data);
       		init_data(&data);
 		}
 	}
