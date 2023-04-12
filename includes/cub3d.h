@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 17:33:49 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:27:39 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,15 @@ typedef struct s_count
 
 typedef struct s_player
 {
-	int pos_x;
-	int pos_y;
+	double pos_x;
+	double pos_y;
 }	t_player;
 
+typedef struct s_ray
+{
+	int	x;
+	
+}	t_ray;
 
 typedef struct s_map
 {
@@ -74,6 +79,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;
+	t_ray		ray;
 	t_map		map;
 	t_texture	texture[6];
 	t_player	player;
@@ -133,5 +139,6 @@ void	free_double_tab_len(char **tab, size_t len);
 // Raycasting
 int 	raycasting(t_data *data);
 void	get_player_pos(t_data *data);
+void	init_raycasting_data(t_data *data);
 
 #endif

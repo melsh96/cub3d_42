@@ -45,7 +45,7 @@ void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
 	// init_floor_and_ceiling(data);
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello world!");
+	data->mlx_win = mlx_new_window(data->mlx, 900, 600, "Hello world!");
 	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
 	mlx_loop(data->mlx);

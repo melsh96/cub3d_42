@@ -18,8 +18,6 @@ void	get_player_pos(t_data *data)
 	int	j;
 
 	i = 0;
-	data->player.pos_x = 0;
-	data->player.pos_y = 0;
 	while (data->map.tab[i])
 	{
 		j = 0;
