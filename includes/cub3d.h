@@ -30,6 +30,8 @@
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 300
 
+#define BACKGROUND_COLOR 0xFFFFFF
+
 typedef struct s_count
 {
 	int	pos;

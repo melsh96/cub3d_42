@@ -196,20 +196,20 @@ int resize_map(t_data *data)
     return (0);
 }
 
-void	check_each_line_len(t_data *data)
-{
-	int	i;
-	int	actual_line;
+// void	check_each_line_len(t_data *data)
+// {
+// 	int	i;
+// 	int	actual_line;
 
-	i = 0;
-	actual_line = 0;
-	while (i <= data->map.height)
-	{
-		if (data->map.tab[i] != NULL)
-    	    actual_line = ft_strlen(data->map.tab[i]) - 1;
-	    i++;
-	}
-}
+// 	i = 0;
+// 	actual_line = 0;
+// 	while (i <= data->map.height)
+// 	{
+// 		if (data->map.tab[i] != NULL)
+//     	    actual_line = ft_strlen(data->map.tab[i]) - 1;
+// 	    i++;
+// 	}
+// }
 
 int horizontal_scan(t_data *data)
 {

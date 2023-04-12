@@ -12,14 +12,29 @@
 
 #include "../includes/cub3d.h"
 
-
-
-void	my_mlx_pixel_put(t_picture *picture, int x, int y, int color)
+void	my_mlx_pixel_put(t_picture *picture, int x, int y, unsigned int color)
 {
 	char	*dst;
 
 	dst = picture->addr + (y * picture->line_length + x * (picture->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
+}
+
+void	render_background(t_picture *picture, unsigned int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+		{
+			my_mlx_pixel_put(picture, j++, i, color);
+		}
+		++i;
+	}
 }
 
 void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
@@ -31,48 +46,38 @@ void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
 	picture->addr = mlx_get_data_addr(picture->img, &picture->bits_per_pixel, &picture->line_length, &picture->endian);
 	if (data->mlx_win == NULL)
 		return ;
-	i = 0;
-	while (i < WINDOW_HEIGHT)
+	if (color == data->ceil)
 	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
+		i = 0;
+		while (i < WINDOW_HEIGHT)
 		{
-				if (color == data->floor)
-				{
-					my_mlx_pixel_put(picture, j, i, color);
-					
-				}	
-				// else if (color == data->ceil)
-				// {
-				// 	my_mlx_pixel_put(picture, j++, i, color);
-				// 	mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 5, 5);
-				// }
-				j++;
+			j = 0;
+			while (j < WINDOW_WIDTH)
+				my_mlx_pixel_put(picture, j++, i, color);
+			i++;
 		}
-		i++;
-		mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
 	}
+	else if (color == data->floor)
+	{
+		i = WINDOW_HEIGHT;
+		while (i > WINDOW_HEIGHT / 2)
+		{
+			j = 0;
+			while (j < WINDOW_WIDTH)
+				my_mlx_pixel_put(picture, j++, i, color);
+			i--;
+		}
+	}
+	mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
 }
-
-// void	init_picture_data(t_data *data)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (i < 6)
-// 	{
-// 		data->texture[i].picture->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-// 		data->texture[i].picture->addr = mlx_get_data_addr(data->texture[i].picture->img, \
-// 		&data->texture[i].picture->bits_per_pixel, &data->texture[i].picture->line_length, \
-// 		&data->texture[i].picture->endian);
-// 		i++;
-// 	}
-// }
 
 int	init_floor_and_ceiling(t_data *data)
 {
 	int i;
 	int	len;
+	t_picture background;
+	background.img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	render_background(&background, BACKGROUND_COLOR);
 	
 	i = 0;
 	while (i < 6)

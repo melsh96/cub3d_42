@@ -68,7 +68,7 @@ void	init_data(t_data *data)
 	if (data->mlx == NULL)
 		return ;
 	//parse error
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello world!");
+	data->mlx_win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Hello world!");
 		if (data->mlx_win == NULL)
 		return ;
 	//parse error
