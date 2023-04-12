@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/12 16:27:39 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/12 23:37:58 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <X11/keysym.h>
-#include <../minilibx-linux/mlx.h>
+# include <X11/keysym.h>
+# include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
 # include "get_next_line_bonus.h"
+# include "math.h"
 
 # define NC		"\e[0m"
 # define RED	"\e[31m"
 # define BLUE	"\e[38;5;140m"
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
+
+# define WIDTHSCREEN 900
+# define HEIGHTSCREEN 600
 
 typedef struct s_count
 {
@@ -44,8 +48,46 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	int	x;
-	
+	int		x;
+	int		hit;
+	int		side;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	dir_x;
+	double	dir_y;
+	double	old_dir_x;
+	double	old_dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	old_plane_x;
+	double	old_plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_pos_x;
+	double	ray_pos_y;
+	double	rot_speed;
+	double	move_speed;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		rotate_right;
+	int		rotate_left;
+	int		left;
+	int		right;
+	int		front;
+	int		back;
+	int		*addr;
+	int		line_length;
+	int		floor_color;
+	int		ceiling_color;
 }	t_ray;
 
 typedef struct s_map
