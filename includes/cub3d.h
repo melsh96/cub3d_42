@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 18:16:37 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:41:37 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,6 @@ typedef struct s_count
 	int	pos_e;
 }	t_count;
 
-typedef struct s_map
-{
-	char	*line;
-	char	**tab;
-	char	**final_map;
-	int		width;
-	int		height;
-	int		longest_map_line;
-}	t_map;
-
 typedef struct s_picture
 {
 	void	*img;
@@ -64,6 +54,17 @@ typedef struct s_picture
 	int height;
 	//int color;
 }	t_picture;
+
+typedef struct s_map
+{
+	char	*line;
+	char	**tab;
+	char	**final_map;
+	int		width;
+	int		height;
+	int		longest_map_line;
+}	t_map;
+
 
 typedef struct s_texture
 {
@@ -112,6 +113,7 @@ void	free_texture(t_data *data);
 void load_colors(t_data *data);
 void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color);
 int	init_floor_and_ceiling(t_data *data);
+// void	init_floor_and_ceiling(t_data *data);
 void	init_picture_data(t_data *data);
 
 // Get Map

@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/11 18:22:40 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:50:12 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@ void	my_mlx_pixel_put(t_picture *picture, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-void	render_background(t_picture *picture, unsigned int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-		{
-			my_mlx_pixel_put(picture, j++, i, color);
-		}
-		++i;
-	}
-}
 
 void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
 {
@@ -49,13 +33,14 @@ void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
 	if (color == data->ceil)
 	{
 		i = 0;
-		while (i < WINDOW_HEIGHT)
+		while (i < WINDOW_HEIGHT / 2)
 		{
 			j = 0;
 			while (j < WINDOW_WIDTH)
 				my_mlx_pixel_put(picture, j++, i, color);
 			i++;
 		}
+		//mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
 	}
 	else if (color == data->floor)
 	{
@@ -68,17 +53,16 @@ void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
 			i--;
 		}
 	}
+	
 	mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
+	mlx_destroy_image(data->mlx, picture->img);
 }
 
 int	init_floor_and_ceiling(t_data *data)
 {
 	int i;
 	int	len;
-	t_picture background;
-	background.img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	render_background(&background, BACKGROUND_COLOR);
-	
+
 	i = 0;
 	while (i < 6)
 	{
@@ -88,7 +72,8 @@ int	init_floor_and_ceiling(t_data *data)
 			
 		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
 			load_floor_or_ceiling(data, data->texture[i].picture, data->ceil);
-		i++;
+		 i++;
 	}
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 18:22:45 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:42:04 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	init_map(t_data *data)
 	data->map.tab = NULL;
 	data->map.line = NULL;
   	data->map.longest_map_line = 0;
+
 }
 
 void	init_data(t_data *data)
@@ -72,8 +73,8 @@ void	init_data(t_data *data)
 		if (data->mlx_win == NULL)
 		return ;
 	//parse error
-	//init_picture_data(data);
 	mlx_loop_hook(data->mlx, &init_floor_and_ceiling, data);
+	printf("id : %s\n",  data->texture[4].id);
 	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
 	mlx_loop(data->mlx);
