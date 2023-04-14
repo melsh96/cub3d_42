@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/11 15:51:49 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/14 16:22:07 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int	get_texture_param(t_data *data, t_texture *texture)
 		return (1);
 	}
 	texture->id = ft_strdup(tab[0]);
-	texture->addr = ft_strdup(tab[1]);
-	texture->addr[ft_strlen(tab[1]) -1] = '\0';
+	texture->ad = ft_strdup(tab[1]);
+	texture->ad[ft_strlen(tab[1]) -1] = '\0';
 	if (check_textures(texture->path) == 2 && \
-	file_extension(texture->addr, ".xpm") == 1)
+	file_extension(texture->ad, ".xpm") == 1)
 	{
 			free_double_tab(tab, i + 1);
 			parse_error(data, "Wrong file extension !!");
@@ -91,7 +91,7 @@ int	get_color_int(t_data *data, char *color_line)
 	return (color);
 }
 
-void get_colors(t_data *data)
+void get_colors_and_range(t_data *data)
 {
 	int	i;
 	int	len;
@@ -101,9 +101,23 @@ void get_colors(t_data *data)
 	{
 		len = ft_strlen(data->texture[i].id);
 		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
-			data->floor = get_color_int(data, data->texture[i].addr);
+		{
+			data->F = i;	
+			data->floor = get_color_int(data, data->texture[i].ad);
+		}	
 		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
-			data->ceil = get_color_int(data, data->texture[i].addr);
+		{
+			data->C = i;
+			data->ceil = get_color_int(data, data->texture[i].ad);
+		}
+		if (ft_strncmp(data->texture[i].id, "NO", len) == 0)
+			data->NO = i;
+		if (ft_strncmp(data->texture[i].id, "SO", len) == 0)
+			data->SO = i;
+		if (ft_strncmp(data->texture[i].id, "WE", len) == 0)
+			data->WE = i;
+		if (ft_strncmp(data->texture[i].id, "EA", len) == 0)
+			data->EA = i;
 		i++;
 	}
 }
@@ -136,6 +150,12 @@ void	get_textures(t_data *data, char *av)
 			parse_error(data, "space en trop");
 		i++;
 	}
-	get_colors(data);
-	printf("floor : %d ; ceil : %d\n", data->floor, data->ceil);
+	get_colors_and_range(data);
+	i = 0;
+	while (i < 6)
+	{
+		printf("id :%s ; range : %d\n", data->texture[i].id, i);
+		i++;
+	}
+	printf("F = %d ; C = %d ; NO = %d ; SO = %d ; WE = %d ; EA = %d\n", data->C, data->F, data->NO, data->SO, data->WE, data->EA);
 }

@@ -6,74 +6,48 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/13 16:50:12 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/14 17:58:47 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_picture *picture, int x, int y, unsigned int color)
+void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int color)
 {
 	char	*dst;
-
-	dst = picture->addr + (y * picture->line_length + x * (picture->bits_per_pixel / 8));
+	
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 
-
-void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
+int	get_background (unsigned int color, t_data *data, int id)
 {
 	int	i;
 	int	j;
-	
-	picture->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	picture->addr = mlx_get_data_addr(picture->img, &picture->bits_per_pixel, &picture->line_length, &picture->endian);
-	if (data->mlx_win == NULL)
-		return ;
-	if (color == data->ceil)
+
+	i = data->texture[id].y;
+	while (i < data->texture[id].y + data->texture[id].height)
 	{
-		i = 0;
-		while (i < WINDOW_HEIGHT / 2)
-		{
-			j = 0;
-			while (j < WINDOW_WIDTH)
-				my_mlx_pixel_put(picture, j++, i, color);
-			i++;
-		}
-		//mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
+		j = data->texture[id].x;
+		while (j < data->texture[id].x + data->texture[id].width)
+			my_mlx_pixel_put(&data->img, j++, i, color);
+		i++;
 	}
-	else if (color == data->floor)
-	{
-		i = WINDOW_HEIGHT;
-		while (i > WINDOW_HEIGHT / 2)
-		{
-			j = 0;
-			while (j < WINDOW_WIDTH)
-				my_mlx_pixel_put(picture, j++, i, color);
-			i--;
-		}
-	}
-	
-	mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
-	mlx_destroy_image(data->mlx, picture->img);
+	return (0); 
 }
 
-int	init_floor_and_ceiling(t_data *data)
+int	render_colors(t_data *data)
 {
-	int i;
-	int	len;
-
-	i = 0;
-	while (i < 6)
-	{
-		len = ft_strlen(data->texture[i].id);
-		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
-			load_floor_or_ceiling(data, data->texture[i].picture, data->floor);
-			
-		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
-			load_floor_or_ceiling(data, data->texture[i].picture, data->ceil);
-		 i++;
-	}
+	get_background(data->floor, data, data->C);
+	get_background(data->ceil, data, data->F);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+	
 	return (0);
 }
 
+int	load_image (t_data *data)
+{
+	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	return (0);
+}
