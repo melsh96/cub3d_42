@@ -2,8 +2,8 @@ NO ./images/NO.xpm
 SO ./images/SO.xpm
 WE ./images/WE.xpm
 EA ./images/EA.xpm
-F 110,153,15
-C 255,255,255
+F 002,245,40
+C 002,245,40
 
         1111111111111111111111111
         10000000S0000000000000001

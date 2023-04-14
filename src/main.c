@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/11 17:26:00 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:16:48 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ int	main(int ac, char **av)
 		else
 		{
 			printf("Let's Play !\n");
-			raycasting(&data);
       		init_data(&data);
+			data.ray.img = mlx_new_image(data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+			data.ray.addr = (int *)mlx_get_data_addr(data.ray.img,
+				&data.ray.bits_per_pixel, &data.ray.line_length, &data.ray.endian);
+			raycasting(&data);
+			mlx_loop(data.mlx);
 		}
 	}
 	// if (data.map.tab)

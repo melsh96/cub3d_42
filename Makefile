@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/12 16:27:19 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/13 14:20:28 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ RAY_PATH		= src/raycasting/
 
 CC 				= cc
 CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
+# CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 
 SRC				= main.c \
 					events.c \
@@ -72,7 +73,7 @@ all:	${NAME}
 ${NAME}: ${OBJ_PREFIXED}
 	make -C minilibx-linux all
 	make -C ./libft_42
-	${CC} $(CFLAGS) ${OBJ_PREFIXED} ${LIB} -o ${NAME} -Lminilibx-linux -lmlx -lXext -lX11
+	${CC} $(CFLAGS) ${OBJ_PREFIXED} ${LIB} -o ${NAME} -lm -Lminilibx-linux -lmlx -lXext -lX11
 	@echo ${CYAN}${BOLD}CUB3D${NC} [${GREEN}OK${NC}] Compiling Objects : ${BOLD}CUB3D${NC}
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
