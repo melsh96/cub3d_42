@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 12:55:12 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 15:54:57 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,13 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return ;
-	//parse error
 	data->mlx_win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Hello world!");
-		if (data->mlx_win == NULL)
+	if (data->mlx_win == NULL)
 		return ;
-	//parse error
-	load_image(data);
+	load_image(data);	
+	init_raycasting_data(data);
 	mlx_loop_hook(data->mlx, &render_colors, data);
 	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
 	mlx_loop(data->mlx);
 }
-
-// void	start_game(t_data *data)
-// {
-// 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello world!");
-// 	mlx_key_hook(data->mlx_win, &handle_input, data);
-// 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
-// 	mlx_loop(data->mlx);
-// }

@@ -16,16 +16,18 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <X11/keysym.h>
-#include <../minilibx-linux/mlx.h>
+# include <X11/keysym.h>
+# include <../minilibx-linux/mlx.h>
 # include "../libft_42/includes_libft/libft.h"
 # include "get_next_line_bonus.h"
+# include "math.h"
 
 # define NC		"\e[0m"
 # define RED	"\e[31m"
 # define BLUE	"\e[38;5;140m"
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
+
 
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 300
@@ -41,18 +43,70 @@ typedef struct s_count
 	int	pos_e;
 }	t_count;
 
-// typedef struct s_picture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// 	int	x;
-// 	int	y;
-// 	int width;
-// 	int height;
-// }	t_picture;
+typedef struct s_player
+{
+	char	pos;
+	double	pos_x;
+	double	pos_y;
+	int		right;
+	int		left;
+	int		front;
+	int		back;
+	int		rotate_left;
+	int		rotate_right;
+}	t_player;
+
+typedef struct s_ray
+{
+	int		x;
+	int		hit;
+	int		side;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	dir_x;
+	double	dir_y;
+	double	old_dir_x;
+	double	old_dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	old_plane_x;
+	double	old_plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_pos_x;
+	double	ray_pos_y;
+	double	rot_speed;
+	double	move_speed;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		rotate_right;
+	int		rotate_left;
+	int		left;
+	int		right;
+	int		front;
+	int		back;
+	
+	int		*addr;
+	void	*img;
+	int		bits_per_pixel;
+	int		endian;
+	int		line_length;
+	int		floor_color;
+	int		ceiling_color;
+	int		color1;
+	int		color2;
+	int		color3;
+	int		color4;
+}	t_ray;
 
 typedef struct s_map
 {
@@ -63,7 +117,6 @@ typedef struct s_map
 	int		height;
 	int		longest_map_line;
 }	t_map;
-
 
 typedef struct s_texture
 {
@@ -91,16 +144,18 @@ typedef struct s_image
 
 typedef struct s_data
 {
-	void			*mlx;
-	void			*mlx_win;
-	t_image			img;
-	t_map			map;
-	t_texture		texture[6];
-	int				fd;
-	int				file_length;
-	t_count			count;
-	unsigned int	floor;
-	unsigned int	ceil;
+	void		*mlx;
+	void		*mlx_win;
+	t_ray		ray;
+	t_image		img;
+	t_map		map;
+	t_texture	texture[6];
+	t_player	player;
+	int			fd;
+	int			file_length;
+	t_count		count;
+	unsigned int		floor;
+	unsigned int		ceil;
 	int				F;
 	int				C;
 	int				NO;
@@ -112,7 +167,7 @@ typedef struct s_data
 // Main Program
 int		main(int ac, char **av);
 int		destroy_cub(t_data *data);
-void free_texture_tab(t_data *data);
+void 	free_texture_tab(t_data *data);
 
 // Init
 void	init_texture(t_data *data);
@@ -121,7 +176,6 @@ void	init_data(t_data *data);
 
 // Events
 int	handle_input(int key, t_data *data);
-
 
 // Parsing
 int		file_extension(char *av, char *c);
@@ -132,10 +186,10 @@ void	get_textures_path(t_data *data, char *av);
 void	free_texture(t_data *data);
 
 // load descritpion
-void load_colors(t_data *data);
+void	load_colors(t_data *data);
 void	init_picture_data(t_data *data);
-int	load_image (t_data *data);
-int	render_colors(t_data *data);
+int		load_image (t_data *data);
+int		render_colors(t_data *data);
 
 // Get Map
 // void	get_map(t_data *data);
@@ -155,5 +209,13 @@ void	print_tab(char **tab, int tab_length);
 void	print_texture(t_data *data);
 
 void	free_double_tab_len(char **tab, size_t len);
+
+// Raycasting
+void 	raycasting(t_data *data);
+void	get_player_pos(t_data *data);
+void	init_raycasting_data(t_data *data);
+void	init_game(t_data *data);
+void	draw(t_data *data);
+// void	init_direction(t_data *data);
 
 #endif
