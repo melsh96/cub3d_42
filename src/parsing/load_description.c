@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/17 16:58:55 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:22:06 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int	load_image (t_data *data)
 	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
 	data->texture[data->F].x = 0;
-	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT / 3);
+	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 17:01:55 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:02:57 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ void	init_data(t_data *data)
 		return ;
 	load_image(data);	
 	init_raycasting_data(data);
+	init_game(data);
 	data->map.tab[(int)data->player.pos_x][(int)data->player.pos_y] = '0';
-	mlx_loop_hook(data->mlx, &render_colors, data);
+	mlx_loop_hook(data->mlx, render_colors, data);
 	printf("PLAYER POS_X = %f\n", data->player.pos_x);
 	printf("PLAYER POS_Y = %f\n", data->player.pos_y);
 	mlx_key_hook(data->mlx_win, &handle_input, data);

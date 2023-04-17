@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/14 17:30:33 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 19:58:00 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define BOLD	"\e[1m"
 
 
-#define WINDOW_WIDTH 600
-#define WINDOW_HEIGHT 300
+#define WINDOW_WIDTH 1900
+#define WINDOW_HEIGHT 800
 
 #define BACKGROUND_COLOR 0xFFFFFF
 
@@ -216,6 +216,7 @@ void	get_player_pos(t_data *data);
 void	init_raycasting_data(t_data *data);
 void	init_game(t_data *data);
 void	draw(t_data *data);
+void	ray_init(t_data *data);
 // void	init_direction(t_data *data);
 
 #endif
