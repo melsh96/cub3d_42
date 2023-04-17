@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:13:41 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 16:47:08 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/14 16:19:17 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_texture(t_data *data)
 	{
 		printf("i = %d\npath = %s ; id = %s ; addr = %s\n", i, data->texture[i].path, \
 		data->texture[i].id, \
-		data->texture[i].addr);
+		data->texture[i].ad);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 18:57:32 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/14 17:30:33 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
 
+#define WINDOW_WIDTH 600
+#define WINDOW_HEIGHT 300
+
+#define BACKGROUND_COLOR 0xFFFFFF
+
 typedef struct s_count
 {
 	int	pos;
@@ -35,6 +40,19 @@ typedef struct s_count
 	int	pos_w;
 	int	pos_e;
 }	t_count;
+
+// typedef struct s_picture
+// {
+// 	void	*img;
+// 	char	*addr;
+// 	int		bits_per_pixel;
+// 	int		line_length;
+// 	int		endian;
+// 	int	x;
+// 	int	y;
+// 	int width;
+// 	int height;
+// }	t_picture;
 
 typedef struct s_map
 {
@@ -46,34 +64,49 @@ typedef struct s_map
 	int		longest_map_line;
 }	t_map;
 
-typedef struct s_picture
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_picture;
 
 typedef struct s_texture
 {
 	char		*path;
 	char		*id;
-	char		*addr;
-	t_picture	*picture;
+	char		*ad;
+	
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int	x;
+	int	y;
+	int width;
+	int height;
 }	t_texture;
+
+typedef struct s_image
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_image;
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*mlx_win;
-	t_map		map;
-	t_texture	texture[6];
-	int			fd;
-	int			file_length;
-	t_count		count;
-	unsigned int		floor;
-	unsigned int		ceil;
+	void			*mlx;
+	void			*mlx_win;
+	t_image			img;
+	t_map			map;
+	t_texture		texture[6];
+	int				fd;
+	int				file_length;
+	t_count			count;
+	unsigned int	floor;
+	unsigned int	ceil;
+	int				F;
+	int				C;
+	int				NO;
+	int				SO;
+	int				WE;
+	int				EA;
 }	t_data;
 
 // Main Program
@@ -100,8 +133,9 @@ void	free_texture(t_data *data);
 
 // load descritpion
 void load_colors(t_data *data);
-void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color);
-void	init_floor_and_ceiling(t_data *data);
+void	init_picture_data(t_data *data);
+int	load_image (t_data *data);
+int	render_colors(t_data *data);
 
 // Get Map
 // void	get_map(t_data *data);
