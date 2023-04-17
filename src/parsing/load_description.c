@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/14 17:58:47 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 12:57:06 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,27 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-int	get_background (unsigned int color, t_data *data, int id)
+int	get_background (unsigned int color, t_data *data)
 {
 	int	i;
 	int	j;
 
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+			my_mlx_pixel_put(&data->img, j++, i, color);
+		i++;
+	}
+	return (0); 
+}
+
+int	get_background_fix (unsigned int color, t_data *data, int id)
+{
+	int	i;
+	int	j;
+	
 	i = data->texture[id].y;
 	while (i < data->texture[id].y + data->texture[id].height)
 	{
@@ -38,8 +54,10 @@ int	get_background (unsigned int color, t_data *data, int id)
 
 int	render_colors(t_data *data)
 {
-	get_background(data->floor, data, data->C);
-	get_background(data->ceil, data, data->F);
+	
+	get_background(BACKGROUND_COLOR, data);
+	get_background_fix(data->floor, data, data->F);
+	get_background_fix(data->ceil, data, data->C);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 	
 	return (0);
@@ -49,5 +67,7 @@ int	load_image (t_data *data)
 {
 	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	data->texture[data->F].x = 0;
+	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT / 3);
 	return (0);
 }

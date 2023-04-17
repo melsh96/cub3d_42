@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/14 16:22:07 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 12:59:29 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,5 @@ void	get_textures(t_data *data, char *av)
 		i++;
 	}
 	get_colors_and_range(data);
-	i = 0;
-	while (i < 6)
-	{
-		printf("id :%s ; range : %d\n", data->texture[i].id, i);
-		i++;
-	}
-	printf("F = %d ; C = %d ; NO = %d ; SO = %d ; WE = %d ; EA = %d\n", data->C, data->F, data->NO, data->SO, data->WE, data->EA);
+	printf("F = %d\nC = %d\nNO = %d\nSO = %d\nWE = %d\nEA = %d\n", data->F, data->C, data->NO, data->SO, data->WE, data->EA);
 }

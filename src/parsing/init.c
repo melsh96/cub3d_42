@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/14 17:53:04 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 12:55:12 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	init_texture(t_data *data)
 		data->texture[i].endian = 0;
 		data->texture[i].x = 0;
 		data->texture[i].y = 0;
-		data->texture[i].width = 100;
-		data->texture[i].height = 100;
+		data->texture[i].width = WINDOW_WIDTH ;
+		data->texture[i].height = WINDOW_HEIGHT / 3;
 		i++;
 	}
 }
@@ -65,8 +65,6 @@ void	init_data(t_data *data)
 		if (data->mlx_win == NULL)
 		return ;
 	//parse error
-	data->texture[data->C].x = WINDOW_WIDTH -100;
-		data->texture[data->C].y = WINDOW_HEIGHT - 100;
 	load_image(data);
 	mlx_loop_hook(data->mlx, &render_colors, data);
 	mlx_key_hook(data->mlx_win, &handle_input, data);

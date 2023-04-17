@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/14 17:59:45 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 11:46:01 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	main(int ac, char **av)
 		else
 		{
 			printf("Let's Play !\n");
-			printf("floor : %d\n", data.floor);
       		init_data(&data);
 		}
 	}
