@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/13 20:26:16 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:43:53 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define WINDOW_WIDTH 900
 # define WINDOW_HEIGHT 600
+# define BACKGROUND_COLOR 0xFFFFFF
 
 typedef struct s_count
 {
@@ -124,10 +125,26 @@ typedef struct s_map
 // 	int		endian;
 // }	t_picture;
 
-typedef struct s_picture
+// typedef struct s_picture
+// {
+// 	void	*img;
+// 	char	*addr;
+// 	int		bits_per_pixel;
+// 	int		line_length;
+// 	int		endian;
+// 	int	x;
+// 	int	y;
+// 	int width;
+// 	int height;
+// 	//int color;
+// }	t_picture;
+
+typedef struct s_texture
 {
-	void	*img;
-	char	*addr;
+	char		*path;
+	char		*id;
+	char		*ad;
+	
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -135,22 +152,23 @@ typedef struct s_picture
 	int	y;
 	int width;
 	int height;
-	//int color;
-}	t_picture;
-
-typedef struct s_texture
-{
-	char		*path;
-	char		*id;
-	char		*addr;
-	t_picture	*picture;
 }	t_texture;
+
+typedef struct s_image
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_image;
 
 typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;
 	t_ray		ray;
+	t_image		img;
 	t_map		map;
 	t_texture	texture[6];
 	t_player	player;
@@ -159,12 +177,18 @@ typedef struct s_data
 	t_count		count;
 	unsigned int		floor;
 	unsigned int		ceil;
+	int				F;
+	int				C;
+	int				NO;
+	int				SO;
+	int				WE;
+	int				EA;
 }	t_data;
 
 // Main Program
 int		main(int ac, char **av);
 int		destroy_cub(t_data *data);
-void free_texture_tab(t_data *data);
+void 	free_texture_tab(t_data *data);
 
 // Init
 void	init_texture(t_data *data);
@@ -173,7 +197,6 @@ void	init_data(t_data *data);
 
 // Events
 int	handle_input(int key, t_data *data);
-
 
 // Parsing
 int		file_extension(char *av, char *c);
@@ -184,9 +207,10 @@ void	get_textures_path(t_data *data, char *av);
 void	free_texture(t_data *data);
 
 // load descritpion
-void load_colors(t_data *data);
-void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color);
-void	init_floor_and_ceiling(t_data *data);
+void	load_colors(t_data *data);
+void	init_picture_data(t_data *data);
+int		load_image (t_data *data);
+int		render_colors(t_data *data);
 
 // Get Map
 // void	get_map(t_data *data);
@@ -211,5 +235,8 @@ void	free_double_tab_len(char **tab, size_t len);
 void 	raycasting(t_data *data);
 void	get_player_pos(t_data *data);
 void	init_raycasting_data(t_data *data);
+void	init_game(t_data *data);
+void	draw(t_data *data);
+// void	init_direction(t_data *data);
 
 #endif

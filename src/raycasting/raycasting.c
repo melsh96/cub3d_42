@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/14 15:33:27 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:24:11 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,26 @@
 // {
 // }
 
-void	init_direction(t_data *data)
-{
-	if (data->player.pos == 'N')
-		data->ray.dir_x = -1;
-	if (data->player.pos == 'S')
-		data->ray.dir_x = 1;
-	if (data->player.pos == 'E')
-		data->ray.dir_y = 1;
-	if (data->player.pos == 'W')
-		data->ray.dir_y = -1;
-	if (data->player.pos == 'N')
-		data->ray.plane_y = -1;
-	if (data->player.pos == 'S')
-		data->ray.plane_y = 1;
-	if (data->player.pos == 'E')
-		data->ray.plane_x = 1;
-	if (data->player.pos == 'W')
-		data->ray.plane_x = -1;
-}
+// ! Conditionnal jump
+// void	init_direction(t_data *data)
+// {
+// 	if (data->player.pos == 'N')
+// 		data->ray.dir_x = -1;
+// 	if (data->player.pos == 'S')
+// 		data->ray.dir_x = 1;
+// 	if (data->player.pos == 'E')
+// 		data->ray.dir_y = 1;
+// 	if (data->player.pos == 'W')
+// 		data->ray.dir_y = -1;
+// 	if (data->player.pos == 'N')
+// 		data->ray.plane_y = -1;
+// 	if (data->player.pos == 'S')
+// 		data->ray.plane_y = 1;
+// 	if (data->player.pos == 'E')
+// 		data->ray.plane_x = 1;
+// 	if (data->player.pos == 'W')
+// 		data->ray.plane_x = -1;
+// }
 
 void	init_game(t_data *data)
 {
@@ -82,7 +83,7 @@ void	init_game(t_data *data)
 	data->ray.back = 0;
 	// data->ray.map_x = data->player.pos_x;
 	// data->ray.map_y = data->player.pos_y;
-	init_direction(data);
+	// init_direction(data);
 }
 
 void	init_rays(t_data **data)
@@ -170,7 +171,7 @@ void	find_wall(t_data **data)
     // Calculate height of line to draw on screen
 	// Cubsize * Screen Size / Ray distance (ex : 320px * 160px)
 	(*data)->ray.line_height = (int)(WINDOW_HEIGHT / (*data)->ray.perp_wall_dist);
-	
+	// dprintf()
     // Calculate lowest and highest pixel to fill in current stripe
 	(*data)->ray.draw_start = -((*data)->ray.line_height) / 2 + WINDOW_HEIGHT / 2;
 	if ((*data)->ray.draw_start < 0)
@@ -180,94 +181,54 @@ void	find_wall(t_data **data)
 		(*data)->ray.draw_end = WINDOW_HEIGHT - 1;
 }
 
+// void	draw_texture(t_data *data)
+// {
+// 	int	i;
+// 	int	i_tex;
+
+// 	i = data->ray.draw_start - 1;
+// 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
+// 	calculate_texture(data);
+// 	i_tex = 0;
+// 	which_texture(data, &i_tex);
+// 	while (++i <= data->ray.draw_end)
+// 	{
+// 		data->ray.tex_y = (int)data->ray.tex_pos & (data->ray.tex_height - 1);
+// 		data->ray.tex_pos += data->ray.step;
+// 		display_texture(data, i, data->ray.x, i_tex);
+// 	}
+// }
+
 void	pass_to_3d(t_data *data)
 {
-	int	j;
-	int	i;
+	int		j;
+	int		i;
+	char	*dst;
 
 	j = -1;
 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
 	i = data->ray.draw_end;
 	while (++j < data->ray.draw_start)
-		data->ray.addr[j * data->ray.line_length / 4 + data->ray.x] = data->ceil;
+	{
+		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
+		*(unsigned int*)dst = data->ceil;
+	}
 	// if (j <= data->ray.draw_end)
-		// draw_texture(data->ray.
+	// 	draw_texture(data->ray);
 	j = i;
 	while (++j < WINDOW_HEIGHT)
-		data->ray.addr[j * data->ray.line_length / 4 + data->ray.x] = data->floor;
-}
-
-void	my_mlx_pixel_putt(t_picture *picture, int x, int y, unsigned int color)
-{
-	char	*dst;
-
-	dst = picture->addr + (y * picture->line_length + x * (picture->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-
-void load_floor_or_ceil(t_data *data, t_picture *picture, unsigned int color)
-{
-	int	i;
-	int	j;
-	
-	picture->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	picture->addr = mlx_get_data_addr(picture->img, &picture->bits_per_pixel, &picture->line_length, &picture->endian);
-	data->ray.line_length = picture->line_length;
-	if (data->mlx_win == NULL)
-		return ;
-	if (color == data->ceil)
 	{
-		i = 0;
-		while (i < WINDOW_HEIGHT / 2)
-		{
-			j = 0;
-			while (j < WINDOW_WIDTH)
-				my_mlx_pixel_putt(picture, j++, i, color);
-			i++;
-		}
-		//mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
-	}
-	else if (color == data->floor)
-	{
-		i = WINDOW_HEIGHT;
-		while (i > WINDOW_HEIGHT / 2)
-		{
-			j = 0;
-			while (j < WINDOW_WIDTH)
-				my_mlx_pixel_putt(picture, j++, i, color);
-			i--;
-		}
-	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
-	mlx_destroy_image(data->mlx, picture->img);
-
-}
-
-void	init_floor_and_ceil(t_data *data)
-{
-	int i;
-	int	len;
-
-	i = 0;
-	while (i < 6)
-	{
-		len = ft_strlen(data->texture[i].id);
-		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
-			load_floor_or_ceil(data, data->texture[i].picture, data->floor);
-			
-		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
-			load_floor_or_ceil(data, data->texture[i].picture, data->ceil);
-		 i++;
+		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
+		*(unsigned int*)dst = data->floor;
 	}
 }
 
-int	draw(t_data *data)
+void	draw(t_data *data)
 {
-	(void)data;
+	// (void)data;
 	data->ray.x = -1;
 
-	init_floor_and_ceil(data);
+	// init_floor_and_ceil(data);
 	while (++data->ray.x < WINDOW_WIDTH)
 	{
 		init_game(data);
@@ -310,29 +271,18 @@ int	draw(t_data *data)
 		// Calculate Texture
 		pass_to_3d(data);
 	}
-	return (0);
+	// return (0);
 }
 
-int	key_press(int key_code, t_param *data)
-{
-	if (key_code == KEY_W)
-		move_up(param);
-	else if (key_code == KEY_A)
-		move_left(param);
-	else if (key_code == KEY_S)
-		move_down(param);
-	else if (key_code == KEY_D)
-		move_right(param);
-	return (0);
-}
-
-void raycasting(t_data *data)
-{
-	init_raycasting_data(data);
-	// init_game(data);
-	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
-	mlx_loop_hook(data->mlx, draw, data);
-	printf("data->player.pos = %c\n", data->player.pos);
-	printf("PLAYER POS_X = %f\n", data->player.pos_x);
-	printf("PLAYER POS_Y = %f\n", data->player.pos_y);
-}
+// int	key_press(int key_code, t_param *data)
+// {
+// 	if (key_code == KEY_W)d
+// 		move_up(param);
+// 	else if (key_code == KEY_A)
+// 		move_left(param);
+// 	else if (key_code == KEY_S)
+// 		move_down(param);
+// 	else if (key_code == KEY_D)
+// 		move_right(param);
+// 	return (0);
+// }

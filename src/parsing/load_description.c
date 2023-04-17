@@ -3,95 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   load_description.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/10 19:01:30 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:23:04 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	get_color(t_data *data, char *color_line)
-{
-	char **colors;
-	int	i;
-	int	l;
-	int color;
-
-	colors = ft_split(color_line, ',');
-	l = 0;
-	while (colors[l])
-		l++;
-	if (l != 3)
-	{
-		free_double_tab(colors, l);
-		parse_error(data, "Bad colors description");
-	}
-	i = 0;
-	while (colors[i])
-	{
-		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-		{
-			free_double_tab(colors, l);
-			parse_error(data, "Bad color range");
-		}
-		i++;
-	}
-	color = ft_atoi(colors[0]) << 16 | ft_atoi(colors[1]) << 8 | ft_atoi(colors[2]);
-	free_double_tab(colors, l);
-	return (color);
-}
-
-void	my_mlx_pixel_put(t_picture *picture, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int color)
 {
 	char	*dst;
-
-	dst = picture->addr + (y * picture->line_length + x * (picture->bits_per_pixel / 8));
+	
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 
-void load_floor_or_ceiling(t_data *data, t_picture *picture, unsigned int color)
-{
-	picture->img = mlx_new_image(data->mlx, 1920, 400);
-	picture->addr = mlx_get_data_addr(picture->img, &picture->bits_per_pixel, &picture->line_length, &picture->endian);
-	my_mlx_pixel_put(picture->img, 5, 5, color);
-	if (color == data->floor)
-		mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 0, 0);
-	else if (color == data->ceil)
-		mlx_put_image_to_window(data->mlx, data->mlx_win, picture->img, 5, 5);
-}
-
-void load_colors(t_data *data)
+int	get_background (unsigned int color, t_data *data)
 {
 	int	i;
-	int	len;
-	
+	int	j;
+
 	i = 0;
-	while (i < 6)
+	while (i < WINDOW_HEIGHT)
 	{
-		len = ft_strlen(data->texture[i].id);
-		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
-			data->floor = get_color(data, data->texture[i].addr);
-		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
-			data->ceil = get_color(data, data->texture[i].addr);
+		j = 0;
+		while (j < WINDOW_WIDTH)
+			my_mlx_pixel_put(&data->img, j++, i, color);
 		i++;
 	}
+	return (0); 
 }
 
-void	init_floor_and_ceiling(t_data *data)
+int	get_background_fix (unsigned int color, t_data *data, int id)
 {
-	int i;
-	int	len;
+	int	i;
+	int	j;
 	
-	i = 0;
-	while (i < 6)
+	i = data->texture[id].y;
+	while (i < data->texture[id].y + data->texture[id].height)
 	{
-		len = ft_strlen(data->texture[i].id);
-		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
-			load_floor_or_ceiling(data, data->texture[i].picture, data->floor);
-		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
-			load_floor_or_ceiling(data, data->texture[i].picture, data->ceil);
+		j = data->texture[id].x;
+		while (j < data->texture[id].x + data->texture[id].width)
+			my_mlx_pixel_put(&data->img, j++, i, color);
 		i++;
 	}
+	return (0); 
+}
+
+int	render_colors(t_data *data)
+{
+	draw(data);
+	// get_background(BACKGROUND_COLOR, data);
+	// get_background_fix(data->floor, data, data->F);
+	// get_background_fix(data->ceil, data, data->C);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+	// printf("PLAYER POS_X = %f\n", data->player.pos_x);
+	// printf("PLAYER POS_Y = %f\n", data->player.pos_y);
+	return (0);
+}
+
+int	load_image (t_data *data)
+{
+	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	data->texture[data->F].x = 0;
+	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT / 3);
+	return (0);
 }
