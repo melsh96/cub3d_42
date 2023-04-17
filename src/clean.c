@@ -25,5 +25,4 @@ void	free_texture(t_data *data)
 	s = -1;
 	while (++s < 6 && data->texture[s].ad)
 		free(data->texture[s].ad);
-
 }

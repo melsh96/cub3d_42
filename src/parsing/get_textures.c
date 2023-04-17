@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
 /*   Updated: 2023/04/17 13:01:51 by meshahrv         ###   ########.fr       */
@@ -153,3 +153,4 @@ void	get_textures(t_data *data, char *av)
 	get_colors_and_range(data);
 	printf("F = %d\nC = %d\nNO = %d\nSO = %d\nWE = %d\nEA = %d\n", data->F, data->C, data->NO, data->SO, data->WE, data->EA);
 }
+

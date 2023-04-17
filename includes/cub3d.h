@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 13:43:53 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:30:33 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
 
-# define WINDOW_WIDTH 900
-# define WINDOW_HEIGHT 600
-# define BACKGROUND_COLOR 0xFFFFFF
+
+#define WINDOW_WIDTH 600
+#define WINDOW_HEIGHT 300
+
+#define BACKGROUND_COLOR 0xFFFFFF
 
 typedef struct s_count
 {
@@ -115,29 +117,6 @@ typedef struct s_map
 	int		height;
 	int		longest_map_line;
 }	t_map;
-
-// typedef struct s_picture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }	t_picture;
-
-// typedef struct s_picture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// 	int	x;
-// 	int	y;
-// 	int width;
-// 	int height;
-// 	//int color;
-// }	t_picture;
 
 typedef struct s_texture
 {
