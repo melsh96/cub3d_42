@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 15:24:11 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:11:14 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@
 // }
 
 // ! Conditionnal jump
-// void	init_direction(t_data *data)
-// {
-// 	if (data->player.pos == 'N')
-// 		data->ray.dir_x = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.dir_x = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.dir_y = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.dir_y = -1;
-// 	if (data->player.pos == 'N')
-// 		data->ray.plane_y = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.plane_y = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.plane_x = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.plane_x = -1;
-// }
+void	init_direction(t_data *data)
+{
+	if (data->player.pos == 'N')
+		data->ray.dir_x = -1;
+	if (data->player.pos == 'S')
+		data->ray.dir_x = 1;
+	if (data->player.pos == 'E')
+		data->ray.dir_y = 1;
+	if (data->player.pos == 'W')
+		data->ray.dir_y = -1;
+	if (data->player.pos == 'N')
+		data->ray.plane_y = -1;
+	if (data->player.pos == 'S')
+		data->ray.plane_y = 1;
+	if (data->player.pos == 'E')
+		data->ray.plane_x = 1;
+	if (data->player.pos == 'W')
+		data->ray.plane_x = -1;
+}
 
 void	init_game(t_data *data)
 {
@@ -81,9 +81,9 @@ void	init_game(t_data *data)
 	data->ray.left = 0;
 	data->ray.front = 0;
 	data->ray.back = 0;
-	// data->ray.map_x = data->player.pos_x;
-	// data->ray.map_y = data->player.pos_y;
-	// init_direction(data);
+	data->ray.map_x = (int)data->player.pos_x;
+	data->ray.map_y = (int)data->player.pos_y;
+	init_direction(data);
 }
 
 void	init_rays(t_data **data)
