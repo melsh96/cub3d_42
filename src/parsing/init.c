@@ -35,6 +35,7 @@ void	init_texture(t_data *data)
 		data->texture[i].path = NULL;
 		data->texture[i].id = NULL;
 		data->texture[i].ad = NULL;
+		data->texture[i].img = NULL;
 		data->texture[i].bits_per_pixel = 0;
 		data->texture[i].line_length = 0;
 		data->texture[i].endian = 0;

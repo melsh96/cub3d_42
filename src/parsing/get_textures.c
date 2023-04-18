@@ -41,12 +41,12 @@ int	get_texture_param(t_data *data, t_texture *texture)
 	i = 0;
 	tab = ft_split(texture->path, ' ');
 	while (tab[i])
-		i++;
-	if (i > 2)
-	{
-		free_double_tab(tab, i + 1);
-		return (1);
-	}
+	 	i++;
+	// if (i > 2)
+	// {
+	// 	free_double_tab(tab, i + 1);
+	// 	return (1);
+	// }
 	texture->id = ft_strdup(tab[0]);
 	texture->ad = ft_strdup(tab[1]);
 	texture->ad[ft_strlen(tab[1]) -1] = '\0';

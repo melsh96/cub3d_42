@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <X11/keysym.h>
@@ -122,8 +123,8 @@ typedef struct s_texture
 {
 	char		*path;
 	char		*id;
-	char		*ad;
-	
+	char		*ad; //relative path to xpm file
+	void		*img;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

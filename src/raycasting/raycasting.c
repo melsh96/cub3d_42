@@ -199,6 +199,7 @@ void	find_wall(t_data **data)
 // 	}
 // }
 
+
 void	pass_to_3d(t_data *data)
 {
 	int		j;
@@ -213,7 +214,11 @@ void	pass_to_3d(t_data *data)
 		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
 		*(unsigned int*)dst = data->ceil;
 	}
-	// if (j <= data->ray.draw_end)
+	if (j <= data->ray.draw_end)
+	{
+		data->ray.img = data->texture[data->NO].img;
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->ray.img, data->ray.x, j);
+	}
 	// 	draw_texture(data->ray);
 	j = i;
 	while (++j < WINDOW_HEIGHT)
