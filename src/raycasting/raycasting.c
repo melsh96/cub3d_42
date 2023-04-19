@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 15:24:11 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:15:14 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,35 @@
 // }
 
 // ! Conditionnal jump
-// void	init_direction(t_data *data)
-// {
-// 	if (data->player.pos == 'N')
-// 		data->ray.dir_x = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.dir_x = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.dir_y = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.dir_y = -1;
-// 	if (data->player.pos == 'N')
-// 		data->ray.plane_y = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.plane_y = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.plane_x = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.plane_x = -1;
-// }
+void	init_direction(t_data *data)
+{
+	if (data->player.pos == 'N')
+		data->ray.dir_x = -1;
+	if (data->player.pos == 'S')
+		data->ray.dir_x = 1;
+	if (data->player.pos == 'E')
+		data->ray.dir_y = 1;
+	if (data->player.pos == 'W')
+		data->ray.dir_y = -1;
+	if (data->player.pos == 'N')
+		data->ray.plane_y = 1;
+	if (data->player.pos == 'S')
+		data->ray.plane_y = -1;
+	if (data->player.pos == 'E')
+		data->ray.plane_x = 1;
+	if (data->player.pos == 'W')
+		data->ray.plane_x = -1;
+}
+
+void	ray_init(t_data *data)
+{
+	data->ray.perp_wall_dist = 0;
+	data->ray.hit = 0;
+	data->ray.map_x = (int)data->player.pos_x;
+	data->ray.map_y = (int)data->player.pos_y;
+	data->ray.rot_speed = 0.2;
+	data->ray.move_speed = 0.075 * 1.8;
+}
 
 void	init_game(t_data *data)
 {
@@ -59,7 +69,7 @@ void	init_game(t_data *data)
 	data->ray.map_y = 0;
 	data->ray.delta_dist_x = 0;
 	data->ray.delta_dist_y = 0;
-	data->ray.perp_wall_dist = 0;
+	// data->ray.perp_wall_dist = 0;
 	
     // Length of ray from current position to next x or y-side
 	data->ray.side_dist_x = 0;
@@ -67,7 +77,7 @@ void	init_game(t_data *data)
 	
 	data->ray.step_x = 0;
 	data->ray.step_y = 0;
-	data->ray.hit = 0;
+	// data->ray.hit = 0;
 	
 	// Was a NS or a EW wall hit?
 	data->ray.side = 0;
@@ -81,9 +91,9 @@ void	init_game(t_data *data)
 	data->ray.left = 0;
 	data->ray.front = 0;
 	data->ray.back = 0;
-	// data->ray.map_x = data->player.pos_x;
-	// data->ray.map_y = data->player.pos_y;
-	// init_direction(data);
+	data->ray.map_x = (int)data->player.pos_x;
+	data->ray.map_y = (int)data->player.pos_y;
+	init_direction(data);
 }
 
 void	init_rays(t_data **data)
@@ -181,23 +191,23 @@ void	find_wall(t_data **data)
 		(*data)->ray.draw_end = WINDOW_HEIGHT - 1;
 }
 
-// void	draw_texture(t_data *data)
-// {
-// 	int	i;
-// 	int	i_tex;
+void	draw_texture(t_data *data)
+{
+	// int	i;
+	// int	i_tex;
 
-// 	i = data->ray.draw_start - 1;
-// 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
-// 	calculate_texture(data);
-// 	i_tex = 0;
-// 	which_texture(data, &i_tex);
-// 	while (++i <= data->ray.draw_end)
-// 	{
-// 		data->ray.tex_y = (int)data->ray.tex_pos & (data->ray.tex_height - 1);
-// 		data->ray.tex_pos += data->ray.step;
-// 		display_texture(data, i, data->ray.x, i_tex);
-// 	}
-// }
+	// i = data->ray.draw_start - 1;
+	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
+	// calculate_texture(data);
+	// i_tex = 0;
+	// which_texture(data, &i_tex);
+	// while (++i <= data->ray.draw_end)
+	// {
+	// 	data->ray.tex_y = (int)data->ray.tex_pos & (data->ray.tex_height - 1);
+	// 	data->ray.tex_pos += data->ray.step;
+	// 	display_texture(data, i, data->ray.x, i_tex);
+	// }
+}
 
 
 void	pass_to_3d(t_data *data)
@@ -209,17 +219,15 @@ void	pass_to_3d(t_data *data)
 	j = -1;
 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
 	i = data->ray.draw_end;
+	printf("end = %d\n", data->ray.draw_end);
+	// printf("start = %d\n", data->ray.draw_start);
 	while (++j < data->ray.draw_start)
 	{
 		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
 		*(unsigned int*)dst = data->ceil;
 	}
-	if (j <= data->ray.draw_end)
-	{
-		data->ray.img = data->texture[data->NO].img;
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->ray.img, data->ray.x, j);
-	}
-	// 	draw_texture(data->ray);
+	// if (j <= data->ray.draw_end)
+	// 	draw_texture(data);
 	j = i;
 	while (++j < WINDOW_HEIGHT)
 	{
@@ -230,32 +238,16 @@ void	pass_to_3d(t_data *data)
 
 void	draw(t_data *data)
 {
-	// (void)data;
 	data->ray.x = -1;
 
-	// init_floor_and_ceil(data);
 	while (++data->ray.x < WINDOW_WIDTH)
 	{
-		init_game(data);
+		ray_init(data);
 		// Calculate ray position and direction
 		data->ray.camera_x = 2 * data->ray.x / (double)WINDOW_WIDTH - 1; // x coordinate in camera space
 		data->ray.ray_dir_x = data->ray.dir_x + data->ray.plane_x * data->ray.camera_x;
 		data->ray.ray_dir_y = data->ray.dir_y + data->ray.plane_y * data->ray.camera_x;
 	
-		// Which box of the map we're in
-		data->ray.map_x = (int)data->player.pos_x;
-		data->ray.map_y = (int)data->player.pos_y;
-
-		// Used later to calculate the length of the ray
-		data->ray.perp_wall_dist = 0;
-		
-		// Was there a wall hit?
-		data->ray.hit = 0;
-
-		// Speed modifiers
-		data->ray.move_speed = 0.2;
-		data->ray.rot_speed = 0.075 * 1.8;
-		
 		// Length of ray from one x or y-side to next x or y-side
 		init_rays(&data);
 

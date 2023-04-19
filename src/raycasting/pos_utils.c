@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:32:47 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/13 17:34:52 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:20:47 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	get_player_pos(t_data *data)
 			break;
 		i++;
 	}
-	data->player.pos_x = i;
-	data->player.pos_y = j;
+	data->player.pos_x = i + 0.5;
+	data->player.pos_y = j + 0.5;
 }
