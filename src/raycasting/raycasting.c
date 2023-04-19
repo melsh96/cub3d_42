@@ -218,8 +218,6 @@ void	pass_to_3d(t_data *data)
 	j = -1;
 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
 	i = data->ray.draw_end;
-	printf("end = %d\n", data->ray.draw_end);
-	// printf("start = %d\n", data->ray.draw_start);
 	while (++j < data->ray.draw_start)
 	{
 		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
