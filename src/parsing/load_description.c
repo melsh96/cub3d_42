@@ -52,6 +52,15 @@ int	get_background_fix (unsigned int color, t_data *data, int id)
 	return (0); 
 }
 
+int load_textures(t_data *data)
+{
+	data->texture[data->NO].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->NO].ad, &data->texture[data->NO].width, &data->texture[data->NO].height);
+	data->texture[data->SO].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->SO].ad, &data->texture[data->SO].width, &data->texture[data->SO].height);
+	data->texture[data->WE].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->WE].ad, &data->texture[data->WE].width, &data->texture[data->WE].height);
+	data->texture[data->EA].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->EA].ad, &data->texture[data->EA].width, &data->texture[data->EA].height);
+	return (0);
+}
+
 int	render_colors(t_data *data)
 {
 	draw(data);
@@ -59,6 +68,8 @@ int	render_colors(t_data *data)
 	// get_background_fix(data->floor, data, data->F);
 	// get_background_fix(data->ceil, data, data->C);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+	// printf("PLAYER POS_X = %f\n", data->player.pos_x);
+	// printf("PLAYER POS_Y = %f\n", data->player.pos_y);
 	return (0);
 }
 
@@ -66,7 +77,9 @@ int	load_image (t_data *data)
 {
 	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	printf("data->texture[data->F].: x %d\n" ,data->texture[data->F].x = 0);
 	data->texture[data->F].x = 0;
-	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT);
+	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT / 3);
+//	load_textures(data);
 	return (0);
 }

@@ -123,7 +123,7 @@ typedef struct s_texture
 	char		*path;
 	char		*id;
 	char		*ad;
-	
+	void		*img;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
