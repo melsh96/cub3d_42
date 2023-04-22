@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 20:15:14 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:57:29 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ void	find_wall(t_data **data)
 	if ((*data)->ray.draw_end >= WINDOW_HEIGHT)
 		(*data)->ray.draw_end = WINDOW_HEIGHT - 1;
 }
+
+
 
 void	draw_texture(t_data *data)
 {
