@@ -12,19 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-// void	init_picture(t_picture *picture)
-// {
-// 	picture->addr = NULL;
-// 	picture->img = NULL;
-// 	picture->bits_per_pixel = 0;
-// 	picture->line_length = 0;
-// 	picture->endian = 0;
-// 	picture->x = 0;
-// 	picture->y = 0;
-// 	picture->width = 0;
-// 	picture->height = 0;
-// }
-
 void	init_texture(t_data *data)
 {
 	int	i;
@@ -68,8 +55,6 @@ void	init_data(t_data *data)
 	init_game(data);
 	data->map.tab[(int)data->player.pos_x][(int)data->player.pos_y] = '0';
 	mlx_loop_hook(data->mlx, render_colors, data);
-	printf("PLAYER POS_X = %f\n", data->player.pos_x);
-	printf("PLAYER POS_Y = %f\n", data->player.pos_y);
 	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
 	mlx_loop(data->mlx);

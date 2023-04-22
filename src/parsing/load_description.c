@@ -77,9 +77,8 @@ int	load_image (t_data *data)
 {
 	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
-	printf("data->texture[data->F].: x %d\n" ,data->texture[data->F].x = 0);
 	data->texture[data->F].x = 0;
 	data->texture[data->F].y = WINDOW_HEIGHT - (WINDOW_HEIGHT / 3);
-//	load_textures(data);
+	load_textures(data);
 	return (0);
 }

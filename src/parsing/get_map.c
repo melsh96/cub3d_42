@@ -377,6 +377,8 @@ int	get_map(t_data *data)
 
 	i = 0;
 	data->map.tab = (char **)malloc(sizeof(char *) * (data->map.height + 1));
+	if (!data->map.tab)
+		return (0);
 	while (i < data->map.height + 1)
 	{
 		data->map.tab[i] = 0;

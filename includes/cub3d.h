@@ -85,6 +85,8 @@ typedef struct s_ray
 	double	side_dist_x;
 	double	side_dist_y;
 	double	perp_wall_dist;
+	double	step;
+	double	wall_x;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -106,6 +108,9 @@ typedef struct s_ray
 	int		color2;
 	int		color3;
 	int		color4;
+	int 	tex_x;
+	int		tex_y;
+	double  tex_pos;
 }	t_ray;
 
 typedef struct s_map
