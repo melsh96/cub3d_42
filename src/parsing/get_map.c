@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/10 14:47:05 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/22 11:59:39 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,6 +377,8 @@ int	get_map(t_data *data)
 
 	i = 0;
 	data->map.tab = (char **)malloc(sizeof(char *) * (data->map.height + 1));
+	if(!data->map.tab)
+		return (0);
 	while (i < data->map.height + 1)
 	{
 		data->map.tab[i] = 0;
