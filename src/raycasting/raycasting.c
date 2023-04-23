@@ -216,11 +216,34 @@ void calculate_texture(t_data *data)
 // 	}
 // }
 
+
+// int get_tex_color(t_tex *tex, t_pos *pos)
+// {
+// 	if (pos->x >= 0 && pos->x < tex->width
+// 		&& pos->y >= 0 && pos->y < tex->height)
+// 	{
+// 		return (*(int*)(tex->ptr + (4 * tex->width * (int)pos->y) + (4 * (int)pos->x)));
+// 	}
+// 	return (0x0);
+// }
+
+// int get_texture_color (t_texture *tex, int x, int y)
+// {
+// 	return (*(int*)(tex->mlx_ad + (4 * tex->width * y) + (4 * x)));
+// }
+
+
+// int get_texture_pixel(t_texture *tex, int id, int x, int y)
+// {
+// 		return(*(int*)(tex->mlx_ad + (y * tex->line_length + x * tex->bits_per_pixel / 8)));
+// }
+
 void	draw_texture(t_data *data)
 {
 	int		i;
 	char	*dst;
 	int		color;
+	//t_texture	*tex; tex = data->texture[wich_texture]
 	// int	side_texture;
 
 	i = data->ray.draw_start;
@@ -235,9 +258,9 @@ void	draw_texture(t_data *data)
 	{
 		data->ray.tex_y = (int)data->ray.tex_pos & (data->texture[data->NO].height - 1);
 		data->ray.tex_pos += data->ray.step;
-		// color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
-		color = (*(int *)data->texture[data->NO].ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
-		dst = data->texture[data->NO].ad + (i * data->texture[data->NO].line_length + data->ray.x * (data->texture[data->NO].bits_per_pixel / 8));
+		color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
+		//color = (*(int *)data->texture[data->NO].mlx_ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
+		dst = data->img.addr + (i * data->texture[data->NO].line_length + data->ray.x * (data->texture[data->NO].bits_per_pixel / 8));
 		*(int *)dst = color;
 		//printf("color : %d\n", color);
 		i++;

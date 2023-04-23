@@ -129,6 +129,7 @@ typedef struct s_texture
 	char		*id;
 	char		*ad;
 	void		*img;
+	void		*mlx_ad;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

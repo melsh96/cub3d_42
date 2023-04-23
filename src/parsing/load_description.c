@@ -54,10 +54,21 @@ int	get_background_fix (unsigned int color, t_data *data, int id)
 
 int load_textures(t_data *data)
 {
-	data->texture[data->NO].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->NO].ad, &data->texture[data->NO].width, &data->texture[data->NO].height);
-	data->texture[data->SO].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->SO].ad, &data->texture[data->SO].width, &data->texture[data->SO].height);
-	data->texture[data->WE].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->WE].ad, &data->texture[data->WE].width, &data->texture[data->WE].height);
-	data->texture[data->EA].img = mlx_xpm_file_to_image(data->mlx, data->texture[data->EA].ad, &data->texture[data->EA].width, &data->texture[data->EA].height);
+	int i;
+
+	i = 0;
+	while (data->texture[i].ad)
+	{
+		if (i != data->C || i != data->F)
+		{
+			data->texture[i].img = mlx_xpm_file_to_image(data->mlx, data->texture[i].ad, \
+			&data->texture[i].width, &data->texture[i].height);
+			if (data->texture[i].img)
+				data->texture[i].mlx_ad = mlx_get_data_addr(data->texture[i].img, \
+				&data->texture[i].bits_per_pixel, &data->texture[i].line_length, &data->texture[i].endian);
+		}
+		i++;
+	}
 	return (0);
 }
 
