@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 19:58:00 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:25:26 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define BOLD	"\e[1m"
 
 
-#define WINDOW_WIDTH 1900
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 600
 
 #define BACKGROUND_COLOR 0xFFFFFF
 
@@ -129,7 +129,7 @@ typedef struct s_texture
 	char		*id;
 	char		*ad;
 	void		*img;
-	void		*mlx_ad;
+	char		*mlx_ad;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

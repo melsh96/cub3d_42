@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 20:15:14 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:51:44 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,27 +194,27 @@ void calculate_texture(t_data *data)
 		data->ray.wall_x = data->player.pos_x + data->ray.perp_wall_dist * data->ray.ray_dir_x;
     data->ray.wall_x -= floor((data->ray.wall_x));
 	data->ray.tex_x = (int)(data->ray.wall_x * (double)(data->texture[data->NO].width));
-	if ((data->ray.side == 0 && data->ray.tex_x > 0) || (data->ray.side == 1 && data->ray.ray_dir_y < 0)) 
+	if ((data->ray.side == 0 && data->ray.ray_dir_x > 0) || (data->ray.side == 1 && data->ray.ray_dir_y < 0)) 
 		data->ray.tex_x = data->texture[data->NO].width - data->ray.tex_x - 1;
 }
 
-// void	which_texture(t_data *data, int *side)
-// {
-// 	if (data->ray.side == 0)
-// 	{
-// 		if (data->ray.ray_dir_x > 0)
-// 			*side = data->NO;
-// 		else
-// 			*side = data->SO;
-// 	}
-// 	else
-// 	{
-// 		if (data->ray.ray_dir_y > 0)
-// 			*side = data->WE;
-// 		else
-// 			*side = data->EA;
-// 	}
-// }
+void	which_texture(t_data *data, int *side)
+{
+	if (data->ray.side == 0)
+	{
+		if (data->ray.ray_dir_x > 0)
+			*side = data->SO;
+		else
+			*side = data->NO;
+	}
+	else
+	{
+		if (data->ray.ray_dir_y > 0)
+			*side = data->EA;
+		else
+			*side = data->WE;
+	}
+}
 
 
 // int get_tex_color(t_tex *tex, t_pos *pos)
@@ -238,13 +238,30 @@ void calculate_texture(t_data *data)
 // 		return(*(int*)(tex->mlx_ad + (y * tex->line_length + x * tex->bits_per_pixel / 8)));
 // }
 
+int	get_textel_val(t_data *data, int *side)
+{
+	int				tex_i;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	int				res;
+
+	tex_i = data->ray.tex_y * data->texture[*side].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8);
+	r = (unsigned char)(data->texture[*side].mlx_ad)[tex_i + 2];
+	g = (unsigned char)(data->texture[*side].mlx_ad)[tex_i + 1];
+	b = (unsigned char)(data->texture[*side].mlx_ad)[tex_i];
+
+	res = ((int)r << 16) + ((int)g << 8) + (int)b;
+	return (res);
+}
+
 void	draw_texture(t_data *data)
 {
 	int		i;
 	char	*dst;
 	int		color;
 	//t_texture	*tex; tex = data->texture[wich_texture]
-	// int	side_texture;
+	int	side_texture;
 
 	i = data->ray.draw_start;
 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
@@ -252,17 +269,18 @@ void	draw_texture(t_data *data)
 	data->ray.step = 1.0 * data->texture[data->NO].height / data->ray.line_height;
 	data->ray.tex_pos = (data->ray.draw_start - WINDOW_HEIGHT / 2 + data->ray.line_height / 2) * data->ray.step;
 	// side_texture = 0;
-	// which_texture(data, &side_texture);
+	which_texture(data, &side_texture);
 	// data->ray.img = data->texture[data->NO].img;
 	while (i < data->ray.draw_end)
 	{
 		data->ray.tex_y = (int)data->ray.tex_pos & (data->texture[data->NO].height - 1);
 		data->ray.tex_pos += data->ray.step;
-		color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
-		//color = (*(int *)data->texture[data->NO].mlx_ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
-		dst = data->img.addr + (i * data->texture[data->NO].line_length + data->ray.x * (data->texture[data->NO].bits_per_pixel / 8));
+		// color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
+		// color = (*(int *)data->texture[data->NO].mlx_ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
+		color = get_textel_val(data, &side_texture);
+		dst = data->img.addr + (i * data->img.line_len + data->ray.x * (data->img.bpp / 8));
 		*(int *)dst = color;
-		//printf("color : %d\n", color);
+		
 		i++;
 	}
 }
