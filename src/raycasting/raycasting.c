@@ -216,28 +216,6 @@ void	which_texture(t_data *data, int *side)
 	}
 }
 
-
-// int get_tex_color(t_tex *tex, t_pos *pos)
-// {
-// 	if (pos->x >= 0 && pos->x < tex->width
-// 		&& pos->y >= 0 && pos->y < tex->height)
-// 	{
-// 		return (*(int*)(tex->ptr + (4 * tex->width * (int)pos->y) + (4 * (int)pos->x)));
-// 	}
-// 	return (0x0);
-// }
-
-// int get_texture_color (t_texture *tex, int x, int y)
-// {
-// 	return (*(int*)(tex->mlx_ad + (4 * tex->width * y) + (4 * x)));
-// }
-
-
-// int get_texture_pixel(t_texture *tex, int id, int x, int y)
-// {
-// 		return(*(int*)(tex->mlx_ad + (y * tex->line_length + x * tex->bits_per_pixel / 8)));
-// }
-
 int	get_textel_val(t_data *data, int *side)
 {
 	int				tex_i;
