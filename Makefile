@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/13 14:20:28 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/24 19:19:10 by meshahrv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ PARS_PATH		= src/parsing/
 UTILS_PATH		= src/utils/
 GNL_PATH		= src/gnl/
 RAY_PATH		= src/raycasting/
+MOVE_PATH		= src/moves/
 
 CC 				= cc
 CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
@@ -42,19 +43,23 @@ SRC_RAY			= raycasting.c \
 					pos_utils.c \
 					init_ray.c
 
+MOVE_RAY		= moves.c \
+
 SRC_PREFIXED	= $(addprefix $(SRC_PATH), $(SRC))
 PARS_PREFIXED	=$(addprefix $(PARS_PATH), $(SRC_PARS))
 UTILS_PREFIXED	=$(addprefix $(UTILS_PATH), $(SRC_UTILS))
-GNL_PREFIXED	=$(addprefix $(GNL_PATH), $(SRC_UTILS))
-RAY_PREFIXED	=$(addprefix $(RAY_PATH), $(SRC_UTILS))
+GNL_PREFIXED	=$(addprefix $(GNL_PATH), $(SRC_GNL))
+RAY_PREFIXED	=$(addprefix $(RAY_PATH), $(SRC_RAY))
+MOVE_PREFIXED	=$(addprefix $(MOVE_PATH), $(SRC_MOVE))
 
 OBJ_SRC			= $(SRC:.c=.o)
 OBJ_PARS		= $(SRC_PARS:.c=.o)
 OBJ_UTILS		= $(SRC_UTILS:.c=.o)
 OBJ_GNL			= $(SRC_GNL:.c=.o)
 OBJ_RAY			= $(SRC_RAY:.c=.o)
+OBJ_MOVE		= $(SRC_MOVE:.c=.o)
 
-OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ_SRC) $(OBJ_PARS) $(OBJ_UTILS) $(OBJ_GNL) $(OBJ_RAY))
+OBJ_PREFIXED	= $(addprefix $(OBJ_PATH), $(OBJ_SRC) $(OBJ_PARS) $(OBJ_UTILS) $(OBJ_GNL) $(OBJ_RAY) $(OBJ_MOVE))
 DEPS			= $(addprefix ${OBJ_PATH}, ${SRC:.c=.d})
 INCS			= -I./includes/ -I./minilibx-linux/
 LIB 			= -L./libft_42/ -lft
@@ -93,6 +98,10 @@ $(OBJ_PATH)%.o: $(GNL_PATH)%.c
 	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 
 $(OBJ_PATH)%.o: $(RAY_PATH)%.c
+	mkdir -p ${OBJ_PATH}
+	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
+
+$(OBJ_PATH)%.o: $(MOVE_PATH)%.c
 	mkdir -p ${OBJ_PATH}
 	${CC} ${CFLAGS} ${INCS} -o $@ -c $<
 
