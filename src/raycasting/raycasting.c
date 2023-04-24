@@ -6,37 +6,42 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 15:24:11 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:51:44 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include <math.h>
 
-// int	key_press(int keycode, t_data *data)
-// {
-// }
+void	init_direction(t_data *data)
+{
+	if (data->player.pos == 'N')
+		data->ray.dir_x = -1;
+	if (data->player.pos == 'S')
+		data->ray.dir_x = 1;
+	if (data->player.pos == 'E')
+		data->ray.dir_y = 1;
+	if (data->player.pos == 'W')
+		data->ray.dir_y = -1;
+	if (data->player.pos == 'N')
+		data->ray.plane_y = 1;
+	if (data->player.pos == 'S')
+		data->ray.plane_y = -1;
+	if (data->player.pos == 'E')
+		data->ray.plane_x = 1;
+	if (data->player.pos == 'W')
+		data->ray.plane_x = -1;
+}
 
-// ! Conditionnal jump
-// void	init_direction(t_data *data)
-// {
-// 	if (data->player.pos == 'N')
-// 		data->ray.dir_x = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.dir_x = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.dir_y = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.dir_y = -1;
-// 	if (data->player.pos == 'N')
-// 		data->ray.plane_y = -1;
-// 	if (data->player.pos == 'S')
-// 		data->ray.plane_y = 1;
-// 	if (data->player.pos == 'E')
-// 		data->ray.plane_x = 1;
-// 	if (data->player.pos == 'W')
-// 		data->ray.plane_x = -1;
-// }
+void	ray_init(t_data *data)
+{
+	data->ray.perp_wall_dist = 0;
+	data->ray.hit = 0;
+	data->ray.map_x = (int)data->player.pos_x;
+	data->ray.map_y = (int)data->player.pos_y;
+	data->ray.rot_speed = 0.2;
+	data->ray.move_speed = 0.075 * 1.8;
+}
 
 void	init_game(t_data *data)
 {
@@ -59,7 +64,7 @@ void	init_game(t_data *data)
 	data->ray.map_y = 0;
 	data->ray.delta_dist_x = 0;
 	data->ray.delta_dist_y = 0;
-	data->ray.perp_wall_dist = 0;
+	// data->ray.perp_wall_dist = 0;
 	
     // Length of ray from current position to next x or y-side
 	data->ray.side_dist_x = 0;
@@ -67,7 +72,7 @@ void	init_game(t_data *data)
 	
 	data->ray.step_x = 0;
 	data->ray.step_y = 0;
-	data->ray.hit = 0;
+	// data->ray.hit = 0;
 	
 	// Was a NS or a EW wall hit?
 	data->ray.side = 0;
@@ -81,9 +86,9 @@ void	init_game(t_data *data)
 	data->ray.left = 0;
 	data->ray.front = 0;
 	data->ray.back = 0;
-	// data->ray.map_x = data->player.pos_x;
-	// data->ray.map_y = data->player.pos_y;
-	// init_direction(data);
+	data->ray.map_x = (int)data->player.pos_x;
+	data->ray.map_y = (int)data->player.pos_y;
+	init_direction(data);
 }
 
 void	init_rays(t_data **data)
@@ -181,23 +186,82 @@ void	find_wall(t_data **data)
 		(*data)->ray.draw_end = WINDOW_HEIGHT - 1;
 }
 
-// void	draw_texture(t_data *data)
-// {
-// 	int	i;
-// 	int	i_tex;
+void calculate_texture(t_data *data)
+{
+	if (data->ray.side == 0)
+		data->ray.wall_x = data->player.pos_y + data->ray.perp_wall_dist * data->ray.ray_dir_y;
+    else
+		data->ray.wall_x = data->player.pos_x + data->ray.perp_wall_dist * data->ray.ray_dir_x;
+    data->ray.wall_x -= floor((data->ray.wall_x));
+	data->ray.tex_x = (int)(data->ray.wall_x * (double)(data->texture[data->NO].width));
+	if ((data->ray.side == 0 && data->ray.ray_dir_x > 0) || (data->ray.side == 1 && data->ray.ray_dir_y < 0)) 
+		data->ray.tex_x = data->texture[data->NO].width - data->ray.tex_x - 1;
+}
 
-// 	i = data->ray.draw_start - 1;
-// 	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
-// 	calculate_texture(data);
-// 	i_tex = 0;
-// 	which_texture(data, &i_tex);
-// 	while (++i <= data->ray.draw_end)
-// 	{
-// 		data->ray.tex_y = (int)data->ray.tex_pos & (data->ray.tex_height - 1);
-// 		data->ray.tex_pos += data->ray.step;
-// 		display_texture(data, i, data->ray.x, i_tex);
-// 	}
-// }
+void	which_texture(t_data *data, int *side)
+{
+	if (data->ray.side == 0)
+	{
+		if (data->ray.ray_dir_x > 0)
+			*side = data->SO;
+		else
+			*side = data->NO;
+	}
+	else
+	{
+		if (data->ray.ray_dir_y > 0)
+			*side = data->EA;
+		else
+			*side = data->WE;
+	}
+}
+
+int	get_textel_val(t_data *data, int *side)
+{
+	int				tex_i;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	int				res;
+
+	tex_i = data->ray.tex_y * data->texture[*side].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8);
+	r = (unsigned char)(data->texture[*side].mlx_ad)[tex_i + 2];
+	g = (unsigned char)(data->texture[*side].mlx_ad)[tex_i + 1];
+	b = (unsigned char)(data->texture[*side].mlx_ad)[tex_i];
+
+	res = ((int)r << 16) + ((int)g << 8) + (int)b;
+	return (res);
+}
+
+void	draw_texture(t_data *data)
+{
+	int		i;
+	char	*dst;
+	int		color;
+	//t_texture	*tex; tex = data->texture[wich_texture]
+	int	side_texture;
+
+	i = data->ray.draw_start;
+	data->ray.draw_end = WINDOW_HEIGHT - data->ray.draw_start;
+	calculate_texture(data);
+	data->ray.step = 1.0 * data->texture[data->NO].height / data->ray.line_height;
+	data->ray.tex_pos = (data->ray.draw_start - WINDOW_HEIGHT / 2 + data->ray.line_height / 2) * data->ray.step;
+	// side_texture = 0;
+	which_texture(data, &side_texture);
+	// data->ray.img = data->texture[data->NO].img;
+	while (i < data->ray.draw_end)
+	{
+		data->ray.tex_y = (int)data->ray.tex_pos & (data->texture[data->NO].height - 1);
+		data->ray.tex_pos += data->ray.step;
+		// color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
+		// color = (*(int *)data->texture[data->NO].mlx_ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
+		color = get_textel_val(data, &side_texture);
+		dst = data->img.addr + (i * data->img.line_len + data->ray.x * (data->img.bpp / 8));
+		*(int *)dst = color;
+		
+		i++;
+	}
+}
 
 void	pass_to_3d(t_data *data)
 {
@@ -213,8 +277,8 @@ void	pass_to_3d(t_data *data)
 		dst = data->img.addr + (j * data->img.line_len + data->ray.x * (data->img.bpp / 8));
 		*(unsigned int*)dst = data->ceil;
 	}
-	// if (j <= data->ray.draw_end)
-	// 	draw_texture(data->ray);
+	if (j <= data->ray.draw_end)
+		draw_texture(data);
 	j = i;
 	while (++j < WINDOW_HEIGHT)
 	{
@@ -225,32 +289,16 @@ void	pass_to_3d(t_data *data)
 
 void	draw(t_data *data)
 {
-	// (void)data;
 	data->ray.x = -1;
 
-	// init_floor_and_ceil(data);
 	while (++data->ray.x < WINDOW_WIDTH)
 	{
-		init_game(data);
+		ray_init(data);
 		// Calculate ray position and direction
 		data->ray.camera_x = 2 * data->ray.x / (double)WINDOW_WIDTH - 1; // x coordinate in camera space
 		data->ray.ray_dir_x = data->ray.dir_x + data->ray.plane_x * data->ray.camera_x;
 		data->ray.ray_dir_y = data->ray.dir_y + data->ray.plane_y * data->ray.camera_x;
 	
-		// Which box of the map we're in
-		data->ray.map_x = (int)data->player.pos_x;
-		data->ray.map_y = (int)data->player.pos_y;
-
-		// Used later to calculate the length of the ray
-		data->ray.perp_wall_dist = 0;
-		
-		// Was there a wall hit?
-		data->ray.hit = 0;
-
-		// Speed modifiers
-		data->ray.move_speed = 0.2;
-		data->ray.rot_speed = 0.075 * 1.8;
-		
 		// Length of ray from one x or y-side to next x or y-side
 		init_rays(&data);
 
@@ -273,16 +321,3 @@ void	draw(t_data *data)
 	}
 	// return (0);
 }
-
-// int	key_press(int key_code, t_param *data)
-// {
-// 	if (key_code == KEY_W)d
-// 		move_up(param);
-// 	else if (key_code == KEY_A)
-// 		move_left(param);
-// 	else if (key_code == KEY_S)
-// 		move_down(param);
-// 	else if (key_code == KEY_D)
-// 		move_right(param);
-// 	return (0);
-// }

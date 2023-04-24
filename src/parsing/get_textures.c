@@ -53,8 +53,8 @@ int	get_texture_param(t_data *data, t_texture *texture)
 	if (check_textures(texture->path) == 2 && \
 	file_extension(texture->ad, ".xpm") == 1)
 	{
-			free_double_tab(tab, i + 1);
-			parse_error(data, "Wrong file extension !!");
+		free_double_tab(tab, i + 1);
+		parse_error(data, "Wrong file extension !!");
 	}
 	free_double_tab(tab, i + 1);
 	return (0);

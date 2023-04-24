@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 15:54:57 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:02:57 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// void	init_picture(t_picture *picture)
-// {
-// 	picture->addr = NULL;
-// 	picture->img = NULL;
-// 	picture->bits_per_pixel = 0;
-// 	picture->line_length = 0;
-// 	picture->endian = 0;
-// 	picture->x = 0;
-// 	picture->y = 0;
-// 	picture->width = 0;
-// 	picture->height = 0;
-// }
 
 void	init_texture(t_data *data)
 {
@@ -65,7 +52,9 @@ void	init_data(t_data *data)
 		return ;
 	load_image(data);	
 	init_raycasting_data(data);
-	mlx_loop_hook(data->mlx, &render_colors, data);
+	init_game(data);
+	data->map.tab[(int)data->player.pos_x][(int)data->player.pos_y] = '0';
+	mlx_loop_hook(data->mlx, render_colors, data);
 	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
 	mlx_loop(data->mlx);
