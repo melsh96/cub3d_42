@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 19:58:00 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:25:26 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define BOLD	"\e[1m"
 
 
-#define WINDOW_WIDTH 1900
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 600
 
 #define BACKGROUND_COLOR 0xFFFFFF
 
@@ -85,6 +85,8 @@ typedef struct s_ray
 	double	side_dist_x;
 	double	side_dist_y;
 	double	perp_wall_dist;
+	double	step;
+	double	wall_x;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -106,6 +108,9 @@ typedef struct s_ray
 	int		color2;
 	int		color3;
 	int		color4;
+	int 	tex_x;
+	int		tex_y;
+	double  tex_pos;
 }	t_ray;
 
 typedef struct s_map
@@ -123,7 +128,8 @@ typedef struct s_texture
 	char		*path;
 	char		*id;
 	char		*ad;
-	
+	void		*img;
+	char		*mlx_ad;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
