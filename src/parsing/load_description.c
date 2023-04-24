@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/24 16:22:15 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:56:52 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int load_textures(t_data *data)
 	int i;
 
 	i = 0;
-	while (data->texture[i].ad)
+	while (i < 6)
 	{
 		if ((i != data->C) || (i != data->F))
 		{
