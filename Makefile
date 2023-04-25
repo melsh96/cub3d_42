@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/24 19:19:10 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/25 10:57:32 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 # CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 
 SRC				= main.c \
-					events.c \
 					init.c \
 					clean.c
 
@@ -43,7 +42,7 @@ SRC_RAY			= raycasting.c \
 					pos_utils.c \
 					init_ray.c
 
-MOVE_RAY		= moves.c \
+SRC_MOVE		= events.c
 
 SRC_PREFIXED	= $(addprefix $(SRC_PATH), $(SRC))
 PARS_PREFIXED	=$(addprefix $(PARS_PATH), $(SRC_PARS))
