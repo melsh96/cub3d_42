@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/25 15:54:10 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/25 16:04:30 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,10 @@ int	handle_input(int key, t_data *data)
 		move_down(data);
 	else if (key == XK_d || key == XK_D)
 		move_right(data);
+	else if (key == XK_Left)
+		rotate_left(data);
+	else if (key == XK_Right)
+		rotate_right(data);
+	
 	return (0);
 }
