@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 20:02:57 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:52:40 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	init_data(t_data *data)
 	init_raycasting_data(data);
 	init_game(data);
 	data->map.tab[(int)data->player.pos_x][(int)data->player.pos_y] = '0';
-	mlx_loop_hook(data->mlx, render_colors, data);
-	mlx_key_hook(data->mlx_win, &handle_input, data);
 	mlx_hook(data->mlx_win, 17, 1L << 2, destroy_cub, data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, handle_input, data);
+	mlx_loop_hook(data->mlx, render_colors, data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, handle_input, data);
 	mlx_loop(data->mlx);
 }

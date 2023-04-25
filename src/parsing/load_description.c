@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_description.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/24 18:56:52 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:23:26 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,7 @@ int load_textures(t_data *data)
 int	render_colors(t_data *data)
 {
 	draw(data);
-	// get_background(BACKGROUND_COLOR, data);
-	// get_background_fix(data->floor, data, data->F);
-	// get_background_fix(data->ceil, data, data->C);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
-
-	// printf("PLAYER POS_X = %f\n", data->player.pos_x);
-	// printf("PLAYER POS_Y = %f\n", data->player.pos_y);
 	return (0);
 }
 
