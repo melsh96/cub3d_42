@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/25 13:23:40 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/25 13:52:05 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,10 @@ void move_up(t_data *data) // North or forward
 		data->player.pos_x += data->ray.dir_x * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y + (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
 		data->player.pos_y += data->ray.dir_y * data->ray.move_speed;
-
-	printf("move_up called \n");
 }
 
 void move_down(t_data *data) // North or forward
 {
-	// if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false)
-		//posX += dirX * moveSpeed;
-    //  if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) 
-		//posY += dirY * moveSpeed;
-	
-	//if (worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false)
-		//posX += dirX;
 	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
