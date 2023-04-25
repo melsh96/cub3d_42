@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/24 18:51:44 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:17:59 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ray_init(t_data *data)
 	data->ray.map_x = (int)data->player.pos_x;
 	data->ray.map_y = (int)data->player.pos_y;
 	data->ray.rot_speed = 0.2;
-	data->ray.move_speed = 0.075 * 1.8;
+	data->ray.move_speed = 0.075 * 1.8/*0.999999999999999*/;
 }
 
 void	init_game(t_data *data)
@@ -158,7 +158,7 @@ void	touch_wall(t_data **data)
 			(*data)->ray.side = 1;
 		}
 		// Check if ray has hit a wall
-		if ((*data)->map.tab[(*data)->ray.map_x][(*data)->ray.map_y] == '1')
+		if ((*data)->map.tab != NULL && (*data)->map.tab[(*data)->ray.map_x][(*data)->ray.map_y] == '1')
 			(*data)->ray.hit = 1;
 	}
 }

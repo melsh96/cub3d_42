@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/25 16:04:30 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/25 19:25:22 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void move_up(t_data *data) // forward
 {
-	if (data->map.tab[(int)(data->player.pos_x + (data->ray.dir_x * data->ray.move_speed *2))][(int)data->player.pos_y] == '0')
+	if (data->map.tab[(int)(data->player.pos_x + (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
 		data->player.pos_x += data->ray.dir_x * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y + (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
 		data->player.pos_y += data->ray.dir_y * data->ray.move_speed;
@@ -26,6 +26,23 @@ void move_up(t_data *data) // forward
 
 void move_down(t_data *data) // backward
 {
+	// ? Exemple pour securiser les bordures si le move speed est rapide
+	// int calcul_x = (int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2));
+	// int pos_y = (int)data->player.pos_y;
+	// if ((calcul_x < data->map.height && pos_y < data->map.longest_map_line) && (0 < calcul_x && 0 < pos_y))
+	// {
+	// 	if (data->map.tab[calcul_x][pos_y] == '0')
+	// 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
+	// }
+	
+	// int pos_x = (int)data->player.pos_x;
+	// int calcul_y = (int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2));
+	// if ((pos_x < data->map.height && calcul_y < data->map.longest_map_line) && (0 < pos_x && 0 < calcul_y))
+	// {
+	// 	if (data->map.tab[pos_x][calcul_y] == '0')
+	// 		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
+	// }
+	
 	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
@@ -34,7 +51,7 @@ void move_down(t_data *data) // backward
 
 void move_left(t_data *data)
 {
-	if (data->map.tab[(int)(data->player.pos_x - data->ray.dir_x * (data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
+	if (data->map.tab[(int)(data->player.pos_x - data->ray.dir_y * (data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
 		data->player.pos_x -= data->ray.dir_y * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y + data->ray.dir_x * (data->ray.move_speed * 2))] == '0')
 		data->player.pos_y += data->ray.dir_x * data->ray.move_speed;
@@ -76,6 +93,9 @@ void rotate_right(t_data *data) // rotate
 
 int	handle_input(int key, t_data *data)
 {
+	// printf("pos_x = %d\n", (int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2)));
+	// printf("pos_y = %d\n", (int)(data->player.pos_y + (data->ray.dir_x * data->ray.move_speed * 2)));
+	// printf("%d", (int).9);
 	if (key == XK_Escape)
 		destroy_cub(data);
 	else if (key == XK_w || key == XK_W)
@@ -90,6 +110,5 @@ int	handle_input(int key, t_data *data)
 		rotate_left(data);
 	else if (key == XK_Right)
 		rotate_right(data);
-	
 	return (0);
 }
