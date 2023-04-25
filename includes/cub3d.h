@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/25 13:03:37 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/25 15:41:27 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ void	init_data(t_data *data);
 
 // Events
 int	handle_input(int key, t_data *data);
+int	handle_key_press(int key, t_data *data);
+int	handle_key_release(int key, t_data *data);
 
 // Parsing
 int		file_extension(char *av, char *c);

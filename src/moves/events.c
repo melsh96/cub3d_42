@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/25 13:52:05 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:37:32 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,23 @@ void move_down(t_data *data) // North or forward
 		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
 }
 
-void move_left(t_data *data)
+void move_left(t_data *data) // North or forward
+{
+	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
+		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
+	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
+		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
+}
+
+void move_right(t_data *data) // North or forward
+{
+	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
+		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
+	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
+		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
+}
+
+void rotate_left(t_data *data)
 {
 	double oldDirX = data->ray.dir_x;
     data->ray.dir_x = data->ray.dir_x * cos(0.2) - data->ray.dir_y * sin(0.2);
@@ -42,7 +58,7 @@ void move_left(t_data *data)
     data->ray.plane_y = oldPlaneX * sin(0.2) + data->ray.plane_y * cos(0.2);
 }
 
-void move_right(t_data *data)
+void rotate_right(t_data *data)
 {
 	double oldDirX = data->ray.dir_x;
     data->ray.dir_x = data->ray.dir_x * cos(-0.2) - data->ray.dir_y * sin(-0.2);
@@ -52,17 +68,32 @@ void move_right(t_data *data)
     data->ray.plane_y = oldPlaneX * sin(-0.2) + data->ray.plane_y * cos(-0.2);
 }
 
-int	handle_input(int key, t_data *data)
+int	handle_key_press(int key, t_data *data)
 {
 	if (key == XK_Escape)
 		destroy_cub(data);
 	else if (key == XK_w || key == XK_W)
 		move_up(data);
-	else if (key == XK_a | key == XK_A)
+	else if (key == XK_a || key == XK_A)
 	 	move_left(data);
-	else if (key == XK_s | key == XK_S)
+	else if (key == XK_s || key == XK_S)
 		move_down(data);
-	else if (key == XK_d | key == XK_D)
+	else if (key == XK_d || key == XK_D)
+		move_right(data);
+	return (0);
+}
+
+int	handle_key_release(int key, t_data *data)
+{
+	if (key == XK_Escape)
+		destroy_cub(data);
+	else if (key == XK_w || key == XK_W)
+		move_up(data);
+	else if (key == XK_a || key == XK_A)
+	 	move_left(data);
+	else if (key == XK_s || key == XK_S)
+		move_down(data);
+	else if (key == XK_d || key == XK_D)
 		move_right(data);
 	return (0);
 }
