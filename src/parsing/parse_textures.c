@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/17 13:01:51 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 13:47:27 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,36 +121,3 @@ void get_colors_and_range(t_data *data)
 		i++;
 	}
 }
-
-void	get_textures(t_data *data, char *av)
-{
-	int	i;
-
-	data->fd = open(av, O_RDONLY);
-	init_texture(data);
-	i = 0;
-	while (i < 6)
-	{
-		data->texture[i].path = get_next_line(data->fd);	
-		if (!data->texture[i].path)
-		{
-			close(data->fd);
-			return ;
-		}
-		if (ft_strncmp(data->texture[i].path, "\n", 1) == 0)
-		{
-			free(data->texture[i].path);
-			i--;
-		}
-		else if (check_textures(data->texture[i].path) == 0)
-			parse_error(data, "Wrong or missing id");
-		else if (check_double_path(i, data, data->texture[i].path) == 1)
-		 	parse_error(data, "doublon");
-		else if (get_texture_param(data, &data->texture[i]) == 1)
-			parse_error(data, "space en trop");
-		i++;
-	}
-	get_colors_and_range(data);
-	printf("F = %d\nC = %d\nNO = %d\nSO = %d\nWE = %d\nEA = %d\n", data->F, data->C, data->NO, data->SO, data->WE, data->EA);
-}
-

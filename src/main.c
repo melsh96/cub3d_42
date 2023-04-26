@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/17 13:10:47 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:26:23 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 		if (!get_map(&data))
 		{
 			free_double_tab(data.map.tab, (size_t)data.map.height);
-			free_texture(&data);
+			free_error_texture(&data);
 			close(data.fd);
 			exit(0);
 		}
@@ -50,16 +50,7 @@ int	main(int ac, char **av)
 		{
 			printf("Let's Play !\n");
       		init_data(&data);
-			// data.ray.img = mlx_new_image(data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-			// data.ray.addr = (int *)mlx_get_data_addr(data.ray.img,
-			// 	&data.ray.bits_per_pixel, &data.ray.line_length, &data.ray.endian);
-			// raycasting(&data);
-			// mlx_loop(data.mlx);
 		}
 	}
-	// if (data.map.tab)
-	//	free_double_tab_len(data.map.tab, (size_t)data.map.height);
-	//free_params(data.texture.tab);
-	//close (data.fd);
 	return (0);
 }
