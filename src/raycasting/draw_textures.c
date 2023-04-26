@@ -6,12 +6,17 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:36:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 12:43:31 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:14:23 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/* Textures & Colors
+
+	We calculate the exact value where the wall was hit to know which textel we have to draw
+	tex_x = coordinate of the texture out of wall x and the size of the textures
+*/
 void calculate_texture(t_data *data)
 {
 	if (data->ray.side == 0)
@@ -59,12 +64,15 @@ int	get_textel_val(t_data *data, int *side)
 	return (res);
 }
 
+/*
+	step = how much to increase the texture coordinate per screen pixel
+	tex_pos = calculates the starting texture coordinate
+*/
 void	draw_texture(t_data *data)
 {
 	int		i;
 	char	*dst;
 	int		color;
-	//t_texture	*tex; tex = data->texture[wich_texture]
 	int	side_texture;
 
 	i = data->ray.draw_start;
@@ -72,23 +80,24 @@ void	draw_texture(t_data *data)
 	calculate_texture(data);
 	data->ray.step = 1.0 * data->texture[data->NO].height / data->ray.line_height;
 	data->ray.tex_pos = (data->ray.draw_start - WINDOW_HEIGHT / 2 + data->ray.line_height / 2) * data->ray.step;
-	// side_texture = 0;
 	which_texture(data, &side_texture);
-	// data->ray.img = data->texture[data->NO].img;
 	while (i < data->ray.draw_end)
 	{
 		data->ray.tex_y = (int)data->ray.tex_pos & (data->texture[data->NO].height - 1);
 		data->ray.tex_pos += data->ray.step;
-		// color = (*(int *)data->img.addr + (data->ray.tex_y * data->img.line_len + data->ray.tex_x * (data->img.bpp / 8)));
-		// color = (*(int *)data->texture[data->NO].mlx_ad + (data->ray.tex_y * data->texture[data->NO].line_length + data->ray.tex_x * (data->texture[data->NO].bits_per_pixel / 8)));
 		color = get_textel_val(data, &side_texture);
 		dst = data->img.addr + (i * data->img.line_len + data->ray.x * (data->img.bpp / 8));
 		*(int *)dst = color;
-		
 		i++;
 	}
 }
 
+/* Textures & Colors
+
+	Based on the starting point of the wall, we print vetically the ceiling till it hits the wall.
+	We print he walls from the starting point till the end point of the wall.
+	Finally we print the floor from the end point of the wall till the end of the screen height.
+*/
 void	pass_to_3d(t_data *data)
 {
 	int		j;

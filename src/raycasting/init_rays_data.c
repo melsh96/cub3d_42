@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_raycasting_data.c                             :+:      :+:    :+:   */
+/*   init_rays_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:54:25 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 12:55:13 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:51:11 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,11 @@ void	init_game(t_data *data)
 	data->ray.map_y = 0;
 	data->ray.delta_dist_x = 0;
 	data->ray.delta_dist_y = 0;
-	// data->ray.perp_wall_dist = 0;
-	
-    // Length of ray from current position to next x or y-side
 	data->ray.side_dist_x = 0;
 	data->ray.side_dist_y = 0;
-	
 	data->ray.step_x = 0;
 	data->ray.step_y = 0;
-	// data->ray.hit = 0;
-	
-	// Was a NS or a EW wall hit?
 	data->ray.side = 0;
-	
 	data->ray.line_height = 0;
 	data->ray.draw_start = 0;
 	data->ray.draw_end = 0;

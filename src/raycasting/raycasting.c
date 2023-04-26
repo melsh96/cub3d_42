@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 14:14:03 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:50:24 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@
 	Calculate Steps from ray distance starting from x and y pos of player
 */
 
-/* Step 3: DDA Algorithm
+/* Step 3: DDA Algorithm*/
 
-	
-*/
+/* Step 4: Textures*/
 
-/* Step 4: Textures
-
-	
-*/
 void	draw(t_data *data)
 {
 	data->ray.x = -1;
@@ -56,6 +51,7 @@ void	draw(t_data *data)
 		data->ray.ray_pos_x = data->player.pos_x;
 		data->ray.ray_pos_y = data->player.pos_y;
 		data->ray.side = 0;
+		touch_wall(&data);
 		find_wall(&data);
 		data->ray.hit = 0;
 		pass_to_3d(data);
