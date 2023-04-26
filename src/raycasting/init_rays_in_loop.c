@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:26:36 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 14:08:52 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:31:57 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ void	ray_init(t_data *data)
 
 /*	Get DDA Ready: Pythagoras Formulas
 	
-	delta_dist_x and y are the distance the ray has to travel to go from 1 x_side to next x_side,
-	or 1 y_side to next y_side
+	delta_dist_x and y are the distance the ray has to travel to go
+	from 1 x_side to next x_side, or 1 y_side to next y_side
+	
 	2 triangles are formed (delta dist x & y)
 	We use Pythagoras formulas : 
-	We search for the square root by getting the sum of one side (length 1 = 1 pixel cell) and
-	the other side (ray_dir_y / ray_dir_x) witch is the amount of units the ray goes into the direction y
-	when taking 1 step in direction x;
+	We search for the square root by getting the sum of one side
+	(length 1 = 1 pixel cell) and the other side (ray_dir_y / ray_dir_x)
+	which is the amount of units the ray goes into the direction y
+	when taking 1 step in direction x.
 */
 void	init_delta_dist(t_data **data)
 {
@@ -58,7 +60,8 @@ void	init_delta_dist(t_data **data)
 
 /*	Get DDA Ready: Steps
 	
-	side_dist_x and y are the distance the ray has to travel from its start position to first x & y side.
+	side_dist_x and y are the distance the ray has to travel
+	from its start position to first x & y side.
 	It will be incremented while taking steps.
 
 	Depending on the ray direction :
