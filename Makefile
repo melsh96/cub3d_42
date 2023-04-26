@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+         #
+#    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
 #    Updated: 2023/04/26 16:11:45 by cchapon          ###   ########.fr        #
@@ -42,7 +42,10 @@ SRC_GNL			= get_next_line_bonus.c \
 
 SRC_RAY			= raycasting.c \
 					pos_utils.c \
-					init_ray.c
+					init_rays_data.c \
+					init_rays_in_loop.c \
+					draw_textures.c \
+					dda.c
 
 SRC_MOVE		= events.c
 
