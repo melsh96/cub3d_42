@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:24:17 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/26 14:03:59 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:15:35 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_error_texture(t_data *data)
 {
-	int s;
+	int	s;
 
 	s = -1;
 	while (++s < 6 && data->texture[s].path)
@@ -29,7 +29,7 @@ void	free_error_texture(t_data *data)
 
 void	free_texture(t_data *data)
 {
-	int s;
+	int	s;
 
 	s = -1;
 	while (++s < 6 && data->texture[s].img)
@@ -49,15 +49,14 @@ void	parse_error(t_data *data, char *msg)
 {
 	close(data->fd);
 	if (data->map.tab)
-		free_double_tab(data->map.tab, (size_t)data->map.height);
+		free_double_tab(data->map.tab);
 	free_error_texture(data);
 	printf("%s%sError:%s %s\n", RED, BOLD, NC, msg);
 	exit(1);
 }
 
-void	free_double_tab(char **tab, size_t len)
+void	free_double_tab(char **tab)
 {
-	(void)len;
 	size_t	idx;
 
 	idx = 0;

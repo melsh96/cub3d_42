@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:27:35 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 16:26:23 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:16:03 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	destroy_cub(t_data *data)
 {
-	free_double_tab(data->map.tab, (size_t)data->map.height);
+	free_double_tab(data->map.tab);
 	free_texture(data);
 	mlx_destroy_image(data->mlx, data->img.mlx_img);
 	mlx_clear_window(data->mlx, data->mlx_win);
@@ -41,7 +41,7 @@ int	main(int ac, char **av)
 		get_textures(&data, av[1]);
 		if (!get_map(&data))
 		{
-			free_double_tab(data.map.tab, (size_t)data.map.height);
+			free_double_tab(data.map.tab);
 			free_error_texture(&data);
 			close(data.fd);
 			exit(0);
@@ -49,7 +49,7 @@ int	main(int ac, char **av)
 		else
 		{
 			printf("Let's Play !\n");
-      		init_data(&data);
+			init_data(&data);
 		}
 	}
 	return (0);

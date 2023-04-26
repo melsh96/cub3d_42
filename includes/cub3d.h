@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 16:24:14 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:38:51 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ void	init_data(t_data *data);
 void	free_error_texture(t_data *data);
 void	free_texture(t_data *data);
 void	parse_error(t_data *data, char *msg);
-void	free_double_tab(char **tab, size_t len);
+void	free_double_tab(char **tab);
+void	file_error(char *msg);
 
 // Utils
 void	print_map(t_map *map);
@@ -219,14 +220,16 @@ void get_colors_and_range(t_data *data);
 
 // Get description
 int	get_map(t_data *data);
-void	get_textures(t_data *data, char *av);
+int	get_textures(t_data *data, char *av);
 int	load_image(t_data *data);
 int	render_colors(t_data *data);
 
 // Events
-int	handle_input(int key, t_data *data);
-int	handle_key_press(int key, t_data *data);
-int	handle_key_release(int key, t_data *data);
+void move_up(t_data *data);
+void move_down(t_data *data);
+void move_left(t_data *data);
+void move_right(t_data *data);
+void rotate(t_data *data, int key);
 
 // Raycasting
 void 	raycasting(t_data *data);
