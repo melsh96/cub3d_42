@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/25 15:41:27 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:19:37 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_ray
 	int		right;
 	int		front;
 	int		back;
-	
 	int		*addr;
 	void	*img;
 	int		bits_per_pixel;
@@ -108,9 +107,9 @@ typedef struct s_ray
 	int		color2;
 	int		color3;
 	int		color4;
-	int 	tex_x;
+	int		tex_x;
 	int		tex_y;
-	double  tex_pos;
+	double	tex_pos;
 }	t_ray;
 
 typedef struct s_map
@@ -218,13 +217,26 @@ void	print_texture(t_data *data);
 
 void	free_double_tab_len(char **tab, size_t len);
 
-// Raycasting
-void 	raycasting(t_data *data);
-void	get_player_pos(t_data *data);
+// Init Raycasting
 void	init_raycasting_data(t_data *data);
-void	init_game(t_data *data);
-void	draw(t_data *data);
+void	init_direction(t_data *data);
 void	ray_init(t_data *data);
-// void	init_direction(t_data *data);
+void	init_game(t_data *data);
+void	init_delta_dist(t_data **data);
+void	init_step_side_distance(t_data **data);
+
+// Textures
+void	calculate_texture(t_data *data);
+void	which_texture(t_data *data, int *side);
+int		get_textel_val(t_data *data, int *side);
+void	draw_texture(t_data *data);
+void	pass_to_3d(t_data *data);
+
+// DDA Algo
+void	touch_wall(t_data **data);
+void	find_wall(t_data **data);
+
+void	get_player_pos(t_data *data);
+void	draw(t_data *data);
 
 #endif
