@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 18:17:39 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:19:37 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_ray
 	int		right;
 	int		front;
 	int		back;
-	
 	int		*addr;
 	void	*img;
 	int		bits_per_pixel;
@@ -108,9 +107,9 @@ typedef struct s_ray
 	int		color2;
 	int		color3;
 	int		color4;
-	int 	tex_x;
+	int		tex_x;
 	int		tex_y;
-	double  tex_pos;
+	double	tex_pos;
 }	t_ray;
 
 typedef struct s_map
