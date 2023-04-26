@@ -6,7 +6,7 @@
 #    By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/25 11:15:20 by meshahrv          #+#    #+#              #
-#    Updated: 2023/04/26 12:58:20 by meshahrv         ###   ########.fr        #
+#    Updated: 2023/04/26 16:11:45 by cchapon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,14 @@ CFLAGS			= -Wall -Werror -Wextra -MMD -MP -g3
 
 SRC				= main.c \
 					init.c \
-					clean.c
+					clean_utils.c
 
-SRC_PARS		= parsing.c \
-					get_textures.c \
-					get_map.c \
-					load_description.c
+SRC_PARS		= check_walls_utils.c \
+					get_description.c \
+					parse_file.c \
+					parse_map_utils.c \
+					parse_map_utils2.c \
+					parse_textures.c
 
 SRC_UTILS		= print_utils.c \
 

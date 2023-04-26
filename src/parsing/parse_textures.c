@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_textures.c                                     :+:      :+:    :+:   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/17 13:01:51 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:25:56 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_double_path(int i, t_data *data, char *line)
 int	get_texture_param(t_data *data, t_texture *texture)
 {
 	int		i;
-	char **tab;
+	char	**tab;
 
 	i = 0;
 	tab = ft_split(texture->path, ' ');
@@ -44,113 +44,76 @@ int	get_texture_param(t_data *data, t_texture *texture)
 		i++;
 	if (i > 2)
 	{
-		free_double_tab(tab, i + 1);
+		free_double_tab(tab);
 		return (1);
 	}
 	texture->id = ft_strdup(tab[0]);
 	texture->ad = ft_strdup(tab[1]);
-	texture->ad[ft_strlen(tab[1]) -1] = '\0';
+	texture->ad[ft_strlen(tab[1]) - 1] = '\0';
 	if (check_textures(texture->path) == 2 && \
 	file_extension(texture->ad, ".xpm") == 1)
 	{
-		free_double_tab(tab, i + 1);
+		free_double_tab(tab);
 		parse_error(data, "Wrong file extension !!");
 	}
-	free_double_tab(tab, i + 1);
+	free_double_tab(tab);
 	return (0);
 }
 
 int	get_color_int(t_data *data, char *color_line)
 {
-	char **colors;
-	int	i;
-	int	l;
-	int color;
+	char	**clrs;
+	int		i;
+	int		l;
+	int		clr;
 
-	colors = ft_split(color_line, ',');
+	clrs = ft_split(color_line, ',');
 	l = 0;
-	while (colors[l])
+	while (clrs[l])
 		l++;
-	if (l != 3)
+	i = -1;
+	while (clrs[++i])
 	{
-		free_double_tab(colors, l);
-		parse_error(data, "Bad colors description");
-	}
-	i = 0;
-	while (colors[i])
-	{
-		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
+		if (l != 3 || ft_isalpha(clrs[i][0]))
 		{
-			free_double_tab(colors, l);
+			free_double_tab(clrs);
+			parse_error(data, "Bad color description");
+		}
+		if (ft_atoi(clrs[i]) < 0 || ft_atoi(clrs[i]) > 255)
+		{
+			free_double_tab(clrs);
 			parse_error(data, "Bad color range");
 		}
-		i++;
 	}
-	color = ft_atoi(colors[0]) << 16 | ft_atoi(colors[1]) << 8 | ft_atoi(colors[2]);
-	free_double_tab(colors, l);
-	return (color);
+	clr = ft_atoi(clrs[0]) << 16 | ft_atoi(clrs[1]) << 8 | ft_atoi(clrs[2]);
+	return (free_double_tab(clrs), clr);
 }
 
-void get_colors_and_range(t_data *data)
+void	get_colors_and_range(t_data *data)
 {
 	int	i;
-	int	len;
-	
+
 	i = 0;
 	while (i < 6)
 	{
-		len = ft_strlen(data->texture[i].id);
-		if (ft_strncmp(data->texture[i].id, "F", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "F", 1) == 0)
 		{
-			data->F = i;	
+			data->F = i;
 			data->floor = get_color_int(data, data->texture[i].ad);
 		}	
-		if (ft_strncmp(data->texture[i].id, "C", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "C", 1) == 0)
 		{
 			data->C = i;
 			data->ceil = get_color_int(data, data->texture[i].ad);
 		}
-		if (ft_strncmp(data->texture[i].id, "NO", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "NO", 2) == 0)
 			data->NO = i;
-		if (ft_strncmp(data->texture[i].id, "SO", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "SO", 2) == 0)
 			data->SO = i;
-		if (ft_strncmp(data->texture[i].id, "WE", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "WE", 2) == 0)
 			data->WE = i;
-		if (ft_strncmp(data->texture[i].id, "EA", len) == 0)
+		if (ft_strncmp(data->texture[i].id, "EA", 2) == 0)
 			data->EA = i;
 		i++;
 	}
 }
-
-void	get_textures(t_data *data, char *av)
-{
-	int	i;
-
-	data->fd = open(av, O_RDONLY);
-	init_texture(data);
-	i = 0;
-	while (i < 6)
-	{
-		data->texture[i].path = get_next_line(data->fd);	
-		if (!data->texture[i].path)
-		{
-			close(data->fd);
-			return ;
-		}
-		if (ft_strncmp(data->texture[i].path, "\n", 1) == 0)
-		{
-			free(data->texture[i].path);
-			i--;
-		}
-		else if (check_textures(data->texture[i].path) == 0)
-			parse_error(data, "Wrong or missing id");
-		else if (check_double_path(i, data, data->texture[i].path) == 1)
-		 	parse_error(data, "doublon");
-		else if (get_texture_param(data, &data->texture[i]) == 1)
-			parse_error(data, "space en trop");
-		i++;
-	}
-	get_colors_and_range(data);
-	printf("F = %d\nC = %d\nNO = %d\nSO = %d\nWE = %d\nEA = %d\n", data->F, data->C, data->NO, data->SO, data->WE, data->EA);
-}
-

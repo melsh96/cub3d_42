@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 18:19:37 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:38:51 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_map
 {
 	char	*line;
 	char	**tab;
-	char	**final_map;
+	//char	**final_map;
 	int		width;
 	int		height;
 	int		longest_map_line;
@@ -142,7 +142,7 @@ typedef struct s_image
 {
 	void	*mlx_img;
 	char	*addr;
-	int		bpp; /* bits per pixel */
+	int		bpp;
 	int		line_len;
 	int		endian;
 }	t_image;
@@ -172,50 +172,63 @@ typedef struct s_data
 // Main Program
 int		main(int ac, char **av);
 int		destroy_cub(t_data *data);
-void 	free_texture_tab(t_data *data);
 
 // Init
 void	init_texture(t_data *data);
 void	init_map(t_data *data);
 void	init_data(t_data *data);
 
-// Events
-int	handle_input(int key, t_data *data);
-int	handle_key_press(int key, t_data *data);
-int	handle_key_release(int key, t_data *data);
+// Clean_utils
+void	free_error_texture(t_data *data);
+void	free_texture(t_data *data);
+void	parse_error(t_data *data, char *msg);
+void	free_double_tab(char **tab);
+void	file_error(char *msg);
+
+// Utils
+void	print_map(t_map *map);
+void	print_map_texture(t_texture *texture);
+void	print_tab(char **tab, int tab_length);
+void	print_texture(t_data *data);
+
 
 // Parsing
 int		file_extension(char *av, char *c);
 int		parse_files(t_data *data, char *av);
-void	parse_error(t_data *data, char *msg);
-void	get_textures(t_data *data, char *av);
-void	get_textures_path(t_data *data, char *av);
-void	free_texture(t_data *data);
 
-// load descritpion
-void	load_colors(t_data *data);
-void	init_picture_data(t_data *data);
-int		load_image (t_data *data);
-int		render_colors(t_data *data);
+//Parse map utils
+int	top_wall(t_data *data);
+int	last_wall(t_data *data);
+int	extremity_walls(t_data *data);
+int horizontal_scan(t_data *data);
+int	vertical_scan(t_data *data);
+int	check_walls(t_data *data);
+int	is_right_chars(t_data *data);
+char	*resize_line(char *str, int len);
+int resize_map(t_data *data);
+int	check_line(char *str);
+int	is_only_one_player(t_data *data);
+int	get_biggest_line(t_data *data);
 
-// Get Map
-// void	get_map(t_data *data);
-int		get_map(t_data *data);
-int		read_lines(char *map_path, int fd);
-char	**read_map(t_map *map, char *file);
-// int 	is_map_line (char *line);
-int is_map_line (char *line, int *is_map);
+// Parse textures
+int	check_textures(char *line);
+int	check_double_path(int i, t_data *data, char *line);
+int	get_texture_param(t_data *data, t_texture *texture);
+void get_colors_and_range(t_data *data);
 
-// Utils
-void	print_map(t_map *map);
-void	read_free_all_gnl(char *tmp, int fd);
-void	print_map_texture(t_texture *texture);
-void	free_params(char **tab);
-void	free_double_tab(char **tab, size_t len);
-void	print_tab(char **tab, int tab_length);
-void	print_texture(t_data *data);
 
-void	free_double_tab_len(char **tab, size_t len);
+// Get description
+int	get_map(t_data *data);
+int	get_textures(t_data *data, char *av);
+int	load_image(t_data *data);
+int	render_colors(t_data *data);
+
+// Events
+void move_up(t_data *data);
+void move_down(t_data *data);
+void move_left(t_data *data);
+void move_right(t_data *data);
+void rotate(t_data *data, int key);
 
 // Init Raycasting
 void	init_raycasting_data(t_data *data);
