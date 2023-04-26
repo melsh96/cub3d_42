@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/26 18:37:59 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 18:56:14 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void move_up(t_data *data)
 		data->player.pos_y += data->ray.dir_y * data->ray.move_speed;
 }
 
-void move_down(t_data *data)
-{
 	// ? Exemple pour securiser les bordures si le move speed est rapide
 	// int calcul_x = (int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2));
 	// int pos_y = (int)data->player.pos_y;
@@ -38,7 +36,8 @@ void move_down(t_data *data)
 	// 	if (data->map.tab[pos_x][calcul_y] == '0')
 	// 		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
 	// }
-	
+void move_down(t_data *data)
+{	
 	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')
 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
 	if (data->map.tab[(int)data->player.pos_x][(int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2))] == '0')
@@ -75,24 +74,11 @@ void rotate(t_data *data, int key)
     	data->ray.plane_x = data->ray.plane_x * cos(0.2) - data->ray.plane_y * sin(0.2);
     	data->ray.plane_y = old_plane_x * sin(0.2) + data->ray.plane_y * cos(0.2);
 	}
-	if (key == XK_Right)
+	else if (key == XK_Right)
 	{
-    	data->ray.dir_x = data->ray.dir_x * cos(0.2) - data->ray.dir_y * sin(0.2);
-    	data->ray.dir_y = old_dir_x* sin(0.2) + data->ray.dir_y * cos(0.2);
-    	data->ray.plane_x = data->ray.plane_x * cos(0.2) - data->ray.plane_y * sin(0.2);
-    	data->ray.plane_y = old_plane_x * sin(0.2) + data->ray.plane_y * cos(0.2);
+		data->ray.dir_x = data->ray.dir_x * cos(-0.2) - data->ray.dir_y * sin(-0.2);
+		data->ray.dir_y = old_dir_x * sin(-0.2) + data->ray.dir_y * cos(-0.2);
+		data->ray.plane_x = data->ray.plane_x * cos(-0.2) - data->ray.plane_y * sin(-0.2);
+		data->ray.plane_y = old_plane_x * sin(-0.2) + data->ray.plane_y * cos(-0.2);
 	}
 }
-
-// void rotate_right(t_data *data)
-// {
-// 	double old_dir_x;
-//     double old_plane_x;
-	
-// 	old_dir_x = data->ray.dir_x;
-// 	old_plane_x = data->ray.plane_x;
-//     data->ray.dir_x = data->ray.dir_x * cos(-0.2) - data->ray.dir_y * sin(-0.2);
-//     data->ray.dir_y = old_dir_x * sin(-0.2) + data->ray.dir_y * cos(-0.2);
-//     data->ray.plane_x = data->ray.plane_x * cos(-0.2) - data->ray.plane_y * sin(-0.2);
-//     data->ray.plane_y = old_plane_x * sin(-0.2) + data->ray.plane_y * cos(-0.2);
-// }
