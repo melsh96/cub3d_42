@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:45:27 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/26 18:56:14 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:13:18 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ void move_up(t_data *data)
 		data->player.pos_y += data->ray.dir_y * data->ray.move_speed;
 }
 
-	// ? Exemple pour securiser les bordures si le move speed est rapide
-	// int calcul_x = (int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2));
-	// int pos_y = (int)data->player.pos_y;
-	// if ((calcul_x < data->map.height && pos_y < data->map.longest_map_line) && (0 < calcul_x && 0 < pos_y))
-	// {
-	// 	if (data->map.tab[calcul_x][pos_y] == '0')
-	// 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
-	// }
-	
-	// int pos_x = (int)data->player.pos_x;
-	// int calcul_y = (int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2));
-	// if ((pos_x < data->map.height && calcul_y < data->map.longest_map_line) && (0 < pos_x && 0 < calcul_y))
-	// {
-	// 	if (data->map.tab[pos_x][calcul_y] == '0')
-	// 		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
-	// }
+// ? Exemple pour securiser les bordures si le move speed est rapide
+// int calcul_x = (int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2));
+// int pos_y = (int)data->player.pos_y;
+// if ((calcul_x < data->map.height && pos_y < data->map.longest_map_line) && (0 < calcul_x && 0 < pos_y))
+// {
+// 	if (data->map.tab[calcul_x][pos_y] == '0')
+// 		data->player.pos_x -= data->ray.dir_x * data->ray.move_speed;
+// }
+
+// int pos_x = (int)data->player.pos_x;
+// int calcul_y = (int)(data->player.pos_y - (data->ray.dir_y * data->ray.move_speed * 2));
+// if ((pos_x < data->map.height && calcul_y < data->map.longest_map_line) && (0 < pos_x && 0 < calcul_y))
+// {
+// 	if (data->map.tab[pos_x][calcul_y] == '0')
+// 		data->player.pos_y -= data->ray.dir_y * data->ray.move_speed;
+// }
+
 void move_down(t_data *data)
 {	
 	if (data->map.tab[(int)(data->player.pos_x - (data->ray.dir_x * data->ray.move_speed * 2))][(int)data->player.pos_y] == '0')

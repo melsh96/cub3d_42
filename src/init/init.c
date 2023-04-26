@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 18:38:22 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:12:48 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	handle_input(int key, t_data *data)
 	else if (key == XK_w || key == XK_W)
 		move_up(data);
 	else if (key == XK_a || key == XK_A)
-	 	move_left(data);
+		move_left(data);
 	else if (key == XK_s || key == XK_S)
 		move_down(data);
 	else if (key == XK_d || key == XK_D)

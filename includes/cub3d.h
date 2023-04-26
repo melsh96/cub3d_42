@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 18:38:51 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/26 19:11:22 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@
 # define GREEN	"\e[38;5;150m"
 # define BOLD	"\e[1m"
 
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-
-#define BACKGROUND_COLOR 0xFFFFFF
+# define BACKGROUND_COLOR 0xFFFFFF
 
 typedef struct s_count
 {
@@ -116,7 +115,6 @@ typedef struct s_map
 {
 	char	*line;
 	char	**tab;
-	//char	**final_map;
 	int		width;
 	int		height;
 	int		longest_map_line;
@@ -129,13 +127,13 @@ typedef struct s_texture
 	char		*ad;
 	void		*img;
 	char		*mlx_ad;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int	x;
-	int	y;
-	int width;
-	int height;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			x;
+	int			y;
+	int			width;
+	int			height;
 }	t_texture;
 
 typedef struct s_image
@@ -159,14 +157,14 @@ typedef struct s_data
 	int			fd;
 	int			file_length;
 	t_count		count;
-	unsigned int		floor;
-	unsigned int		ceil;
 	int				F;
 	int				C;
 	int				NO;
 	int				SO;
 	int				WE;
 	int				EA;
+	unsigned int	ceil;
+	unsigned int	floor;
 }	t_data;
 
 // Main Program
@@ -190,7 +188,6 @@ void	print_map(t_map *map);
 void	print_map_texture(t_texture *texture);
 void	print_tab(char **tab, int tab_length);
 void	print_texture(t_data *data);
-
 
 // Parsing
 int		file_extension(char *av, char *c);
