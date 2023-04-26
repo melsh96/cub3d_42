@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:34 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 17:50:24 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:16:49 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 		- center = coord 0;
 		- left = coord -1;
 	
-	rays will be calculated as the sum of the direction and a part of the camera plane
+	rays will be calculated as the sum of the direction and
+	a part of the camera plane
 */
 
 /*	Step 2: Calculate Rays Distance
@@ -39,13 +40,14 @@
 void	draw(t_data *data)
 {
 	data->ray.x = -1;
-
 	while (++data->ray.x < WINDOW_WIDTH)
 	{
 		ray_init(data);
 		data->ray.camera_x = 2 * data->ray.x / (double)WINDOW_WIDTH - 1;
-		data->ray.ray_dir_x = data->ray.dir_x + data->ray.plane_x * data->ray.camera_x;
-		data->ray.ray_dir_y = data->ray.dir_y + data->ray.plane_y * data->ray.camera_x;
+		data->ray.ray_dir_x = data->ray.dir_x + data->ray.plane_x * \
+			data->ray.camera_x;
+		data->ray.ray_dir_y = data->ray.dir_y + data->ray.plane_y * \
+			data->ray.camera_x;
 		init_delta_dist(&data);
 		init_step_side_distance(&data);
 		data->ray.ray_pos_x = data->player.pos_x;
