@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_ray.c                                         :+:      :+:    :+:   */
+/*   init_rays_in_loop.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:26:36 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 12:55:08 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:08:52 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*	Get DDA Ready: Datas
+	
+	perp_wall_dist = length of the ray (calculated later)
+*/
 void	ray_init(t_data *data)
 {
 	data->ray.perp_wall_dist = 0;
@@ -22,7 +26,17 @@ void	ray_init(t_data *data)
 	data->ray.move_speed = 0.075 * 1.8;
 }
 
-void	init_rays(t_data **data)
+/*	Get DDA Ready: Pythagoras Formulas
+	
+	delta_dist_x and y are the distance the ray has to travel to go from 1 x_side to next x_side,
+	or 1 y_side to next y_side
+	2 triangles are formed (delta dist x & y)
+	We use Pythagoras formulas : 
+	We search for the square root by getting the sum of one side (length 1 = 1 pixel cell) and
+	the other side (ray_dir_y / ray_dir_x) witch is the amount of units the ray goes into the direction y
+	when taking 1 step in direction x;
+*/
+void	init_delta_dist(t_data **data)
 {
 	if ((*data)->ray.ray_dir_y == 0)
 		(*data)->ray.delta_dist_x = 0;
@@ -42,6 +56,17 @@ void	init_rays(t_data **data)
 					* (*data)->ray.ray_dir_y));
 }
 
+/*	Get DDA Ready: Steps
+	
+	side_dist_x and y are the distance the ray has to travel from its start position to first x & y side.
+	It will be incremented while taking steps.
+
+	Depending on the ray direction :
+	step_x and y = what direction to step in x or y-direction (negative or positive)
+
+	hit = Check if there is a potential line of pixel that could be hit
+	side = later check if we have hit a line of pixel (0 yes, 1 no)
+*/
 void	init_step_side_distance(t_data **data)
 {
 	if ((*data)->ray.ray_dir_x < 0)

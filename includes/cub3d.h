@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 12:49:34 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:09:20 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void	init_raycasting_data(t_data *data);
 void	init_direction(t_data *data);
 void	ray_init(t_data *data);
 void	init_game(t_data *data);
-void	init_rays(t_data **data);
+void	init_delta_dist(t_data **data);
 void	init_step_side_distance(t_data **data);
 
 // Textures
