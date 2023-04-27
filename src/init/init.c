@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/27 14:39:26 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/27 16:46:12 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	init_data(t_data *data)
 	if (data->mlx == NULL)
 		return ;
 	data->mlx_win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, \
-	"Hello world!");
+	"CUB3D");
 	if (data->mlx_win == NULL)
 		return ;
 	load_image(data);
