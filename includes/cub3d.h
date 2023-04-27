@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/27 13:17:17 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:50:36 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,8 @@ void	free_error_texture(t_data *data);
 void	free_texture(t_data *data);
 void	parse_error(t_data *data, char *msg);
 void	free_double_tab(char **tab);
-void	file_error(char *msg);
+//void	file_error(char *msg);
+void	get_color_error(t_data *data, char**tab, char *msg);
 
 // Utils
 void	print_map(t_map *map);

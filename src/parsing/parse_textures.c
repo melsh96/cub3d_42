@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:02:19 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/26 18:25:56 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/27 18:23:47 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,30 @@
 
 int	check_textures(char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
-	|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+	int	i;
+	int	v;
+	int	j;
+
+	i = 0;
+	v = 0;
+	while (line[i] == ' ')
+		i++;
+	if (ft_strncmp(line + i, "NO ", 3) == 0 || \
+	ft_strncmp(line + i, "SO ", 3) == 0 || \
+	ft_strncmp(line + i, "WE ", 3) == 0 || \
+	ft_strncmp(line + i, "EA ", 3) == 0)
 		return (2);
-	else if (line[0] == 'F' || line[0] == 'C')
+	else if (ft_strncmp(line + i, "F ", 2) == 0 || \
+	ft_strncmp(line + i, "C ", 2) == 0)
+	{
+		j = -1;
+		while (line[++j])
+			if (line[j] == ',')
+				v++;
+		if (v != 2)
+			return (-1);
 		return (1);
+	}
 	return (0);
 }
 
@@ -35,56 +54,51 @@ int	check_double_path(int i, t_data *data, char *line)
 
 int	get_texture_param(t_data *data, t_texture *texture)
 {
-	int		i;
 	char	**tab;
+	int		i;
+	int		v;
 
 	i = 0;
+	v = 0;
 	tab = ft_split(texture->path, ' ');
 	while (tab[i])
 		i++;
 	if (i > 2)
-	{
-		free_double_tab(tab);
-		return (1);
-	}
+		return (free_double_tab(tab), 1);
 	texture->id = ft_strdup(tab[0]);
 	texture->ad = ft_strdup(tab[1]);
 	texture->ad[ft_strlen(tab[1]) - 1] = '\0';
-	if (check_textures(texture->path) == 2 && \
-	file_extension(texture->ad, ".xpm") == 1)
-	{
-		free_double_tab(tab);
-		parse_error(data, "Wrong file extension !!");
-	}
-	free_double_tab(tab);
-	return (0);
+	if (check_textures(texture->path) == 2)
+		if (file_extension(texture->ad, ".xpm") == 1)
+			get_color_error(data, tab, "Wrong file extension");
+	if (check_textures(texture->path) == -1)
+		get_color_error(data, tab, "Extra commas");
+	return (free_double_tab(tab), 0);
 }
 
 int	get_color_int(t_data *data, char *color_line)
 {
 	char	**clrs;
-	int		i;
-	int		l;
 	int		clr;
+	int		i;
+	int		j;
 
 	clrs = ft_split(color_line, ',');
-	l = 0;
-	while (clrs[l])
-		l++;
 	i = -1;
 	while (clrs[++i])
 	{
-		if (l != 3 || ft_isalpha(clrs[i][0]))
+		j = 0;
+		while (clrs[i][j])
 		{
-			free_double_tab(clrs);
-			parse_error(data, "Bad color description");
+			if (!ft_isdigit(clrs[i][j]))
+				get_color_error(data, clrs, "Bad color description");
+			j++;
 		}
 		if (ft_atoi(clrs[i]) < 0 || ft_atoi(clrs[i]) > 255)
-		{
-			free_double_tab(clrs);
-			parse_error(data, "Bad color range");
-		}
+			get_color_error(data, clrs, "Bad color range");
 	}
+	if (i != 3)
+		get_color_error(data, clrs, "Bad color description");
 	clr = ft_atoi(clrs[0]) << 16 | ft_atoi(clrs[1]) << 8 | ft_atoi(clrs[2]);
 	return (free_double_tab(clrs), clr);
 }

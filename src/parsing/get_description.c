@@ -6,7 +6,7 @@
 /*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:01:40 by cchapon           #+#    #+#             */
-/*   Updated: 2023/04/27 15:48:21 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/27 18:21:31 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	get_textures(t_data *data, char *av)
 		else if (check_textures(data->texture[i].path) == 0)
 			parse_error(data, "Wrong or missing id");
 		else if (check_double_path(i, data, data->texture[i].path) == 1)
-			parse_error(data, "double ligne found");
+			parse_error(data, "Double ligne found");
 		else if (get_texture_param(data, &data->texture[i]) == 1)
-			parse_error(data, "space en trop");
+			parse_error(data, "Extra space");
 		i++;
 	}
 	get_colors_and_range(data);
