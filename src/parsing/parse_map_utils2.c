@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_map_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:44:28 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 13:55:33 by cchapon          ###   ########.fr       */
+/*   Updated: 2023/04/27 13:03:51 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,36 @@ char	*resize_line(char *str, int len)
 	return (res);
 }
 
-int resize_map(t_data *data)
+int	resize_map(t_data *data)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    while (data->map.tab[i])
-    {
-        j = 0;
+	i = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
 		if (!data->map.tab[i])
-        	return (1);
-        while (data->map.tab[i][j])
-        {
-            if ((int)ft_strlen(data->map.tab[i]) <= data->map.longest_map_line)
-            {
-                data->map.tab[i] = resize_line(data->map.tab[i], data->map.longest_map_line);
-                if (!data->map.tab[i])
-                    return (1);
-            }
-            j++;
-        }
-        i++;
-    }
-    return (0);
+			return (1);
+		while (data->map.tab[i][j])
+		{
+			if ((int)ft_strlen(data->map.tab[i]) <= data->map.longest_map_line)
+			{
+				data->map.tab[i] = resize_line(data->map.tab[i], \
+					data->map.longest_map_line);
+				if (!data->map.tab[i])
+					return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	check_line(char *str)
 {
-	int i;
+	int	i;
 	int	len;
 
 	i = 0;
@@ -100,4 +101,30 @@ int	check_walls(t_data *data)
 	if (vertical_scan(data) == 1)
 		return (1);
 	return (0);
+}
+
+void	count_positions(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	data->count.pos = 0;
+	while (data->map.tab[i])
+	{
+		j = 0;
+		while (data->map.tab[i][j])
+		{
+			if (data->map.tab[i][j] == 'N')
+				data->count.pos++;
+			else if (data->map.tab[i][j] == 'S')
+				data->count.pos++;
+			else if (data->map.tab[i][j] == 'E')
+				data->count.pos++;
+			else if (data->map.tab[i][j] == 'W')
+				data->count.pos++;
+			j++;
+		}
+		i++;
+	}
 }
