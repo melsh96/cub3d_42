@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/26 19:11:22 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:59:40 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,17 @@ typedef struct s_image
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*mlx_win;
-	t_ray		ray;
-	t_image		img;
-	t_map		map;
-	t_texture	texture[6];
-	t_player	player;
-	int			fd;
-	int			file_length;
-	t_count		count;
+	char			*line;
+	void			*mlx;
+	void			*mlx_win;
+	t_ray			ray;
+	t_image			img;
+	t_map			map;
+	t_texture		texture[6];
+	t_player		player;
+	int				fd;
+	int				file_length;
+	t_count			count;
 	int				F;
 	int				C;
 	int				NO;
@@ -194,38 +195,37 @@ int		file_extension(char *av, char *c);
 int		parse_files(t_data *data, char *av);
 
 //Parse map utils
-int	top_wall(t_data *data);
-int	last_wall(t_data *data);
-int	extremity_walls(t_data *data);
-int horizontal_scan(t_data *data);
-int	vertical_scan(t_data *data);
-int	check_walls(t_data *data);
-int	is_right_chars(t_data *data);
+int		top_wall(t_data *data);
+int		last_wall(t_data *data);
+int		extremity_walls(t_data *data);
+int		horizontal_scan(t_data *data);
+int		vertical_scan(t_data *data);
+int		check_walls(t_data *data);
+int		is_right_chars(t_data *data);
 char	*resize_line(char *str, int len);
-int resize_map(t_data *data);
-int	check_line(char *str);
-int	is_only_one_player(t_data *data);
-int	get_biggest_line(t_data *data);
+int		resize_map(t_data *data);
+int		check_line(char *str);
+int		is_only_one_player(t_data *data);
+int		get_biggest_line(t_data *data);
 
 // Parse textures
-int	check_textures(char *line);
-int	check_double_path(int i, t_data *data, char *line);
-int	get_texture_param(t_data *data, t_texture *texture);
-void get_colors_and_range(t_data *data);
-
+int		check_textures(char *line);
+int		check_double_path(int i, t_data *data, char *line);
+int		get_texture_param(t_data *data, t_texture *texture);
+void	get_colors_and_range(t_data *data);
 
 // Get description
-int	get_map(t_data *data);
-int	get_textures(t_data *data, char *av);
-int	load_image(t_data *data);
-int	render_colors(t_data *data);
+int		get_map(t_data *data);
+int		get_textures(t_data *data, char *av);
+int		load_image(t_data *data);
+int		render_colors(t_data *data);
 
 // Events
-void move_up(t_data *data);
-void move_down(t_data *data);
-void move_left(t_data *data);
-void move_right(t_data *data);
-void rotate(t_data *data, int key);
+void	move_up(t_data *data);
+void	move_down(t_data *data);
+void	move_left(t_data *data);
+void	move_right(t_data *data);
+void	rotate(t_data *data, int key);
 
 // Init Raycasting
 void	init_raycasting_data(t_data *data);
