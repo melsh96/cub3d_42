@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchapon <cchapon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:41:29 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/27 12:50:19 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:39:26 by cchapon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_texture(t_data *data)
 		data->texture[i].path = NULL;
 		data->texture[i].id = NULL;
 		data->texture[i].ad = NULL;
+		data->texture[i].mlx_ad = NULL;
+		data->texture[i].img = NULL;
 		data->texture[i].bits_per_pixel = 0;
 		data->texture[i].line_length = 0;
 		data->texture[i].endian = 0;
