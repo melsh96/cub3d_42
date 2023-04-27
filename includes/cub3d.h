@@ -6,7 +6,7 @@
 /*   By: meshahrv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:31:40 by meshahrv          #+#    #+#             */
-/*   Updated: 2023/04/27 12:59:40 by meshahrv         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:17:17 by meshahrv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ int		resize_map(t_data *data);
 int		check_line(char *str);
 int		is_only_one_player(t_data *data);
 int		get_biggest_line(t_data *data);
+void	count_positions(t_data *data);
 
 // Parse textures
 int		check_textures(char *line);
